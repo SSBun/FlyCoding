@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8E8B8D6D1F710DEA002EBF80"
-               BuildableName = "Fly Coding.appex"
-               BlueprintName = "Fly Coding"
+               BuildableName = "Fly.appex"
+               BlueprintName = "Fly"
                ReferencedContainer = "container:FlyCoding.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
