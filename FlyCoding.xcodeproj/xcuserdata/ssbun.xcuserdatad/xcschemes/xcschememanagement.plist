@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Fly Coding.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>FlyCoding.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -13,6 +18,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>8E8B8D571F710DC1002EBF80</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8E8B8D6D1F710DEA002EBF80</key>
 		<dict>
 			<key>primary</key>
 			<true/>

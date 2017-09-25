@@ -11,7 +11,46 @@
 		8E8B8D5E1F710DC1002EBF80 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D5D1F710DC1002EBF80 /* ViewController.swift */; };
 		8E8B8D601F710DC1002EBF80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E8B8D5F1F710DC1002EBF80 /* Assets.xcassets */; };
 		8E8B8D631F710DC1002EBF80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E8B8D611F710DC1002EBF80 /* Main.storyboard */; };
+		8E8B8D711F710DEA002EBF80 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8B8D701F710DEA002EBF80 /* Cocoa.framework */; };
+		8E8B8D761F710DEA002EBF80 /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D751F710DEA002EBF80 /* SourceEditorExtension.swift */; };
+		8E8B8D781F710DEA002EBF80 /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D771F710DEA002EBF80 /* SourceEditorCommand.swift */; };
+		8E8B8D7C1F710DEA002EBF80 /* Fly Coding.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8E8B8D6E1F710DEA002EBF80 /* Fly Coding.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8E9749021F78BDC300925F3B /* FlyCodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9749011F78BDC300925F3B /* FlyCodingTests.swift */; };
+		8EF3B3F31F73BB20002BB6D1 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3B3F21F73BB20002BB6D1 /* Model.swift */; };
+		8EF3B3F71F74AC22002BB6D1 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3B3F61F74AC22002BB6D1 /* Match.swift */; };
+		8EF3B3F91F74EABF002BB6D1 /* SnapExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3B3F81F74EABF002BB6D1 /* SnapExpression.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8E8B8D7A1F710DEA002EBF80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8E8B8D501F710DC1002EBF80 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8E8B8D6D1F710DEA002EBF80;
+			remoteInfo = "Fly Coding";
+		};
+		8E9749041F78BDC300925F3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8E8B8D501F710DC1002EBF80 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8E8B8D571F710DC1002EBF80;
+			remoteInfo = FlyCoding;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8E8B8D801F710DEA002EBF80 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8E8B8D7C1F710DEA002EBF80 /* Fly Coding.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8E8B8D581F710DC1002EBF80 /* FlyCoding.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlyCoding.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -20,10 +59,37 @@
 		8E8B8D5F1F710DC1002EBF80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8E8B8D621F710DC1002EBF80 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8E8B8D641F710DC1002EBF80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E8B8D6E1F710DEA002EBF80 /* Fly Coding.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Fly Coding.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E8B8D701F710DEA002EBF80 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		8E8B8D741F710DEA002EBF80 /* Fly_Coding.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fly_Coding.entitlements; sourceTree = "<group>"; };
+		8E8B8D751F710DEA002EBF80 /* SourceEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorExtension.swift; sourceTree = "<group>"; };
+		8E8B8D771F710DEA002EBF80 /* SourceEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorCommand.swift; sourceTree = "<group>"; };
+		8E8B8D791F710DEA002EBF80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E9748FF1F78BDC300925F3B /* FlyCodingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlyCodingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E9749011F78BDC300925F3B /* FlyCodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyCodingTests.swift; sourceTree = "<group>"; };
+		8E9749031F78BDC300925F3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EF3B3F21F73BB20002BB6D1 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		8EF3B3F61F74AC22002BB6D1 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
+		8EF3B3F81F74EABF002BB6D1 /* SnapExpression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapExpression.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		8E8B8D551F710DC1002EBF80 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E8B8D6B1F710DEA002EBF80 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E8B8D711F710DEA002EBF80 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E9748FC1F78BDC300925F3B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -37,6 +103,9 @@
 			isa = PBXGroup;
 			children = (
 				8E8B8D5A1F710DC1002EBF80 /* FlyCoding */,
+				8E8B8D721F710DEA002EBF80 /* Fly Coding */,
+				8E9749001F78BDC300925F3B /* FlyCodingTests */,
+				8E8B8D6F1F710DEA002EBF80 /* Frameworks */,
 				8E8B8D591F710DC1002EBF80 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -45,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				8E8B8D581F710DC1002EBF80 /* FlyCoding.app */,
+				8E8B8D6E1F710DEA002EBF80 /* Fly Coding.appex */,
+				8E9748FF1F78BDC300925F3B /* FlyCodingTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,6 +132,45 @@
 			path = FlyCoding;
 			sourceTree = "<group>";
 		};
+		8E8B8D6F1F710DEA002EBF80 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8E8B8D701F710DEA002EBF80 /* Cocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8E8B8D721F710DEA002EBF80 /* Fly Coding */ = {
+			isa = PBXGroup;
+			children = (
+				8E8B8D751F710DEA002EBF80 /* SourceEditorExtension.swift */,
+				8E8B8D771F710DEA002EBF80 /* SourceEditorCommand.swift */,
+				8EF3B3F81F74EABF002BB6D1 /* SnapExpression.swift */,
+				8EF3B3F21F73BB20002BB6D1 /* Model.swift */,
+				8EF3B3F61F74AC22002BB6D1 /* Match.swift */,
+				8E8B8D791F710DEA002EBF80 /* Info.plist */,
+				8E8B8D731F710DEA002EBF80 /* Supporting Files */,
+			);
+			path = "Fly Coding";
+			sourceTree = "<group>";
+		};
+		8E8B8D731F710DEA002EBF80 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8E8B8D741F710DEA002EBF80 /* Fly_Coding.entitlements */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8E9749001F78BDC300925F3B /* FlyCodingTests */ = {
+			isa = PBXGroup;
+			children = (
+				8E9749011F78BDC300925F3B /* FlyCodingTests.swift */,
+				8E9749031F78BDC300925F3B /* Info.plist */,
+			);
+			path = FlyCodingTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,15 +181,52 @@
 				8E8B8D541F710DC1002EBF80 /* Sources */,
 				8E8B8D551F710DC1002EBF80 /* Frameworks */,
 				8E8B8D561F710DC1002EBF80 /* Resources */,
+				8E8B8D801F710DEA002EBF80 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8E8B8D7B1F710DEA002EBF80 /* PBXTargetDependency */,
 			);
 			name = FlyCoding;
 			productName = FlyCoding;
 			productReference = 8E8B8D581F710DC1002EBF80 /* FlyCoding.app */;
 			productType = "com.apple.product-type.application";
+		};
+		8E8B8D6D1F710DEA002EBF80 /* Fly Coding */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8E8B8D7D1F710DEA002EBF80 /* Build configuration list for PBXNativeTarget "Fly Coding" */;
+			buildPhases = (
+				8E8B8D6A1F710DEA002EBF80 /* Sources */,
+				8E8B8D6B1F710DEA002EBF80 /* Frameworks */,
+				8E8B8D6C1F710DEA002EBF80 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Fly Coding";
+			productName = "Fly Coding";
+			productReference = 8E8B8D6E1F710DEA002EBF80 /* Fly Coding.appex */;
+			productType = "com.apple.product-type.xcode-extension";
+		};
+		8E9748FE1F78BDC300925F3B /* FlyCodingTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8E9749081F78BDC300925F3B /* Build configuration list for PBXNativeTarget "FlyCodingTests" */;
+			buildPhases = (
+				8E9748FB1F78BDC300925F3B /* Sources */,
+				8E9748FC1F78BDC300925F3B /* Frameworks */,
+				8E9748FD1F78BDC300925F3B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8E9749051F78BDC300925F3B /* PBXTargetDependency */,
+			);
+			name = FlyCodingTests;
+			productName = FlyCodingTests;
+			productReference = 8E9748FF1F78BDC300925F3B /* FlyCodingTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -87,7 +234,7 @@
 		8E8B8D501F710DC1002EBF80 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = SSBun;
 				TargetAttributes = {
@@ -95,6 +242,17 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 7467638S34;
 						ProvisioningStyle = Automatic;
+					};
+					8E8B8D6D1F710DEA002EBF80 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 7467638S34;
+						ProvisioningStyle = Automatic;
+					};
+					8E9748FE1F78BDC300925F3B = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = 7467638S34;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8E8B8D571F710DC1002EBF80;
 					};
 				};
 			};
@@ -112,6 +270,8 @@
 			projectRoot = "";
 			targets = (
 				8E8B8D571F710DC1002EBF80 /* FlyCoding */,
+				8E8B8D6D1F710DEA002EBF80 /* Fly Coding */,
+				8E9748FE1F78BDC300925F3B /* FlyCodingTests */,
 			);
 		};
 /* End PBXProject section */
@@ -123,6 +283,20 @@
 			files = (
 				8E8B8D601F710DC1002EBF80 /* Assets.xcassets in Resources */,
 				8E8B8D631F710DC1002EBF80 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E8B8D6C1F710DEA002EBF80 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E9748FD1F78BDC300925F3B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,7 +312,40 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8E8B8D6A1F710DEA002EBF80 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EF3B3F31F73BB20002BB6D1 /* Model.swift in Sources */,
+				8E8B8D761F710DEA002EBF80 /* SourceEditorExtension.swift in Sources */,
+				8EF3B3F91F74EABF002BB6D1 /* SnapExpression.swift in Sources */,
+				8EF3B3F71F74AC22002BB6D1 /* Match.swift in Sources */,
+				8E8B8D781F710DEA002EBF80 /* SourceEditorCommand.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E9748FB1F78BDC300925F3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E9749021F78BDC300925F3B /* FlyCodingTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8E8B8D7B1F710DEA002EBF80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8E8B8D6D1F710DEA002EBF80 /* Fly Coding */;
+			targetProxy = 8E8B8D7A1F710DEA002EBF80 /* PBXContainerItemProxy */;
+		};
+		8E9749051F78BDC300925F3B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8E8B8D571F710DC1002EBF80 /* FlyCoding */;
+			targetProxy = 8E9749041F78BDC300925F3B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8E8B8D611F710DC1002EBF80 /* Main.storyboard */ = {
@@ -247,13 +454,16 @@
 		8E8B8D681F710DC1002EBF80 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7467638S34;
 				INFOPLIST_FILE = FlyCoding/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ssbun.www.FlyCoding;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -261,14 +471,105 @@
 		8E8B8D691F710DC1002EBF80 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7467638S34;
 				INFOPLIST_FILE = FlyCoding/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ssbun.www.FlyCoding;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		8E8B8D7E1F710DEA002EBF80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Fly Coding/Fly_Coding.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 7467638S34;
+				INFOPLIST_FILE = "Fly Coding/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ssbun.www.FlyCoding.Fly-Coding";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		8E8B8D7F1F710DEA002EBF80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Fly Coding/Fly_Coding.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 7467638S34;
+				INFOPLIST_FILE = "Fly Coding/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ssbun.www.FlyCoding.Fly-Coding";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		8E9749061F78BDC300925F3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 7467638S34;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = FlyCodingTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ssbun.www.FlyCodingTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlyCoding.app/Contents/MacOS/FlyCoding";
+			};
+			name = Debug;
+		};
+		8E9749071F78BDC300925F3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 7467638S34;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = FlyCodingTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ssbun.www.FlyCodingTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlyCoding.app/Contents/MacOS/FlyCoding";
 			};
 			name = Release;
 		};
@@ -291,6 +592,25 @@
 				8E8B8D691F710DC1002EBF80 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8E8B8D7D1F710DEA002EBF80 /* Build configuration list for PBXNativeTarget "Fly Coding" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E8B8D7E1F710DEA002EBF80 /* Debug */,
+				8E8B8D7F1F710DEA002EBF80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8E9749081F78BDC300925F3B /* Build configuration list for PBXNativeTarget "FlyCodingTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E9749061F78BDC300925F3B /* Debug */,
+				8E9749071F78BDC300925F3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
