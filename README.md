@@ -44,6 +44,71 @@ FlyCoding is a Xcode plugin to make auto generate swift code with tag syntax.
 
 You print tag syntax and click FlyCoding or shortcut, The generated code will be print.
 
+### Generate Constraints (use [SnapKit](https://github.com/SnapKit/SnapKit/blob/develop/README.md#license))
+
+> *Grammar:*  ***`#snpm(iconView, l=titleLabel.r+10, y=titleLabel)`***
+```swift
+// #snpm(iconView, l=titleLabel.r+10, y=titleLabel)
+iconView.snp.makeConstraints {
+    $0.left.equalTo(titleLabel.snp.right).offset(10)
+    $0.centerY.equalTo(titleLabel)
+}
+
+// #snpm(iconView, r=titleLabel.l-20, wh=20)
+iconView.snp.makeConstraints {
+    $0.right.equalTo(titleLabel.snp.left).offset(-20)
+    $0.width.height.equalTo(20)
+}
+
+// #snpm(iconView, t=titleLabel.b+titleLabel.height-20, w=titLabel*0.5)
+iconView.snp.makeConstraints {
+    $0.top.equalTo(titleLabel.snp.bottom).offset(titleLabel.height-20)
+    $0.width.equalTo(titLabel).multipliedBy(0.5)
+}
+
+// #snpm(iconView, l = superView, r <= superView~l, r <= titleLabel.l - 20~h)
+iconView.snp.makeConstraints {
+    $0.left.equalTo(superView)
+    $0.right.lessThanOrEqualTo(superView).priority(.low)
+    $0.right.lessThanOrEqualTo(titleLabel.snp.left).offset(-20).priority(.high)
+}
+
+```
+**Constraints List**
+
+```swift
+// ConstraintMakerExtendable
+static let makerMap = ["l": "left",
+                       "t": "top",
+                       "b": "bottom",
+                       "r": "right",
+                       "w": "width",
+                       "h": "height",
+                       "x": "centerX",
+                       "y": "centerY",
+                       "c": "center",
+                       "s": "size",
+                       "e": "edges"]
+                       
+// ConstraintPriority
+let flags = ["r": ".required",
+             "h": ".high",
+             "m": ".medium",
+             "l": ".low"]
+             
+// compareFlagCode             
+let flags = [">=": "greaterThanOrEqualTo",
+             "<=": "lessThanOrEqualTo",
+             "=": "equalTo"]
+
+// computeFlagCode
+let flags = ["-": "offset(-value)",
+             "+": "offset(value)",
+             "*": "multipliedBy(value)",
+             "/": "dividedBy(value)"]
+```
+
+
 ### Generate Property
 
 > *Grammar:*  ***`pl.UIView{}*2 + .l.String{""}`***
@@ -84,7 +149,6 @@ static let allScopeMark = ["l": "let",
                                 "c": "class"]
 
 ```
----
 
 ### Generate View
 
@@ -110,32 +174,7 @@ let <#name#>  = UIView()
 - UITableView
 - UICollectionView
 
----
 
-### Generate Constraints (use [SnapKit](https://github.com/SnapKit/SnapKit/blob/develop/README.md#license))
-
-> *Grammar:*  ***`#snpm(iconView, l = titleLabel.r + 10, y =  titleLabel)`***
-```swift
-iconView.snp.makeConstraints {
-    $0.left.equalTo(titleLabel.snp.right).offset(10)
-    $0.centerY.equalTo(titleLabel)
-}
-```
-**Constraints List**
-
-```swift
-static let makerMap = ["l": "left",
-                           "t": "top",
-                           "b": "bottom",
-                           "r": "right",
-                           "w": "width",
-                           "h": "height",
-                           "x": "centerX",
-                           "y": "centerY",
-                           "c": "center",
-                           "s": "size",
-                           "e": "edges"]
-```
 
 ---
 
