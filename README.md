@@ -34,6 +34,10 @@ FlyCoding is a Xcode plugin to make auto generate swift code with tag syntax.
 
 ## Installation
 
+### Download Application
+[FlyCoding.zip](https://github.com/SSBun/FlyCoding/blob/master/FlyCoding.zip)
+
+### Build Project
 * You can download this project and build it in your Xcode
 * You should move the application in project folder 'Products' to Mac Application and open it. Then you can close it.
 
