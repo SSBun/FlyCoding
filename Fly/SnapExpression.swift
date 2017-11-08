@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 // le.,r,b,t,cx,cy,c,w,h,s,e,
 
 
@@ -20,7 +19,7 @@ public struct ConstraintMaker {
                            "w": "width",
                            "h": "height",
                            "x": "centerX",
-                           "y": "center",
+                           "y": "centerY",
                            "c": "center",
                            "s": "size",
                            "e": "edges"]
@@ -42,10 +41,10 @@ public struct ConstraintMaker {
 }
 
 public struct SnapExpression {
-    private(set) var expression: String
-    private(set) var decoderCode: String?
+    public private(set) var expression: String
+    public private(set) var decoderCode: String?
     
-    init(_ expression: String) {
+    public init(_ expression: String) {
         self.expression = expression
         guard expression.count > 0 else {return}
         var nsExpression = NSString(string: expression)
@@ -83,9 +82,15 @@ public struct SnapExpression {
         for item in ["+", "-", "*", "/"] {
             let tempRange = nsExpression.range(of: item)
             if tempRange.location != NSNotFound {
-                computeFlag = item
-                computeFlagRange = tempRange
-                break
+                if let t = computeFlagRange {
+                    if tempRange.location < t.location {
+                        computeFlag = item
+                        computeFlagRange = tempRange
+                    }
+                } else {
+                    computeFlag = item
+                    computeFlagRange = tempRange
+                }
             }
         }
         if let nComputeFlagRange = computeFlagRange {
@@ -96,14 +101,15 @@ public struct SnapExpression {
         if computeObjects.isEmpty {return}
         if computeObjects.count >= 2, let lastObject = computeObjects.last, ConstraintMaker.isMakerCode(code: lastObject) {
             computeObjects.removeLast()
+            computeObjects.append("snp")
             computeObjects += ConstraintMaker(code: lastObject).makers
         }
         
         var decoderCode = "$0."
         
         decoderCode += selfMakers.joined(separator: ".")
-        decoderCode += compareFlagCode(with: compareFlag)
-        decoderCode += "(\(computeObjects.joined(separator: "."))"
+        decoderCode += ".\(compareFlagCode(with: compareFlag))"
+        decoderCode += "(\(computeObjects.joined(separator: ".")))"
         if let c = computeFlag, let v = computeValue {
             decoderCode += ".\(computeFlagCode(with: c, value: v))"
         }
@@ -140,64 +146,14 @@ public struct SnapExpression {
         case "-":
             return "offset(-\(value))"
         case "+":
-            return "offset(+\(value))"
+            return "offset(\(value))"
         case "*":
-            return "multipliedBy(\(value)"
+            return "multipliedBy(\(value))"
         case "/":
-            return "dividedBy(\(value)"
+            return "dividedBy(\(value))"
         default:
             return ""
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

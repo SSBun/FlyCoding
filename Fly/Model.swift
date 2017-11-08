@@ -81,7 +81,10 @@ class BaseSnip: Snip {
     
     required init?(label: String, spaceCount: Int) {
         let snipList = ["make": GenerateViewSnip.self as Snip.Type,
-                        "snpm": SnapSnip.self as Snip.Type]
+                        "snpm": SnapSnip.self as Snip.Type,
+                        "snpu": SnapSnip.self as Snip.Type,
+                        "snprm": SnapSnip.self as Snip.Type,
+                        ]
         guard let mark = regularMatch(text: label, expression: "^[a-zA-Z]+").first else {return nil}
         guard let snipType = snipList[mark] else {return nil}
         guard let snip = snipType.init(label: label, spaceCount: spaceCount) else {return nil}
@@ -146,6 +149,19 @@ class GenerateViewSnip: Snip {
                      "\(selfValue).register(<#class#>, forCellReuseIdentifier: <#identifier#>)",
                      "<#superView#>.addSubview(\(selfValue))"
                     ]
+        case "uicollectionview":
+            codes = ["let flowLayout = UICollectionViewFlowLayout()",
+                     "flowLayout.scrollDirection = <#direction#>",
+                     "flowLayout.minimumInteritemSpacing = <#spacing#>",
+                     "let \(selfValue) = UICollectionView(frame: <#frame#>, collectionViewLayout: flowLayout)",
+                     "\(selfValue).showsVerticalScrollIndicator = <#show#>",
+                     "\(selfValue).showsHorizontalScrollIndicator = <#show#>",
+                     "\(selfValue).dataSource = self",
+                     "\(selfValue).delegate = self",
+                     "\(selfValue).backgroundColor = <#color#>",
+                     "\(selfValue).register(<#class#>, forCellWithReuseIdentifier: <#id#>)",
+                     "<#superView#>.addSubview(\(selfValue))"
+                    ]
         default:
             codes = []
         }
@@ -167,6 +183,7 @@ class GenerateViewSnip: Snip {
     }
 }
 
+
 class SnapSnip: Snip {
     var label: String
     
@@ -175,44 +192,36 @@ class SnapSnip: Snip {
     var lineCount: Int
     
     required init?(label: String, spaceCount: Int) {
-        return nil
+        
+        guard let code = regularMatch(text: label, expression: "(?<=\\().+(?=\\))").first else {return nil}
+        guard let mark = regularMatch(text: label, expression: "^[a-zA-Z]+").first else {return nil}
+        let snapList = ["snpm": ".snp.makeConstraints {\n",
+                        "snpu": ".snp.updateConstraints {\n",
+                        "snprm": ".snp.remakeConstraints {\n",
+                        ]
+        
+        let params = code.split(separator: ",").map {String($0)}
+        if params.isEmpty {return nil}
+        let layoutView = params[0]
+        let layoutFlags = Array(params[1...])
+        var layoutCodes = [String]()
+        for flag in layoutFlags {
+            if let layoutStr = SnapExpression(flag).decoderCode {
+                layoutCodes.append(layoutStr)
+            }
+        }
+        
+        var resultCode = ""
+        resultCode += " " * spaceCount + layoutView + snapList[mark]!
+        for item in layoutCodes {
+            resultCode += " " * (spaceCount + 4) + item + "\n"
+        }
+        resultCode += " " * spaceCount + "}"
+        self.label = label
+        self.code = resultCode
+        self.lineCount = layoutCodes.count + 3
     }
-    
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

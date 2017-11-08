@@ -10,21 +10,24 @@ import Foundation
 import XcodeKit
 
 
-
 class SourceEditorCommand: NSObject, XCSourceEditorCommand {
     
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {
         if let lines = invocation.buffer.selections as? [XCSourceTextRange], let codeRange = lines.first, let codes = invocation.buffer.lines as? [String] {
             var lineCount = codeRange.start.line
             var code = codes[lineCount]
+            if code.isEmpty {return}
             let colCount = regularMatchRange(text: code, expression: "[\\S]+?").first?.location ?? 0
             code = code.trimmingCharacters(in: .whitespacesAndNewlines)
             if code.hasPrefix("#") {
                 code = code.substring(from: code.index(after: code.startIndex))
                 code = regularReplace(text: code, expression: "[\\s]+", with: "")
-                let snipLabels = (NSString(string: code).components(separatedBy: ")+") as [String]).map {$0+")"}
+                var snipLabels = (NSString(string: code).components(separatedBy: ")+") as [String]).map {$0+")"}
+                if let lastCode = snipLabels.last {
+                    snipLabels[snipLabels.count-1] = lastCode.substring(to: lastCode.index(before: lastCode.endIndex))
+                }
                 let snips = snipLabels.flatMap {BaseSnip.init(label: String($0), spaceCount: colCount)}
-                 invocation.buffer.lines.removeObject(at: lineCount)
+                invocation.buffer.lines.removeObject(at: lineCount)
                 for snip in snips {
                     invocation.buffer.lines.insert(snip.code, at: lineCount)
                     lineCount += snip.lineCount
@@ -41,8 +44,8 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
         }
         completionHandler(nil)        
     }
-    
 }
+
 
 func decoderPropertyCode(code: String) -> [Property] {
     let modules = code.components(separatedBy: "+")
@@ -66,6 +69,7 @@ func decoderPropertyCode(code: String) -> [Property] {
     }
     return properties
 }
+
 
 func generatePropertyCode(property: Property, spaceCount: Int) -> String {
     var code = ""
@@ -92,46 +96,5 @@ func generatePropertyCode(property: Property, spaceCount: Int) -> String {
     }
     return code
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
