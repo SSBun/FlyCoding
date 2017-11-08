@@ -3,8 +3,8 @@
 
 FlyCoding is a Xcode plugin to make auto generate swift code with tag syntax.
 
-[![Build Status](https://travis-ci.org/SnapKit/SnapKit.svg)](https://travis-ci.org/SnapKit/SnapKit)
-[![Platform](https://img.shields.io/cocoapods/p/SnapKit.svg?style=flat)](https://github.com/SnapKit/SnapKit)
+![Build Status](https://travis-ci.org/SnapKit/SnapKit.svg)
+![Platform](https://img.shields.io/cocoapods/p/SnapKit.svg?style=flat)
 
 #### ⚠️ **To use with Swift 4.x please ensure you are using >= 4.0.0** ⚠️ 
 
