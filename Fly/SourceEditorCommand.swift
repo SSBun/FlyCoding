@@ -20,11 +20,11 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
             let colCount = regularMatchRange(text: code, expression: "[\\S]+?").first?.location ?? 0
             code = code.trimmingCharacters(in: .whitespacesAndNewlines)
             if code.hasPrefix("#") {
-                code = code.substring(from: code.index(after: code.startIndex))
+                code = String(code[code.index(after: code.startIndex)...])
                 code = regularReplace(text: code, expression: "[\\s]+", with: "")
                 var snipLabels = (NSString(string: code).components(separatedBy: ")+") as [String]).map {$0+")"}
                 if let lastCode = snipLabels.last {
-                    snipLabels[snipLabels.count-1] = lastCode.substring(to: lastCode.index(before: lastCode.endIndex))
+                    snipLabels[snipLabels.count-1] = String(lastCode[..<lastCode.index(before: lastCode.endIndex)])
                 }
                 let snips = snipLabels.flatMap {BaseSnip.init(label: String($0), spaceCount: colCount)}
                 invocation.buffer.lines.removeObject(at: lineCount)
@@ -75,13 +75,13 @@ func generatePropertyCode(property: Property, spaceCount: Int) -> String {
     var code = ""
     if let defaultValue = property.defaultValue {
         if property.className.hasSuffix("?") || property.className.hasSuffix("!") {
-            if defaultValue.characters.count == 0 {
-                code += " " * spaceCount + property.scope + " " + "<#name#>" + ": " + property.className + " = " + property.className.substring(to: property.className.index(before: property.className.endIndex)) + "()"
+            if defaultValue.count == 0 {
+                code += " " * spaceCount + property.scope + " " + "<#name#>" + ": " + property.className + " = " + String(property.className[..<property.className.index(before: property.className.endIndex)]) + "()"
             } else {
                 code += " " * spaceCount + property.scope + " " + "<#name#>" + ": " + property.className + " = " + defaultValue
             }
         } else {
-            if defaultValue.characters.count == 0 {
+            if defaultValue.count == 0 {
                 code += " " * spaceCount + property.scope + " " + "<#name#>" + " = " + property.className + "()"
             } else {
                 code += " " * spaceCount + property.scope + " " + "<#name#>" + " = " + defaultValue

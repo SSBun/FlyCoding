@@ -13,7 +13,7 @@ import Foundation
 public func regularMatch(text: String, expression: String) -> [String] {
     var results = [String]()
     let expression = try! NSRegularExpression(pattern: expression, options: .allowCommentsAndWhitespace)
-    expression.enumerateMatches(in: text, options: .reportCompletion, range: NSRange(location: 0, length: text.characters.count), using: { (result, _, _) in
+    expression.enumerateMatches(in: text, options: .reportCompletion, range: NSRange(location: 0, length: text.count), using: { (result, _, _) in
         if let result = result {
             let item = (text as NSString).substring(with: result.range)
             results.append(item)
@@ -25,7 +25,7 @@ public func regularMatch(text: String, expression: String) -> [String] {
 public func regularMatchRange(text: String, expression: String) -> [NSRange] {
     var results = [NSRange]()
     let expression = try! NSRegularExpression(pattern: expression, options: .allowCommentsAndWhitespace)
-    expression.enumerateMatches(in: text, options: .reportCompletion, range: NSRange(location: 0, length: text.characters.count), using: { (result, _, _) in
+    expression.enumerateMatches(in: text, options: .reportCompletion, range: NSRange(location: 0, length: text.count), using: { (result, _, _) in
         if let result = result {
             results.append(result.range)
         }
@@ -35,13 +35,13 @@ public func regularMatchRange(text: String, expression: String) -> [NSRange] {
 
 public func regularMatchLike(text: String, expression: String) -> Bool {
     let expression = try! NSRegularExpression(pattern: expression, options: .allowCommentsAndWhitespace)
-    let count = expression.numberOfMatches(in: text, options: .reportCompletion, range: NSRange(location: 0, length: text.characters.count))
+    let count = expression.numberOfMatches(in: text, options: .reportCompletion, range: NSRange(location: 0, length: text.count))
     return count > 0
 }
 
 public func regularReplace(text: String, expression: String, with template: String) -> String {
     let expression = try! NSRegularExpression(pattern: expression, options: .allowCommentsAndWhitespace)
-    let result = expression.stringByReplacingMatches(in: text, options: .reportCompletion, range: NSRange(location: 0, length: text.characters.count), withTemplate: template)
+    let result = expression.stringByReplacingMatches(in: text, options: .reportCompletion, range: NSRange(location: 0, length: text.count), withTemplate: template)
     return result
 }
 

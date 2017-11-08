@@ -120,7 +120,8 @@ public struct SnapExpression {
     }
     
     private func constrainPriorityCode(with code: String) -> String? {
-        let nCode = code.substring(from: code.index(after: code.startIndex))
+        
+        let nCode = String(code[code.index(after: code.startIndex)...])
         let flags = ["r": ".required",
                      "h": ".high",
                      "m": ".medium",
