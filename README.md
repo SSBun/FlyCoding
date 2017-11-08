@@ -1,4 +1,5 @@
-<img src="http://snapkit.io/images/banner.jpg" alt="" />
+<img src="http://upload-images.jianshu.io/upload_images/1594222-32377b189392b7d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" />
+
 
 FlyCoding is a Xcode plugin to make auto generate swift code with tag syntax.
 
