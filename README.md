@@ -1,7 +1,7 @@
 <img src="http://upload-images.jianshu.io/upload_images/1594222-9138623383b862a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" />
 
 
-FlyCoding is a Xcode plugin to make auto generate swift code with tag syntax.
+FlyCoding is a Xcode plugin to make auto-generate swift code with marking language.
 
 ![Build Status](https://travis-ci.org/SnapKit/SnapKit.svg)
 ![Platform](https://img.shields.io/cocoapods/p/SnapKit.svg?style=flat)
@@ -39,7 +39,7 @@ FlyCoding is a Xcode plugin to make auto generate swift code with tag syntax.
 
 ### Build Project
 * You can download this project and build it in your Xcode
-* You should move the application in project folder 'Products' to Mac Application and open it. Then you can close it.
+* You should move the application in project folder 'Products' to Mac Application and run it.
 
 ⚠️ **If you cannot see 'flyCoding' in Xcode menu Editor, you can go to System Extension config to check flyCoding** ⚠️
 
@@ -47,7 +47,7 @@ FlyCoding is a Xcode plugin to make auto generate swift code with tag syntax.
 
 ## Usage
 
-You print tag syntax and click FlyCoding or shortcut, The generated code will be print.
+You write marking language then click FlyCoding or use shortcut, The generated code will be print.
 
 ### Generate Constraints (use [SnapKit](https://github.com/SnapKit/SnapKit/blob/develop/README.md#license))
 
