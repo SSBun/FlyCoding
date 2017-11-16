@@ -1,12 +1,18 @@
 <img src="http://upload-images.jianshu.io/upload_images/1594222-9138623383b862a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" />
 
-
 FlyCoding is a Xcode plugin to make auto-generate swift code with marking language.
 
 ![Build Status](https://travis-ci.org/SnapKit/SnapKit.svg)
 ![Platform](https://img.shields.io/cocoapods/p/SnapKit.svg?style=flat)
 
 #### ⚠️ **To use with Swift 4.x please ensure you are using >= 4.0.0** ⚠️ 
+
+
+![img](https://ws2.sinaimg.cn/large/006tKfTcly1fljxvy6u2og30go0g4gmi.gif)
+
+![img](https://ws1.sinaimg.cn/large/006tKfTcly1fljxx4234bg30go0g4gm5.gif)
+
+![img](https://ws2.sinaimg.cn/large/006tKfTcly1fljxxaavzdg30go0g4dgp.gif)
 
 ## Contents
 
