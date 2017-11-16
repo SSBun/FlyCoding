@@ -53,6 +53,8 @@ FlyCoding is a Xcode plugin to make auto-generate swift code with marking langua
 
 ## Usage
 
+[中文指南](http://www.jianshu.com/p/5a1b064b2457)
+
 You write marking language then click FlyCoding or use shortcut, The generated code will be print.
 
 ### Generate Constraints (use [SnapKit](https://github.com/SnapKit/SnapKit/blob/develop/README.md#license))
