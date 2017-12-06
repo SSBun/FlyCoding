@@ -1,14 +1,18 @@
 <img src="http://upload-images.jianshu.io/upload_images/1594222-9138623383b862a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" />
 
+FlyCoding is a Xcode plugin to make auto-generate swift code with marking language.
 
-FlyCoding is a Xcode plugin to make auto generate swift code with tag syntax.
-
-[![Build Status](https://travis-ci.org/SnapKit/SnapKit.svg)](https://travis-ci.org/SnapKit/SnapKit)
-[![Platform](https://img.shields.io/cocoapods/p/SnapKit.svg?style=flat)](https://github.com/SnapKit/SnapKit)
-[![Cocoapods Compatible](https://img.shields.io/cocoapods/v/SnapKit.svg)](https://cocoapods.org/pods/SnapKit)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+![Build Status](https://travis-ci.org/SnapKit/SnapKit.svg)
+![Platform](https://img.shields.io/cocoapods/p/SnapKit.svg?style=flat)
 
 #### ⚠️ **To use with Swift 4.x please ensure you are using >= 4.0.0** ⚠️ 
+
+
+![img](https://ws2.sinaimg.cn/large/006tKfTcly1fljxvy6u2og30go0g4gmi.gif)
+
+![img](https://ws1.sinaimg.cn/large/006tKfTcly1fljxx4234bg30go0g4gm5.gif)
+
+![img](https://ws2.sinaimg.cn/large/006tKfTcly1fljxxaavzdg30go0g4dgp.gif)
 
 ## Contents
 
@@ -36,8 +40,12 @@ FlyCoding is a Xcode plugin to make auto generate swift code with tag syntax.
 
 ## Installation
 
+### Download Application
+[FlyCoding.dmg](https://github.com/SSBun/FlyCoding/blob/master/FlyCoding.dmg)
+
+### Build Project
 * You can download this project and build it in your Xcode
-* You should move the application in project folder 'Products' to Mac Application and open it. Then you can close it.
+* You should move the application in project folder 'Products' to Mac Application and run it.
 
 ⚠️ **If you cannot see 'flyCoding' in Xcode menu Editor, you can go to System Extension config to check flyCoding** ⚠️
 
@@ -45,7 +53,9 @@ FlyCoding is a Xcode plugin to make auto generate swift code with tag syntax.
 
 ## Usage
 
-You print tag syntax and click FlyCoding or shortcut, The generated code will be print.
+[中文指南](http://www.jianshu.com/p/5a1b064b2457)
+
+You write marking language then click FlyCoding or use shortcut, The generated code will be print.
 
 ### Generate Constraints (use [SnapKit](https://github.com/SnapKit/SnapKit/blob/develop/README.md#license))
 
