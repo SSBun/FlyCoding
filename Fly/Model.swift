@@ -46,7 +46,7 @@ struct Property {
         }
     }
     
-    static func scopeWithShortcuts(_ p: String) -> String? {
+    static func scopeWithShortcuts(_ p: String, isFunction: Bool = false) -> String? {
         if p.count == 0 {return nil}
         var systemMarks = [String]()
         var scopeMark = ""
@@ -57,7 +57,13 @@ struct Property {
                 scopeMark += String(c)
             }
         }
-        systemMarks.append(allScopeMark[scopeMark, default: "let"])
+        if let scopeMarkStr = allScopeMark[scopeMark] {
+            systemMarks.append(scopeMarkStr)
+        } else {
+            if !isFunction {
+                systemMarks.append("let")
+            }
+        }
         return systemMarks.joined(separator:" ")
     }
 }
@@ -84,6 +90,8 @@ class BaseSnip: Snip {
                         "snpm": SnapSnip.self as Snip.Type,
                         "snpu": SnapSnip.self as Snip.Type,
                         "snprm": SnapSnip.self as Snip.Type,
+                        "func": FunctionSnip.self as Snip.Type,
+                        "anim": AnimationSnip.self as Snip.Type,
                         ]
         guard let mark = regularMatch(text: label, expression: "^[a-zA-Z]+").first else {return nil}
         guard let snipType = snipList[mark] else {return nil}
@@ -94,134 +102,6 @@ class BaseSnip: Snip {
     }
 }
 
-
-class GenerateViewSnip: Snip {
-    var label: String
-    
-    var code: String
-    
-    var lineCount: Int
-    
-    required init?(label: String, spaceCount: Int) {
-        guard let paramStr = regularMatch(text: label, expression: "(?<=\\()[_a-zA-Z,]+(?=\\))").first else {return nil}
-        let params = paramStr.split(separator: ",")
-        guard let viewClassName = params.first, viewClassName.count > 0 else {return nil}
-        var selfValue = "<#name#>"
-        if params.count > 1 {
-            let valueName = params[1]
-            if valueName.count > 0 {
-                selfValue = String(valueName)
-            }
-        }
-        let repeatCount = Int(regularMatch(text: label, expression: "(?<=\\*)[0-9]+").first ?? "1") ?? 1
-        var codes = [String]()
-        switch viewClassName.lowercased() {
-        case "uiview":
-            codes = ["let \(selfValue)  = UIView()",
-                     "\(selfValue).backgroundColor = <#color#>",
-                     "<#superView#>.addSubview(\(selfValue))"]
-        case "uilabel":
-            codes = ["let \(selfValue) = UILabel()",
-                     "\(selfValue).font = <#font#>",
-                     "\(selfValue).textColor = <#color#>",
-                     "\(selfValue).text = <#text#>",
-                     "\(selfValue).backgroundColor = <#color#>",
-                     "<#superView#>.addSubview(\(selfValue))"
-                    ]
-        case "uibutton":
-            codes = ["let \(selfValue) = UIButton()",
-                     "\(selfValue).setImage(UIImage(named: <#imageName#>), for: <#UIControlState#>)",
-                     "\(selfValue).setTitle(<#T##title: String?##String?#>, for: <#T##UIControlState#>)",
-                     "\(selfValue).addTarget(<#T##target: Any?##Any?#>, action: <#T##Selector#>, for: <#T##UIControlEvents#>)",
-                     "<#superView#>.addSubview(\(selfValue))"
-                    ]
-        case "uiimageview":
-            codes = ["let \(selfValue)  = UIImageView()",
-                     "\(selfValue).backgroundColor = <#color#>",
-                     "\(selfValue).image = <#image#>",
-                     "<#superView#>.addSubview(\(selfValue))"]
-        case "uitableview":
-            codes = ["let \(selfValue) = UITableView(frame: <#frame#>, style: <#style#>)",
-                     "\(selfValue).backgroundColor = <#color#>",
-                     "\(selfValue).delegate = <#delegate#>",
-                     "\(selfValue).dataSource = <#dataSource#>",
-                     "\(selfValue).separatorStyle = <#style#>",
-                     "\(selfValue).register(<#class#>, forCellReuseIdentifier: <#identifier#>)",
-                     "<#superView#>.addSubview(\(selfValue))"
-                    ]
-        case "uicollectionview":
-            codes = ["let flowLayout = UICollectionViewFlowLayout()",
-                     "flowLayout.scrollDirection = <#direction#>",
-                     "flowLayout.minimumInteritemSpacing = <#spacing#>",
-                     "let \(selfValue) = UICollectionView(frame: <#frame#>, collectionViewLayout: flowLayout)",
-                     "\(selfValue).showsVerticalScrollIndicator = <#show#>",
-                     "\(selfValue).showsHorizontalScrollIndicator = <#show#>",
-                     "\(selfValue).dataSource = self",
-                     "\(selfValue).delegate = self",
-                     "\(selfValue).backgroundColor = <#color#>",
-                     "\(selfValue).register(<#class#>, forCellWithReuseIdentifier: <#id#>)",
-                     "<#superView#>.addSubview(\(selfValue))"
-                    ]
-        default:
-            codes = []
-        }
-        
-        if codes.count > 0 {
-             self.label = label
-            var code = ""
-            for _ in 0..<repeatCount {
-                code += codes.reduce("") {
-                    $0 + " " * spaceCount + $1 + "\n"
-                }
-                code += "\n"
-            }
-            self.code = code
-            self.lineCount = repeatCount * (codes.count + 1)
-        } else {
-            return nil
-        }
-    }
-}
-
-
-class SnapSnip: Snip {
-    var label: String
-    
-    var code: String
-    
-    var lineCount: Int
-    
-    required init?(label: String, spaceCount: Int) {
-        
-        guard let code = regularMatch(text: label, expression: "(?<=\\().+(?=\\))").first else {return nil}
-        guard let mark = regularMatch(text: label, expression: "^[a-zA-Z]+").first else {return nil}
-        let snapList = ["snpm": ".snp.makeConstraints {\n",
-                        "snpu": ".snp.updateConstraints {\n",
-                        "snprm": ".snp.remakeConstraints {\n",
-                        ]
-        
-        let params = code.split(separator: ",").map {String($0)}
-        if params.isEmpty {return nil}
-        let layoutView = params[0]
-        let layoutFlags = Array(params[1...])
-        var layoutCodes = [String]()
-        for flag in layoutFlags {
-            if let layoutStr = SnapExpression(flag).decoderCode {
-                layoutCodes.append(layoutStr)
-            }
-        }
-        
-        var resultCode = ""
-        resultCode += " " * spaceCount + layoutView + snapList[mark]!
-        for item in layoutCodes {
-            resultCode += " " * (spaceCount + 4) + item + "\n"
-        }
-        resultCode += " " * spaceCount + "}"
-        self.label = label
-        self.code = resultCode
-        self.lineCount = layoutCodes.count + 3
-    }
-}
 
 
 

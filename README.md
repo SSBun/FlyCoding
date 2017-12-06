@@ -177,6 +177,9 @@ let <#name#>  = UIView()
 - UITableView
 - UICollectionView
 
+### Generate Func
+
+
 
 
 ---
@@ -188,3 +191,5 @@ let <#name#>  = UIView()
 ## License
 
 FlyCoding is released under the MIT license. See LICENSE for details.
+
+
