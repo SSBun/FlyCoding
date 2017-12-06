@@ -1,5 +1,9 @@
 <img src="http://upload-images.jianshu.io/upload_images/1594222-9138623383b862a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" />
 
+#### ⚠️ **To use with Swift 4.x please ensure you are using >= 4.0.0** ⚠️ 
+
+
+
 FlyCoding是一个Xcode插件，使用苹果提供的插件机制编写，可以运行在最新的Xcode上， 它提供了类似于HTML中 **Emmet** 的功能。你可以通过特殊语法来快速的生成你想要的**Swfit**代码，特别是在大量的编写界面UI时， 重复的编写UI控件和约束是一件非常繁琐和机械的劳动， 但是这又是你不可避免的。
 而FlyCoding则可以帮助你快速的帮你生成**视图代码、属性、SnapKit约束**，目前FlyCoding刚刚发布了第一个版本，更多的功能还在构建当中，接下来我们先在看一下目前的三个功能：
 
@@ -422,12 +426,10 @@ UIView.animate(withDuration: T##TimeInterval) {
 * dk 关键帧动画
 
 
+#End
+
+
 FlyCoding is a Xcode plugin to make auto-generate swift code with marking language.
-
-![Build Status](https://travis-ci.org/SnapKit/SnapKit.svg)
-![Platform](https://img.shields.io/cocoapods/p/SnapKit.svg?style=flat)
-
-#### ⚠️ **To use with Swift 4.x please ensure you are using >= 4.0.0** ⚠️ 
 
 
 ![img](https://ws2.sinaimg.cn/large/006tKfTcly1fljxvy6u2og30go0g4gmi.gif)
