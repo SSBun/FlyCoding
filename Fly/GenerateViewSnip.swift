@@ -11,12 +11,11 @@ import Foundation
 
 class GenerateViewSnip: Snip {
     var label: String
-    
     var code: String
-    
     var lineCount: Int
+    var codeType: CodeType
     
-    required init?(label: String, spaceCount: Int) {
+    required init?(label: String, spaceCount: Int, codeType: CodeType) {
         guard let paramStr = regularMatch(text: label, expression: "(?<=\\()[_a-zA-Z,]+(?=\\))").first else {return nil}
         let params = paramStr.split(separator: ",")
         guard let viewClassName = params.first, viewClassName.count > 0 else {return nil}
@@ -91,6 +90,7 @@ class GenerateViewSnip: Snip {
             }
             self.code = code
             self.lineCount = repeatCount * (codes.count + 1)
+            self.codeType = codeType
         } else {
             return nil
         }

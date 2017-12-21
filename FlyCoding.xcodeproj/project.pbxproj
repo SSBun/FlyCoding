@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E0BE0791FEA58C8008183D0 /* MasonrySnip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BE0781FEA58C8008183D0 /* MasonrySnip.swift */; };
+		8E0BE07B1FEA5C6A008183D0 /* MasonryExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BE07A1FEA5C6A008183D0 /* MasonryExpression.swift */; };
+		8E0BE07D1FEA7492008183D0 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BE07C1FEA7492008183D0 /* Property.swift */; };
 		8E5233041FB3F8F200271022 /* GenerateViewSnip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5233031FB3F8F200271022 /* GenerateViewSnip.swift */; };
 		8E5233061FB3F93000271022 /* SnapSnip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5233051FB3F93000271022 /* SnapSnip.swift */; };
 		8E5233081FB3F96200271022 /* FunctionSnip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5233071FB3F96200271022 /* FunctionSnip.swift */; };
@@ -19,7 +22,7 @@
 		8E8B8D761F710DEA002EBF80 /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D751F710DEA002EBF80 /* SourceEditorExtension.swift */; };
 		8E8B8D781F710DEA002EBF80 /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D771F710DEA002EBF80 /* SourceEditorCommand.swift */; };
 		8E8B8D7C1F710DEA002EBF80 /* Fly.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8E8B8D6E1F710DEA002EBF80 /* Fly.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		8EF3B3F31F73BB20002BB6D1 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3B3F21F73BB20002BB6D1 /* Model.swift */; };
+		8EF3B3F31F73BB20002BB6D1 /* Snip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3B3F21F73BB20002BB6D1 /* Snip.swift */; };
 		8EF3B3F71F74AC22002BB6D1 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3B3F61F74AC22002BB6D1 /* Match.swift */; };
 		8EF3B3F91F74EABF002BB6D1 /* SnapExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3B3F81F74EABF002BB6D1 /* SnapExpression.swift */; };
 /* End PBXBuildFile section */
@@ -49,6 +52,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8E0BE0781FEA58C8008183D0 /* MasonrySnip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasonrySnip.swift; sourceTree = "<group>"; };
+		8E0BE07A1FEA5C6A008183D0 /* MasonryExpression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasonryExpression.swift; sourceTree = "<group>"; };
+		8E0BE07C1FEA7492008183D0 /* Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
 		8E5233031FB3F8F200271022 /* GenerateViewSnip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateViewSnip.swift; sourceTree = "<group>"; };
 		8E5233051FB3F93000271022 /* SnapSnip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapSnip.swift; sourceTree = "<group>"; };
 		8E5233071FB3F96200271022 /* FunctionSnip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionSnip.swift; sourceTree = "<group>"; };
@@ -65,7 +71,7 @@
 		8E8B8D751F710DEA002EBF80 /* SourceEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorExtension.swift; sourceTree = "<group>"; };
 		8E8B8D771F710DEA002EBF80 /* SourceEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorCommand.swift; sourceTree = "<group>"; };
 		8E8B8D791F710DEA002EBF80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8EF3B3F21F73BB20002BB6D1 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		8EF3B3F21F73BB20002BB6D1 /* Snip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snip.swift; sourceTree = "<group>"; };
 		8EF3B3F61F74AC22002BB6D1 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		8EF3B3F81F74EABF002BB6D1 /* SnapExpression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapExpression.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,14 +95,58 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E240D671FEA4A4200C61474 /* FunctionModule */ = {
+			isa = PBXGroup;
+			children = (
+				8E5233071FB3F96200271022 /* FunctionSnip.swift */,
+			);
+			name = FunctionModule;
+			sourceTree = "<group>";
+		};
+		8E240D681FEA4AAA00C61474 /* GenerateViewModule */ = {
+			isa = PBXGroup;
+			children = (
+				8E5233031FB3F8F200271022 /* GenerateViewSnip.swift */,
+			);
+			name = GenerateViewModule;
+			sourceTree = "<group>";
+		};
+		8E240D691FEA4AB400C61474 /* AnimationModule */ = {
+			isa = PBXGroup;
+			children = (
+				8E5233091FB40CBE00271022 /* AnimationSnip.swift */,
+			);
+			name = AnimationModule;
+			sourceTree = "<group>";
+		};
+		8E240D6A1FEA4ABF00C61474 /* LayoutModule */ = {
+			isa = PBXGroup;
+			children = (
+				8E5233051FB3F93000271022 /* SnapSnip.swift */,
+				8EF3B3F81F74EABF002BB6D1 /* SnapExpression.swift */,
+				8E0BE0781FEA58C8008183D0 /* MasonrySnip.swift */,
+				8E0BE07A1FEA5C6A008183D0 /* MasonryExpression.swift */,
+			);
+			name = LayoutModule;
+			sourceTree = "<group>";
+		};
+		8E240D6B1FEA4AE700C61474 /* BaseModule */ = {
+			isa = PBXGroup;
+			children = (
+				8EF3B3F21F73BB20002BB6D1 /* Snip.swift */,
+				8E0BE07C1FEA7492008183D0 /* Property.swift */,
+			);
+			name = BaseModule;
+			sourceTree = "<group>";
+		};
 		8E5233021FB3F8BF00271022 /* Snips */ = {
 			isa = PBXGroup;
 			children = (
-				8EF3B3F21F73BB20002BB6D1 /* Model.swift */,
-				8E5233051FB3F93000271022 /* SnapSnip.swift */,
-				8E5233031FB3F8F200271022 /* GenerateViewSnip.swift */,
-				8E5233071FB3F96200271022 /* FunctionSnip.swift */,
-				8E5233091FB40CBE00271022 /* AnimationSnip.swift */,
+				8E240D6B1FEA4AE700C61474 /* BaseModule */,
+				8E240D6A1FEA4ABF00C61474 /* LayoutModule */,
+				8E240D681FEA4AAA00C61474 /* GenerateViewModule */,
+				8E240D671FEA4A4200C61474 /* FunctionModule */,
+				8E240D691FEA4AB400C61474 /* AnimationModule */,
 			);
 			name = Snips;
 			sourceTree = "<group>";
@@ -145,7 +195,6 @@
 			children = (
 				8E8B8D751F710DEA002EBF80 /* SourceEditorExtension.swift */,
 				8E8B8D771F710DEA002EBF80 /* SourceEditorCommand.swift */,
-				8EF3B3F81F74EABF002BB6D1 /* SnapExpression.swift */,
 				8E5233021FB3F8BF00271022 /* Snips */,
 				8EF3B3F61F74AC22002BB6D1 /* Match.swift */,
 				8E8B8D791F710DEA002EBF80 /* Info.plist */,
@@ -277,15 +326,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8EF3B3F31F73BB20002BB6D1 /* Model.swift in Sources */,
+				8EF3B3F31F73BB20002BB6D1 /* Snip.swift in Sources */,
 				8E52330A1FB40CBE00271022 /* AnimationSnip.swift in Sources */,
 				8E8B8D761F710DEA002EBF80 /* SourceEditorExtension.swift in Sources */,
 				8E5233061FB3F93000271022 /* SnapSnip.swift in Sources */,
 				8EF3B3F91F74EABF002BB6D1 /* SnapExpression.swift in Sources */,
+				8E0BE0791FEA58C8008183D0 /* MasonrySnip.swift in Sources */,
+				8E0BE07D1FEA7492008183D0 /* Property.swift in Sources */,
 				8E5233041FB3F8F200271022 /* GenerateViewSnip.swift in Sources */,
 				8EF3B3F71F74AC22002BB6D1 /* Match.swift in Sources */,
 				8E8B8D781F710DEA002EBF80 /* SourceEditorCommand.swift in Sources */,
 				8E5233081FB3F96200271022 /* FunctionSnip.swift in Sources */,
+				8E0BE07B1FEA5C6A008183D0 /* MasonryExpression.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

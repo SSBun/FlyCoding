@@ -8,17 +8,39 @@
 
 import Foundation
 
-
+/*!
+ Generate function code
+ 
+ eg: #func(@p.getAge:>)
+ 
+ */
 class FunctionSnip: Snip {
     var label: String
-    
     var code: String
-    
     var lineCount: Int
+    var codeType: CodeType
+   
     
-    required init?(label: String, spaceCount: Int) {
-        
+    required init?(label: String, spaceCount: Int, codeType: CodeType) {
         guard let paramStr = regularMatch(text: label, expression: "(?<=\\().+(?=\\))").first else {return nil}
+        self.label = label
+        self.codeType = codeType
+        self.code = ""
+        self.lineCount = 0
+        if codeType == .swift {
+            guard let (code, lineCount) = generateSwiftFunction(paramStr: paramStr, spaceCount: spaceCount) else {return nil}
+            self.code = code
+            self.lineCount = lineCount
+        } else if codeType == .oc {
+            guard let (code, lineCount) = generateOCFunction(paramStr: paramStr, spaceCount: spaceCount) else {return nil}
+            self.code = code
+            self.lineCount = lineCount
+        } else {
+            return nil
+        }
+    }
+    
+    private func generateSwiftFunction(paramStr: String, spaceCount: Int) -> (String, Int)? {
         let params = paramStr.split(separator: ".")
         var prefix: String? = nil // Function prefix mark
         var functionName: String = ""
@@ -44,7 +66,8 @@ class FunctionSnip: Snip {
             }
         }
         filterParamMark()
-
+        
+        
         func filterReturnMark() {
             if let returnMarkRange = functionName.range(of: ">") {
                 returnCount += 1
@@ -53,7 +76,7 @@ class FunctionSnip: Snip {
             }
         }
         filterReturnMark()
-
+        
         let repeatCount = Int(regularMatch(text: label, expression: "(?<=\\*)[0-9]+").first ?? "1") ?? 1
         var codes = [String]()
         var firstLine = ""
@@ -97,7 +120,6 @@ class FunctionSnip: Snip {
         codes.append("}")
         
         if codes.count > 0 {
-            self.label = label
             var code = ""
             for _ in 0..<repeatCount {
                 code += codes.reduce("") {
@@ -105,8 +127,87 @@ class FunctionSnip: Snip {
                 }
                 code += "\n"
             }
-            self.code = code
-            self.lineCount = repeatCount * (codes.count + 1)
+            return (code, repeatCount * (codes.count + 1))
+        } else {
+            return nil
+        }
+    }
+
+    private func generateOCFunction(paramStr: String, spaceCount: Int) -> (String, Int)? {
+        let params = paramStr.split(separator: ".")
+        var prefix: String? = nil // Function prefix mark
+        var functionName: String = ""
+        if params.count >= 2 {
+            prefix = String(params[0])
+            functionName = String(params[1])
+        } else {
+            functionName = String(params[0])
+        }
+        if functionName.count <= 0 {return nil}
+        if prefix == "+" {
+            prefix = "+"
+        } else {
+            prefix = "-"
+        }
+        var paramCount = 0
+        var returnCount = 0
+        
+        func filterParamMark() {
+            if let paramMarkRange = functionName.range(of: ":") {
+                paramCount += 1
+                functionName.removeSubrange(paramMarkRange)
+                filterParamMark()
+            }
+        }
+        filterParamMark()
+        
+        
+        func filterReturnMark() {
+            if let returnMarkRange = functionName.range(of: ">") {
+                returnCount += 1
+                functionName.removeSubrange(returnMarkRange)
+                filterReturnMark()
+            }
+        }
+        filterReturnMark()
+        
+        let repeatCount = Int(regularMatch(text: label, expression: "(?<=\\*)[0-9]+").first ?? "1") ?? 1
+        var codes = [String]()
+        var firstLine = ""
+        if let prefix = prefix {
+            firstLine += prefix
+        }
+        
+        if returnCount > 0 {
+            firstLine += " (<#type#>)\(functionName)"
+        } else {
+            firstLine += " (void)\(functionName)"
+        }
+
+        if paramCount > 0 {
+            for i in 0..<paramCount {
+                if i == 0 {
+                    firstLine += ":(<#type#>)<#param\(i)#>"
+                } else {
+                    firstLine += " <#name\(i)#>:(<#type#>)<#param\(i)#>"
+                }
+            }
+        }
+        
+        firstLine += " {"
+        codes.append(firstLine)
+        codes.append(" " * 4 + "<#code#>")
+        codes.append("}")
+        
+        if codes.count > 0 {
+            var code = ""
+            for _ in 0..<repeatCount {
+                code += codes.reduce("") {
+                    $0 + " " * spaceCount + $1 + "\n"
+                }
+                code += "\n"
+            }
+            return (code, repeatCount * (codes.count + 1))
         } else {
             return nil
         }

@@ -8,14 +8,16 @@
 
 import Foundation
 
+/*!
+ Generate view animation code
+ */
 class AnimationSnip: Snip {
     var label: String
-    
     var code: String
-    
     var lineCount: Int
+    var codeType: CodeType
     
-    required init?(label: String, spaceCount: Int) {
+    required init?(label: String, spaceCount: Int, codeType: CodeType) {
         
         guard let paramStr = regularMatch(text: label, expression: "(?<=\\().+(?=\\))").first else {return nil}
         let params = paramStr.split(separator: ".")
@@ -69,6 +71,7 @@ class AnimationSnip: Snip {
             }
             self.code = code
             self.lineCount = repeatCount * (codes.count + 1)
+            self.codeType = codeType
         } else {
             return nil
         }

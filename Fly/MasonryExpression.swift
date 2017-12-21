@@ -1,19 +1,20 @@
 //
-//  SnapExpression.swift
-//  Fly Coding
+//  MasonryExpression.swift
+//  Fly
 //
-//  Created by SSBun on 22/09/2017.
-//  Copyright © 2017 SSBun. All rights reserved.
+//  Created by SSBun on 2017/12/20.
+//  Copyright © 2017年 SSBun. All rights reserved.
 //
 
 import Foundation
+
 
 // le.,r,b,t,cx,cy,c,w,h,s,e,
 
 /*!
  View constrained labels
  */
-public struct ConstraintMaker {
+public struct MSLConstraintMaker {
     static let makerMap = ["l": "left",
                            "t": "top",
                            "b": "bottom",
@@ -28,14 +29,14 @@ public struct ConstraintMaker {
     
     /*! all constrainted items */
     var makers: [String]
-   
+    
     /*!
      Resolves each character of the string to constraint.
      */
     init(code: String) {
         var tempArr = [String]()
         for c in code {
-            if let m = ConstraintMaker.makerMap[String(c)] {
+            if let m = MSLConstraintMaker.makerMap[String(c)] {
                 tempArr.append(m)
             }
         }
@@ -50,11 +51,44 @@ public struct ConstraintMaker {
     }
 }
 
+public struct MSRConstraintMaker {
+    static let makerMap = ["l": "mas_left",
+                           "t": "mas_top",
+                           "b": "mas_bottom",
+                           "r": "mas_right",
+                           "w": "mas_width",
+                           "h": "mas_height",
+                           "x": "mas_centerX",
+                           "y": "mas_centerY"]
+    /*! all constrainted items */
+    var makers: [String]
+    
+    /*!
+     Resolves each character of the string to constraint.
+     */
+    init(code: String) {
+        var tempArr = [String]()
+        for c in code {
+            if let m = MSRConstraintMaker.makerMap[String(c)] {
+                tempArr.append(m)
+            }
+        }
+        self.makers = tempArr
+    }
+    
+    /*!
+     Verify that the string can be resolved.
+     */
+    static func isMakerCode(code: String) -> Bool {
+        return regularMatchLike(text: code, expression: "^[ltbrwhxy]+$")
+    }
+}
+
 
 /*!
  Snap constraint expression
  */
-public struct SnapExpression {
+public struct MasonryExpression {
     /// Constraint expressionn code
     public private(set) var expression: String
     /// Result of the resolved.
@@ -66,7 +100,7 @@ public struct SnapExpression {
         var nsExpression = NSString(string: expression)
         var compareFlagRange: NSRange?
         var compareFlag = ""
-        for item in ["<=", ">=", "="] {
+        for item in ["<==", ">==", "==", "<=", ">=", "="] {
             let tempRange = nsExpression.range(of: item)
             if tempRange.location != NSNotFound {
                 compareFlag = item
@@ -77,10 +111,10 @@ public struct SnapExpression {
         guard let nCompareFlagRange = compareFlagRange else {return}
         
         let selfConstraint = nsExpression.substring(to: nCompareFlagRange.location)
-        guard ConstraintMaker.isMakerCode(code: selfConstraint) else {return}
+        guard MSLConstraintMaker.isMakerCode(code: selfConstraint) else {return}
         
         // There are the layout flags will be add.
-        let selfMakers = ConstraintMaker(code: selfConstraint).makers
+        let selfMakers = MSLConstraintMaker(code: selfConstraint).makers
         if selfMakers.isEmpty {return}
         nsExpression = NSString(string: nsExpression.substring(from: nCompareFlagRange.location + nCompareFlagRange.length))
         
@@ -115,13 +149,11 @@ public struct SnapExpression {
         }
         var computeObjects = nsExpression.components(separatedBy: ".")
         if computeObjects.isEmpty {return}
-        if computeObjects.count >= 2, let lastObject = computeObjects.last, ConstraintMaker.isMakerCode(code: lastObject) {
+        if computeObjects.count >= 2, let lastObject = computeObjects.last, MSRConstraintMaker.isMakerCode(code: lastObject) {
             computeObjects.removeLast()
-            computeObjects.append("snp")
-            computeObjects += ConstraintMaker(code: lastObject).makers
+            computeObjects += MSRConstraintMaker(code: lastObject).makers
         }
-        
-        var decoderCode = "$0."
+        var decoderCode = "make."
         
         decoderCode += selfMakers.joined(separator: ".")
         decoderCode += ".\(compareFlagCode(with: compareFlag))"
@@ -132,17 +164,17 @@ public struct SnapExpression {
         if let c = constrainPriority, let v = constrainPriorityCode(with: c) {
             decoderCode += ".\(v)"
         }
+        decoderCode += ";"
         self.decoderCode = decoderCode
     }
     
     private func constrainPriorityCode(with code: String) -> String? {
         let nCode = String(code[code.index(after: code.startIndex)...])
-        let flags = ["r": ".required",
-                     "h": ".high",
-                     "m": ".medium",
-                     "l": ".low"]
+        let flags = ["h": "priorityHigh",
+                     "m": "priorityMedium",
+                     "l": "priorityLow"]
         if let flag = flags[nCode] {
-            return "priority(\(flag))"
+            return flag
         }
         if let level = Int(nCode) {
             return "priority(\(level))"
@@ -153,8 +185,11 @@ public struct SnapExpression {
     private func compareFlagCode(with flag: String) -> String {
         let flags = [">=": "greaterThanOrEqualTo",
                      "<=": "lessThanOrEqualTo",
-                     "=": "equalTo"]
-        return flags[flag] ?? "="
+                     "=": "equalTo",
+                     "<==": "mas_lessThanOrEqualTo",
+                     ">==": "mas_greaterThanOrEqualTo",
+                     "==": "mas_equalTo"]
+        return flags[flag] ?? "equalTo"
     }
     
     private func computeFlagCode(with flag: String, value: String) -> String {
@@ -172,4 +207,3 @@ public struct SnapExpression {
         }
     }
 }
-
