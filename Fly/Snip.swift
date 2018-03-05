@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 // MARK: - Snip
 /*!
  Snip protocol
@@ -50,7 +49,4 @@ class BaseSnip: Snip {
         self.lineCount = snip.lineCount
     }
 }
-
-
-
 

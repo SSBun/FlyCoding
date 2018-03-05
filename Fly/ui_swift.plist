@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>uiview</key>
+	<array>
+		<string>let {query} = UIView()</string>
+		<string>{query}.backgroundColor = &lt;#color#&gt;</string>
+		<string>&lt;#superView#&gt;.addSubview({query})</string>
+	</array>
+	<key>uilabel</key>
+	<array>
+		<string>let {query} = UILabel()</string>
+		<string>{query}.font = &lt;#font#&gt;</string>
+		<string>{query}.textColor = &lt;#color#&gt;</string>
+		<string>{query}.text = &lt;#text#&gt;</string>
+		<string>{query}.backgroundColor = &lt;#color#&gt;</string>
+		<string>&lt;#superView#&gt;.addSubview({query})</string>
+	</array>
+	<key>uiimageview</key>
+	<array>
+		<string>let {query}  = UIImageView()</string>
+		<string>{query}.backgroundColor = &lt;#color#&gt;</string>
+		<string>{query}.image = &lt;#image#&gt;</string>
+		<string>&lt;#superView#&gt;.addSubview({query})</string>
+	</array>
+	<key>uibutton</key>
+	<array>
+		<string>let {query} = UIButton()</string>
+		<string>{query}.setImage(UIImage(named: &lt;#imageName#&gt;), for: &lt;#UIControlState#&gt;)</string>
+		<string>{query}.setTitle(&lt;#T##title: String?##String?#&gt;, for: &lt;#T##UIControlState#&gt;)</string>
+		<string>{query}.addTarget(&lt;#T##target: Any?##Any?#&gt;, action: &lt;#T##Selector#&gt;, for: &lt;#T##UIControlEvents#&gt;)</string>
+		<string>&lt;#superView#&gt;.addSubview({query})</string>
+	</array>
+	<key>uitableview</key>
+	<array>
+		<string>let {query} = UITableView(frame: &lt;#frame#&gt;, style: &lt;#style#&gt;)</string>
+		<string>{query}.backgroundColor = &lt;#color#&gt;</string>
+		<string>{query}.delegate = &lt;#delegate#&gt;</string>
+		<string>{query}.dataSource = &lt;#dataSource#&gt;</string>
+		<string>{query}.separatorStyle = &lt;#style#&gt;</string>
+		<string>{query}.register(&lt;#class#&gt;, forCellReuseIdentifier: &lt;#identifier#&gt;)</string>
+		<string>&lt;#superView#&gt;.addSubview({query})</string>
+	</array>
+	<key>uicollectionview</key>
+	<array>
+		<string>let flowLayout = UICollectionViewFlowLayout()</string>
+		<string>flowLayout.scrollDirection = &lt;#direction#&gt;</string>
+		<string>flowLayout.minimumInteritemSpacing = &lt;#spacing#&gt;</string>
+		<string>let {query} = UICollectionView(frame: &lt;#frame#&gt;, collectionViewLayout: flowLayout)</string>
+		<string>{query}.showsVerticalScrollIndicator = &lt;#show#&gt;</string>
+		<string>{query}.showsHorizontalScrollIndicator = &lt;#show#&gt;</string>
+		<string>{query}.dataSource = self</string>
+		<string>{query}.delegate = self</string>
+		<string>{query}.backgroundColor = &lt;#color#&gt;</string>
+		<string>{query}.register(&lt;#class#&gt;, forCellWithReuseIdentifier: &lt;#id#&gt;)</string>
+		<string>&lt;#superView#&gt;.addSubview({query})</string>
+	</array>
+</dict>
+</plist>

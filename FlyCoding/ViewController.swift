@@ -13,11 +13,7 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//       let a = SnapExpression("")
-//        let c = Fly.SnapExpression("b=view1.b-(10-30)~10").decoderCode
-//        print(c ?? "error")
-        // Do any additional setup after loading the view.
-
+        
     }
 
     override var representedObject: Any? {

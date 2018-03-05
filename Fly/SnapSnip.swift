@@ -19,11 +19,14 @@ class SnapSnip: Snip {
         if codeType != .swift {return nil}
         guard let code = regularMatch(text: label, expression: "(?<=\\().+(?=\\))").first else {return nil}
         guard let mark = regularMatch(text: label, expression: "^[a-zA-Z]+").first else {return nil}
+        var repeatCount = 1
+        if let countStr = regularMatch(text: label, expression: "(?<=\\)\\*)[\\d]+\\b").first, let count = Int(countStr), count >= 1 {
+            repeatCount = count
+        }
         let snapList = ["snpm": ".snp.makeConstraints {\n",
                         "snpu": ".snp.updateConstraints {\n",
                         "snprm": ".snp.remakeConstraints {\n",
                         ]
-        
         let params = code.split(separator: ",").map {String($0)}
         if params.isEmpty {return nil}
         let layoutView = params[0]
@@ -34,17 +37,19 @@ class SnapSnip: Snip {
                 layoutCodes.append(layoutStr)
             }
         }
-        
         var resultCode = ""
-        resultCode += " " * spaceCount + layoutView + snapList[mark]!
-        for item in layoutCodes {
-            resultCode += " " * (spaceCount + 4) + item + "\n"
+        for _ in 0..<repeatCount {
+            resultCode += " " * spaceCount + layoutView + snapList[mark]!
+            for item in layoutCodes {
+                resultCode += " " * (spaceCount + 4) + item + "\n"
+            }
+            resultCode += " " * spaceCount + "}"
+            resultCode += "\n\n"
         }
-        resultCode += " " * spaceCount + "}"
         self.label = label
         self.code = resultCode
         self.codeType = codeType
-        self.lineCount = layoutCodes.count + 3
+        self.lineCount = (layoutCodes.count + 3) * repeatCount
     }
 }
 

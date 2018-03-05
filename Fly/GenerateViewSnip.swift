@@ -27,57 +27,20 @@ class GenerateViewSnip: Snip {
             }
         }
         let repeatCount = Int(regularMatch(text: label, expression: "(?<=\\*)[0-9]+").first ?? "1") ?? 1
-        var codes = [String]()
-        switch viewClassName.lowercased() {
-        case "uiview":
-            codes = ["let \(selfValue)  = UIView()",
-                "\(selfValue).backgroundColor = <#color#>",
-                "<#superView#>.addSubview(\(selfValue))"]
-        case "uilabel":
-            codes = ["let \(selfValue) = UILabel()",
-                "\(selfValue).font = <#font#>",
-                "\(selfValue).textColor = <#color#>",
-                "\(selfValue).text = <#text#>",
-                "\(selfValue).backgroundColor = <#color#>",
-                "<#superView#>.addSubview(\(selfValue))"
-            ]
-        case "uibutton":
-            codes = ["let \(selfValue) = UIButton()",
-                "\(selfValue).setImage(UIImage(named: <#imageName#>), for: <#UIControlState#>)",
-                "\(selfValue).setTitle(<#T##title: String?##String?#>, for: <#T##UIControlState#>)",
-                "\(selfValue).addTarget(<#T##target: Any?##Any?#>, action: <#T##Selector#>, for: <#T##UIControlEvents#>)",
-                "<#superView#>.addSubview(\(selfValue))"
-            ]
-        case "uiimageview":
-            codes = ["let \(selfValue)  = UIImageView()",
-                "\(selfValue).backgroundColor = <#color#>",
-                "\(selfValue).image = <#image#>",
-                "<#superView#>.addSubview(\(selfValue))"]
-        case "uitableview":
-            codes = ["let \(selfValue) = UITableView(frame: <#frame#>, style: <#style#>)",
-                "\(selfValue).backgroundColor = <#color#>",
-                "\(selfValue).delegate = <#delegate#>",
-                "\(selfValue).dataSource = <#dataSource#>",
-                "\(selfValue).separatorStyle = <#style#>",
-                "\(selfValue).register(<#class#>, forCellReuseIdentifier: <#identifier#>)",
-                "<#superView#>.addSubview(\(selfValue))"
-            ]
-        case "uicollectionview":
-            codes = ["let flowLayout = UICollectionViewFlowLayout()",
-                     "flowLayout.scrollDirection = <#direction#>",
-                     "flowLayout.minimumInteritemSpacing = <#spacing#>",
-                     "let \(selfValue) = UICollectionView(frame: <#frame#>, collectionViewLayout: flowLayout)",
-                "\(selfValue).showsVerticalScrollIndicator = <#show#>",
-                "\(selfValue).showsHorizontalScrollIndicator = <#show#>",
-                "\(selfValue).dataSource = self",
-                "\(selfValue).delegate = self",
-                "\(selfValue).backgroundColor = <#color#>",
-                "\(selfValue).register(<#class#>, forCellWithReuseIdentifier: <#id#>)",
-                "<#superView#>.addSubview(\(selfValue))"
-            ]
-        default:
-            codes = []
+        
+        var systemCodes: [String: [String]] = [:]
+        if let systemCodesPath = Bundle.main.path(forResource: "ui_swift.plist", ofType: nil), let temp_system = NSDictionary(contentsOfFile: systemCodesPath) as? [String: [String]] {
+            systemCodes.merge(temp_system) {return $1}
         }
+        var customCodes: [String: [String]] = [:]
+        if let temp_custom = NSDictionary(contentsOfFile: "/Users/Shared/flyCoding/ui_swift.plist") as? [String: [String]] {
+            customCodes.merge(temp_custom) {return $1}
+        }
+        var allCodes = [String: [String]]()
+        allCodes.merge(systemCodes){return $1}
+        allCodes.merge(customCodes) {return $1}
+        var codes = allCodes[viewClassName.lowercased(), default: []]
+        codes = codes.map {return $0.replacingOccurrences(of: "{query}", with: selfValue)}
         
         if codes.count > 0 {
             self.label = label
