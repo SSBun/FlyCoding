@@ -177,7 +177,11 @@ func generateOCPropertyCode(property: Property, spaceCount: Int) -> String {
     code += " "
     code += property.className
     code = code.trimmingCharacters(in: .whitespacesAndNewlines)
-    code += "<#name#>;"
+    if property.className.hasSuffix("*") {
+        code += "<#name#>"
+    } else {
+        code += " <#name#>"
+    }
     return code
 }
 

@@ -1,9 +1,9 @@
 //
 //  SourceEditorExtension.swift
-//  Fly Coding
+//  ClearInvalidReference
 //
-//  Created by SSBun on 19/09/2017.
-//  Copyright © 2017 SSBun. All rights reserved.
+//  Created by SSBun on 2018/3/5.
+//  Copyright © 2018年 SSBun. All rights reserved.
 //
 
 import Foundation

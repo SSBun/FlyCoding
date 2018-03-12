@@ -22,7 +22,6 @@ protocol Snip {
     init?(label: String, spaceCount: Int, codeType: CodeType)
 }
 
-
 class BaseSnip: Snip {
     var label: String
     var code: String

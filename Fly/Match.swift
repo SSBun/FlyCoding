@@ -8,8 +8,6 @@
 
 import Foundation
 
-
-
 public func regularMatch(text: String, expression: String) -> [String] {
     var results = [String]()
     let expression = try! NSRegularExpression(pattern: expression, options: .allowCommentsAndWhitespace)

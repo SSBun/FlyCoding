@@ -26,6 +26,10 @@
 		8EF3B3F31F73BB20002BB6D1 /* Snip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3B3F21F73BB20002BB6D1 /* Snip.swift */; };
 		8EF3B3F71F74AC22002BB6D1 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3B3F61F74AC22002BB6D1 /* Match.swift */; };
 		8EF3B3F91F74EABF002BB6D1 /* SnapExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3B3F81F74EABF002BB6D1 /* SnapExpression.swift */; };
+		8EF490BF204D2F40003F62DF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8B8D701F710DEA002EBF80 /* Cocoa.framework */; };
+		8EF490C2204D2F40003F62DF /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF490C1204D2F40003F62DF /* SourceEditorExtension.swift */; };
+		8EF490C4204D2F40003F62DF /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF490C3204D2F40003F62DF /* SourceEditorCommand.swift */; };
+		8EF490C9204D2F40003F62DF /* ClearInvalidReference.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8EF490BE204D2F40003F62DF /* ClearInvalidReference.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +40,13 @@
 			remoteGlobalIDString = 8E8B8D6D1F710DEA002EBF80;
 			remoteInfo = "Fly Coding";
 		};
+		8EF490C7204D2F40003F62DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8E8B8D501F710DC1002EBF80 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8EF490BD204D2F40003F62DF;
+			remoteInfo = ClearInvalidReference;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,6 +56,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				8EF490C9204D2F40003F62DF /* ClearInvalidReference.appex in Embed App Extensions */,
 				8E8B8D7C1F710DEA002EBF80 /* Fly.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -76,6 +88,11 @@
 		8EF3B3F21F73BB20002BB6D1 /* Snip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snip.swift; sourceTree = "<group>"; };
 		8EF3B3F61F74AC22002BB6D1 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		8EF3B3F81F74EABF002BB6D1 /* SnapExpression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapExpression.swift; sourceTree = "<group>"; };
+		8EF490BE204D2F40003F62DF /* ClearInvalidReference.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ClearInvalidReference.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EF490C1204D2F40003F62DF /* SourceEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorExtension.swift; sourceTree = "<group>"; };
+		8EF490C3204D2F40003F62DF /* SourceEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorCommand.swift; sourceTree = "<group>"; };
+		8EF490C5204D2F40003F62DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EF490C6204D2F40003F62DF /* ClearInvalidReference.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClearInvalidReference.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +108,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E8B8D711F710DEA002EBF80 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8EF490BB204D2F40003F62DF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EF490BF204D2F40003F62DF /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +175,7 @@
 				8E240D681FEA4AAA00C61474 /* GenerateViewModule */,
 				8E240D671FEA4A4200C61474 /* FunctionModule */,
 				8E240D691FEA4AB400C61474 /* AnimationModule */,
+				8EF490F0204D366F003F62DF /* Weather */,
 			);
 			name = Snips;
 			sourceTree = "<group>";
@@ -159,6 +185,7 @@
 			children = (
 				8E8B8D5A1F710DC1002EBF80 /* FlyCoding */,
 				8E8B8D721F710DEA002EBF80 /* Fly */,
+				8EF490C0204D2F40003F62DF /* ClearInvalidReference */,
 				8E8B8D6F1F710DEA002EBF80 /* Frameworks */,
 				8E8B8D591F710DC1002EBF80 /* Products */,
 			);
@@ -169,6 +196,7 @@
 			children = (
 				8E8B8D581F710DC1002EBF80 /* FlyCoding.app */,
 				8E8B8D6E1F710DEA002EBF80 /* Fly.appex */,
+				8EF490BE204D2F40003F62DF /* ClearInvalidReference.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -214,6 +242,24 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8EF490C0204D2F40003F62DF /* ClearInvalidReference */ = {
+			isa = PBXGroup;
+			children = (
+				8EF490C1204D2F40003F62DF /* SourceEditorExtension.swift */,
+				8EF490C3204D2F40003F62DF /* SourceEditorCommand.swift */,
+				8EF490C5204D2F40003F62DF /* Info.plist */,
+				8EF490C6204D2F40003F62DF /* ClearInvalidReference.entitlements */,
+			);
+			path = ClearInvalidReference;
+			sourceTree = "<group>";
+		};
+		8EF490F0204D366F003F62DF /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Weather;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -230,6 +276,7 @@
 			);
 			dependencies = (
 				8E8B8D7B1F710DEA002EBF80 /* PBXTargetDependency */,
+				8EF490C8204D2F40003F62DF /* PBXTargetDependency */,
 			);
 			name = FlyCoding;
 			productName = FlyCoding;
@@ -253,13 +300,30 @@
 			productReference = 8E8B8D6E1F710DEA002EBF80 /* Fly.appex */;
 			productType = "com.apple.product-type.xcode-extension";
 		};
+		8EF490BD204D2F40003F62DF /* ClearInvalidReference */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8EF490CC204D2F40003F62DF /* Build configuration list for PBXNativeTarget "ClearInvalidReference" */;
+			buildPhases = (
+				8EF490BA204D2F40003F62DF /* Sources */,
+				8EF490BB204D2F40003F62DF /* Frameworks */,
+				8EF490BC204D2F40003F62DF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClearInvalidReference;
+			productName = ClearInvalidReference;
+			productReference = 8EF490BE204D2F40003F62DF /* ClearInvalidReference.appex */;
+			productType = "com.apple.product-type.xcode-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		8E8B8D501F710DC1002EBF80 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = SSBun;
 				TargetAttributes = {
@@ -273,6 +337,11 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 7467638S34;
 						LastSwiftMigration = 0910;
+						ProvisioningStyle = Automatic;
+					};
+					8EF490BD204D2F40003F62DF = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = 7467638S34;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -292,6 +361,7 @@
 			targets = (
 				8E8B8D571F710DC1002EBF80 /* FlyCoding */,
 				8E8B8D6D1F710DEA002EBF80 /* Fly */,
+				8EF490BD204D2F40003F62DF /* ClearInvalidReference */,
 			);
 		};
 /* End PBXProject section */
@@ -311,6 +381,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E2BEAD61FEBC43100410D15 /* ui_swift.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8EF490BC204D2F40003F62DF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +422,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8EF490BA204D2F40003F62DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EF490C2204D2F40003F62DF /* SourceEditorExtension.swift in Sources */,
+				8EF490C4204D2F40003F62DF /* SourceEditorCommand.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -352,6 +438,11 @@
 			isa = PBXTargetDependency;
 			target = 8E8B8D6D1F710DEA002EBF80 /* Fly */;
 			targetProxy = 8E8B8D7A1F710DEA002EBF80 /* PBXContainerItemProxy */;
+		};
+		8EF490C8204D2F40003F62DF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8EF490BD204D2F40003F62DF /* ClearInvalidReference */;
+			targetProxy = 8EF490C7204D2F40003F62DF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -545,6 +636,48 @@
 			};
 			name = Release;
 		};
+		8EF490CA204D2F40003F62DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = ClearInvalidReference/ClearInvalidReference.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 7467638S34;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ClearInvalidReference/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ssbun.www.FlyCoding.ClearInvalidReference;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		8EF490CB204D2F40003F62DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = ClearInvalidReference/ClearInvalidReference.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 7467638S34;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ClearInvalidReference/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ssbun.www.FlyCoding.ClearInvalidReference;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -571,6 +704,15 @@
 			buildConfigurations = (
 				8E8B8D7E1F710DEA002EBF80 /* Debug */,
 				8E8B8D7F1F710DEA002EBF80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8EF490CC204D2F40003F62DF /* Build configuration list for PBXNativeTarget "ClearInvalidReference" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8EF490CA204D2F40003F62DF /* Debug */,
+				8EF490CB204D2F40003F62DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
