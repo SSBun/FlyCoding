@@ -29,13 +29,14 @@ class GenerateViewSnip: Snip {
         let repeatCount = Int(regularMatch(text: label, expression: "(?<=\\*)[0-9]+").first ?? "1") ?? 1
         
         var systemCodes: [String: [String]] = [:]
-        if let systemCodesPath = Bundle.main.path(forResource: "ui_swift.plist", ofType: nil), let temp_system = NSDictionary(contentsOfFile: systemCodesPath) as? [String: [String]] {
+        var customCodes: [String: [String]] = [:]
+        if let systemCodesPath = Bundle.main.path(forResource: codeType == .swift ? "ui_swift.plist" : "ui_oc.plist", ofType: nil), let temp_system = NSDictionary(contentsOfFile: systemCodesPath) as? [String: [String]] {
             systemCodes.merge(temp_system) {return $1}
         }
-        var customCodes: [String: [String]] = [:]
-        if let temp_custom = NSDictionary(contentsOfFile: "/Users/Shared/flyCoding/ui_swift.plist") as? [String: [String]] {
+        if let temp_custom = NSDictionary(contentsOfFile: "/Users/Shared/flyCoding/\(codeType == .swift ? "ui_swift.plist" : "ui_oc.plist")") as? [String: [String]] {
             customCodes.merge(temp_custom) {return $1}
         }
+
         var allCodes = [String: [String]]()
         allCodes.merge(systemCodes){return $1}
         allCodes.merge(customCodes) {return $1}

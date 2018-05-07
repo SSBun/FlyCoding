@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>uiview</key>
+	<array>
+		<string>UIView *{query} = [[UIView alloc] init];</string>
+		<string>{query}.backgroundColor = &lt;#color#&gt;;</string>
+		<string>[&lt;#superView#&gt; addSubview:{query}];</string>
+	</array>
+	<key>uilabel</key>
+	<array>
+		<string>UILabel *{query} = [[UILabel alloc] init];</string>
+		<string>{query}.font = &lt;#font#&gt;;</string>
+		<string>{query}.textColor = &lt;#color#&gt;;</string>
+		<string>{query}.text = &lt;#text#&gt;;</string>
+		<string>{query}.backgroundColor = &lt;#color#&gt;;</string>
+		<string>[&lt;#superView#&gt; addSubview:{query}];</string>
+	</array>
+	<key>uiimageview</key>
+	<array>
+		<string>UIImageView *{query} = [[UIImageView alloc] init];</string>
+		<string>{query}.backgroundColor = &lt;#color#&gt;;</string>
+		<string>{query}.image = &lt;#image#&gt;;</string>
+		<string>[&lt;#superView#&gt; addSubview: {query}];</string>
+	</array>
+	<key>uibutton</key>
+	<array>
+		<string>UIButton *{query} = [[UIButton alloc] init];</string>
+		<string>[{query} setImage:&lt;#(nullable UIImage *)#&gt; forState:&lt;#(UIControlState)#&gt;];</string>
+		<string>[{query} setTitle:&lt;#(nullable NSString *)#&gt; forState:&lt;#(UIControlState)#&gt;];</string>
+		<string>[{query} addTarget:&lt;#(nullable id)#&gt; action:&lt;#(nonnull SEL)#&gt; forControlEvents:&lt;#(UIControlEvents)#&gt;];</string>
+		<string>[&lt;#superView#&gt; addSubview:{query}];</string>
+	</array>
+	<key>uitableview</key>
+	<array>
+		<string>UITableView *{query} = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];</string>
+		<string>{query}.backgroundColor = &lt;#color#&gt;;</string>
+		<string>{query}.delegate = &lt;#delegate#&gt;;</string>
+		<string>{query}.dataSource = &lt;#dataSource#&gt;;</string>
+		<string>{query}.separatorStyle = &lt;#style#&gt;;</string>
+		<string>[{query} registerClass:&lt;#(nullable Class)#&gt; forCellReuseIdentifier:&lt;#(nonnull NSString *)#&gt;];</string>
+		<string>[&lt;#superView#&gt; addSubview:{query}];</string>
+	</array>
+	<key>uicollectionview</key>
+	<array>
+		<string>UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];</string>
+		<string>flowLayout.scrollDirection = :&lt;#(UICollectionViewScrollDirection)#&gt;;</string>
+		<string>flowLayout.minimumLineSpacing = &lt;#CGFloat#&gt;;</string>
+		<string>flowLayout.minimumInteritemSpacing = &lt;#CGFloat#&gt;;</string>
+		<string>UICollectionView *{query} = [[UICollectionView alloc] initWithFrame:&lt;#(CGRect)#&gt; collectionViewLayout:flowLayout];</string>
+		<string>{query}.showsVerticalScrollIndicator = &lt;#BOOL#&gt;;</string>
+		<string>{query}.showsHorizontalScrollIndicator = &lt;#BOOL#&gt;;</string>
+		<string>{query}.dataSource = &lt;#id#&gt;;</string>
+		<string>{query}.delegate = &lt;#id#&gt;;</string>
+		<string>{query}.backgroundColor = &lt;#UIColor#&gt;;</string>
+		<string>[{query} registerClass:&lt;#(nullable Class)#&gt; forCellWithReuseIdentifier:&lt;#(nonnull NSString *)#&gt;];</string>
+		<string>[&lt;#superView#&gt; addSubview: {query}];</string>
+	</array>
+</dict>
+</plist>

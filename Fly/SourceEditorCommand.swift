@@ -20,7 +20,7 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {
         let codeType = analyzeCodeType(codeLines: invocation.buffer.lines)
         if let lines = invocation.buffer.selections as? [XCSourceTextRange], let codeRange = lines.first, let codes = invocation.buffer.lines as? [String] {
-            // The begain line count
+            // The start line number
             var lineCount = codeRange.start.line
             // The command code
             var code = codes[lineCount]
@@ -37,7 +37,7 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                 if let lastCode = snipLabels.last {
                     snipLabels[snipLabels.count-1] = String(lastCode[..<lastCode.index(before: lastCode.endIndex)])
                 }
-                let snips = snipLabels.flatMap {BaseSnip.init(label: String($0), spaceCount: colCount, codeType: codeType)}
+                let snips = snipLabels.compactMap {BaseSnip.init(label: String($0), spaceCount: colCount, codeType: codeType)}
                 invocation.buffer.lines.removeObject(at: lineCount)
                 for snip in snips {
                     invocation.buffer.lines.insert(snip.code, at: lineCount)
@@ -47,6 +47,7 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                 // Property model
                 let properties = decoderPropertyCode(code: code, codeType: codeType)
                 invocation.buffer.lines.removeObject(at: lineCount)
+                var autoSelectFirstPlaceholder: XCSourceTextRange? = nil
                 for property in properties {
                     var propertyCode: String = ""
                     if codeType == .swift {
@@ -54,9 +55,16 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                     }
                     if codeType == .oc {
                         propertyCode = generateOCPropertyCode(property: property, spaceCount: colCount)
+                        if autoSelectFirstPlaceholder == nil, let range = regularMatchRange(text: propertyCode, expression: "<#(.*)?#>").first {
+                            autoSelectFirstPlaceholder = XCSourceTextRange(start: XCSourceTextPosition(line: lineCount, column: range.location), end: XCSourceTextPosition(line: lineCount, column: range.location + range.length))
+                        }
                     }
                     invocation.buffer.lines.insert(propertyCode, at: lineCount)
                     lineCount += property.lineCount
+                }
+                if let selectedRange = autoSelectFirstPlaceholder {
+                    invocation.buffer.selections.removeAllObjects()
+                    invocation.buffer.selections.add(selectedRange)
                 }
             }
         }

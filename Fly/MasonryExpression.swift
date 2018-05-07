@@ -64,7 +64,7 @@ public struct MSRConstraintMaker {
     var makers: [String]
     
     /*!
-     Resolves each character of the string to constraint.
+     Generate constraints with characters from the string;
      */
     init(code: String) {
         var tempArr = [String]()

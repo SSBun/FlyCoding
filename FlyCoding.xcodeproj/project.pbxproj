@@ -30,6 +30,7 @@
 		8EF490C2204D2F40003F62DF /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF490C1204D2F40003F62DF /* SourceEditorExtension.swift */; };
 		8EF490C4204D2F40003F62DF /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF490C3204D2F40003F62DF /* SourceEditorCommand.swift */; };
 		8EF490C9204D2F40003F62DF /* ClearInvalidReference.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8EF490BE204D2F40003F62DF /* ClearInvalidReference.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C444576D208AD9240083F97E /* ui_oc.plist in Resources */ = {isa = PBXBuildFile; fileRef = C444576C208AD9240083F97E /* ui_oc.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		8EF490C3204D2F40003F62DF /* SourceEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorCommand.swift; sourceTree = "<group>"; };
 		8EF490C5204D2F40003F62DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EF490C6204D2F40003F62DF /* ClearInvalidReference.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClearInvalidReference.entitlements; sourceTree = "<group>"; };
+		C444576C208AD9240083F97E /* ui_oc.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ui_oc.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				8E2BEAD51FEBC43100410D15 /* ui_swift.plist */,
+				C444576C208AD9240083F97E /* ui_oc.plist */,
 				8E5233031FB3F8F200271022 /* GenerateViewSnip.swift */,
 			);
 			name = GenerateViewModule;
@@ -380,6 +383,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C444576D208AD9240083F97E /* ui_oc.plist in Resources */,
 				8E2BEAD61FEBC43100410D15 /* ui_swift.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -45,6 +45,6 @@ public func regularReplace(text: String, expression: String, with template: Stri
 
 public func *(left: String, right: Int) -> String {
     return Array(0..<right).reduce("", { (str, _) -> String in
-        return str + " "
+        return str + left
     })
 }

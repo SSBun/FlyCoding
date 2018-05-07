@@ -41,7 +41,7 @@ struct Property {
                                 "c": "class",
                                 "s": "static"]
     
-    let className: String
+    var className: String
     let scope: String
     let defaultValue: String?
     var lineCount: Int = 1
@@ -50,12 +50,25 @@ struct Property {
     
     init(className: String, scope: String, defaultValue: String?, codeType: CodeType = .swift) {
         self.className = className
-        self.scope = scope
         self.defaultValue = defaultValue
         self.codeType = codeType
+        self.scope = scope
+        if className.count == 0 {
+            self.className = handleOCClassNameWithEmpty(scope: scope)
+        }
         if codeType == .swift, scope.contains("lazy") {
             self.lineCount = 3
         }
+    }
+    
+    private func handleOCClassNameWithEmpty(scope: String) -> String {
+        if scope.contains(Property.allOCScopeMark["s"]!) || scope.contains(Property.allOCScopeMark["c"]!) {
+            return "<#type#> *"
+        }
+        if scope.contains(Property.allOCScopeMark["w"]!) || scope.contains(Property.allOCScopeMark["a"]!) {
+            return "<#type#>"
+        }
+        return "<#type#> *"
     }
     
     static func scopeWithShortcuts(_ p: String, isFunction: Bool = false) -> String? {
@@ -115,7 +128,7 @@ func decoderPropertyCode(code: String, codeType: CodeType) -> [Property] {
     }
     
     for var module in modules {
-        guard let className = regularMatch(text: module, expression: codeType == .swift ? "(?<=\\.)[<>&,\\(\\)\\?!a-zA-Z0-9_\\:\\[\\]\\ ]+" : "(?<=\\.)([\\*<>&,\\(\\)\\?!a-zA-Z0-9_\\:\\[\\]\\ ](?!\\*\\ *\\d+))+").first else {continue}
+        guard let className = regularMatch(text: module, expression: codeType == .swift ? "(?<=\\.)[<>&,\\(\\)\\?!a-zA-Z0-9_\\:\\[\\]\\ ]+" : "(?<=\\.)([\\*<>&,\\(\\)\\?!a-zA-Z0-9_\\:\\[\\]\\ ](?!\\*\\ *\\d+))*").first else {continue}
         module = module.trimmingCharacters(in: .whitespacesAndNewlines)
         if codeType == .swift, let scopStr = regularMatch(text: module, expression: "^[a-zA-Z@]+(?=\\.)").first, let scop = Property.scopeWithShortcuts(scopStr) {
             currentScope = scop
@@ -177,11 +190,10 @@ func generateOCPropertyCode(property: Property, spaceCount: Int) -> String {
     code += " "
     code += property.className
     code = code.trimmingCharacters(in: .whitespacesAndNewlines)
-    if property.className.hasSuffix("*") {
-        code += "<#name#>"
-    } else {
-        code += " <#name#>"
+    if !property.className.hasSuffix("*") {
+        code += " "
     }
+    code += "<#name#>"
     return code
 }
 

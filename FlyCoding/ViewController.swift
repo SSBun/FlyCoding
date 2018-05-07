@@ -13,9 +13,14 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
         
+        self.view.layer?.backgroundColor = NSColor.white.cgColor
+        
+        let imageView = NSImageView(frame: self.view.bounds)
+        let image = NSImage(named: NSImage.Name(rawValue: "FlyCodingHomePage"))
+        imageView.image = image
+        self.view.addSubview(imageView)
+
     }
 
     override var representedObject: Any? {
