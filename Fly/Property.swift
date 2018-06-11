@@ -33,7 +33,9 @@ struct Property {
                                  "a": "assign",
                                  "r": "readonly",
                                  "g": "getter=<#getterName#>",
-                                 "c": "copy"]
+                                 "c": "copy",
+                                 "n": "nullable",
+                                 "N": "nonnull"]
     
     static let allSystemMark = ["@": "@objc",
                                 "u": "unowned",
@@ -112,12 +114,12 @@ struct Property {
 
 
 /*!
- Resolves the command to an array of property objects.
+ Analyse command string and generate an array of `Property` objects.
  
  @discussion Adding * and numbers after the command can generate multiple copies at the same time. (eg: pl.String * 3)
  Adding + after the command can generate different classes of properteis and the same time. (eg: pl.String * 2 + P.Int * 4)
- @param code The command
- @return Generated property array.
+ @param code The command string.
+ @return The result of the Analysis.
  */
 func decoderPropertyCode(code: String, codeType: CodeType) -> [Property] {
     let modules = code.components(separatedBy: "+")
@@ -128,7 +130,7 @@ func decoderPropertyCode(code: String, codeType: CodeType) -> [Property] {
     }
     
     for var module in modules {
-        guard let className = regularMatch(text: module, expression: codeType == .swift ? "(?<=\\.)[<>&,\\(\\)\\?!a-zA-Z0-9_\\:\\[\\]\\ ]+" : "(?<=\\.)([\\*<>&,\\(\\)\\?!a-zA-Z0-9_\\:\\[\\]\\ ](?!\\*\\ *\\d+))*").first else {continue}
+        guard let className = regularMatch(text: module, expression: codeType == .swift ? "(?<=\\.)[<>&,\\(\\)\\?!a-zA-Z0-9_\\:\\[\\]\\ ]+" : "(?<=\\.)([\\*<>&,\\(\\)\\?!a-zA-Z0-9_\\:\\[\\]\\ ;](?!\\*\\ *\\d+))*").first else {continue}
         module = module.trimmingCharacters(in: .whitespacesAndNewlines)
         if codeType == .swift, let scopStr = regularMatch(text: module, expression: "^[a-zA-Z@]+(?=\\.)").first, let scop = Property.scopeWithShortcuts(scopStr) {
             currentScope = scop
@@ -190,6 +192,9 @@ func generateOCPropertyCode(property: Property, spaceCount: Int) -> String {
     code += " "
     code += property.className
     code = code.trimmingCharacters(in: .whitespacesAndNewlines)
+    if property.className.hasSuffix(";") {
+        return code
+    }
     if !property.className.hasSuffix("*") {
         code += " "
     }

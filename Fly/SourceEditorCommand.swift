@@ -14,12 +14,15 @@ enum CodeType {
     case oc
 }
 
-
 class SourceEditorCommand: NSObject, XCSourceEditorCommand {
     
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {
+        
         let codeType = analyzeCodeType(codeLines: invocation.buffer.lines)
-        if let lines = invocation.buffer.selections as? [XCSourceTextRange], let codeRange = lines.first, let codes = invocation.buffer.lines as? [String] {
+        if let lines = invocation.buffer.selections as? [XCSourceTextRange],
+            let codeRange = lines.first,
+            let codes = invocation.buffer.lines as? [String] {
+            
             // The start line number
             var lineCount = codeRange.start.line
             // The command code
@@ -44,7 +47,7 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                     lineCount += snip.lineCount
                 }
             } else {
-                // Property model
+                // Property mode
                 let properties = decoderPropertyCode(code: code, codeType: codeType)
                 invocation.buffer.lines.removeObject(at: lineCount)
                 var autoSelectFirstPlaceholder: XCSourceTextRange? = nil
