@@ -43,7 +43,7 @@ public struct ConstraintMaker {
     }
     
     /*!
-     Verify that the string can be resolved.
+     Verify that the string can be parsed.
      */
     static func isMakerCode(code: String) -> Bool {
         return regularMatchLike(text: code, expression: "^[ltbrwhxycse]+$")
@@ -55,9 +55,9 @@ public struct ConstraintMaker {
  Snap constraint expression
  */
 public struct SnapExpression {
-    /// Constraint expressionn code
+    /// Constraint expression code
     public private(set) var expression: String
-    /// Result of the resolved.
+    /// Results of parsed.
     public private(set) var decoderCode: String?
     
     public init(_ expression: String) {
@@ -79,7 +79,7 @@ public struct SnapExpression {
         let selfConstraint = nsExpression.substring(to: nCompareFlagRange.location)
         guard ConstraintMaker.isMakerCode(code: selfConstraint) else {return}
         
-        // There are the layout flags will be add.
+        // The layout flags that will be add.
         let selfMakers = ConstraintMaker(code: selfConstraint).makers
         if selfMakers.isEmpty {return}
         nsExpression = NSString(string: nsExpression.substring(from: nCompareFlagRange.location + nCompareFlagRange.length))

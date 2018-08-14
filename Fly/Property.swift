@@ -35,7 +35,8 @@ struct Property {
                                  "g": "getter=<#getterName#>",
                                  "c": "copy",
                                  "n": "nullable",
-                                 "N": "nonnull"]
+                                 "N": "nonnull",
+                                 "C": "class"]
     
     static let allSystemMark = ["@": "@objc",
                                 "u": "unowned",
