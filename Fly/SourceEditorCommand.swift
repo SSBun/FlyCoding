@@ -50,7 +50,10 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                 // Property mode
                 let properties = decoderPropertyCode(code: code, codeType: codeType)
                 invocation.buffer.lines.removeObject(at: lineCount)
+                // 默认让鼠标光标选中第一个变量
                 var autoSelectFirstPlaceholder: XCSourceTextRange? = nil
+                // 当生成的代码没有变量时，则将光标移动到最后一个字符后面，方便换行以及后续的操作
+                var autoMoveCursorBehindLastChar: XCSourceTextRange? = nil
                 for property in properties {
                     var propertyCode: String = ""
                     if codeType == .swift {
@@ -59,13 +62,23 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                     if codeType == .oc {
                         propertyCode = generateOCPropertyCode(property: property, spaceCount: colCount)
                         if autoSelectFirstPlaceholder == nil, let range = regularMatchRange(text: propertyCode, expression: "<#(.*)?#>").first {
-                            autoSelectFirstPlaceholder = XCSourceTextRange(start: XCSourceTextPosition(line: lineCount, column: range.location), end: XCSourceTextPosition(line: lineCount, column: range.location + range.length))
+                            autoSelectFirstPlaceholder = XCSourceTextRange(start: XCSourceTextPosition(line: lineCount,
+                                                                                                       column: range.location),
+                                                                           end: XCSourceTextPosition(line: lineCount,
+                                                                                                     column: range.location + range.length))
                         }
                     }
                     invocation.buffer.lines.insert(propertyCode, at: lineCount)
+                    autoMoveCursorBehindLastChar = XCSourceTextRange(start: XCSourceTextPosition(line: lineCount,
+                                                                                                 column: propertyCode.count),
+                                                                     end: XCSourceTextPosition(line: lineCount,
+                                                                                               column: propertyCode.count))
                     lineCount += property.lineCount
                 }
                 if let selectedRange = autoSelectFirstPlaceholder {
+                    invocation.buffer.selections.removeAllObjects()
+                    invocation.buffer.selections.add(selectedRange)
+                } else if let selectedRange = autoMoveCursorBehindLastChar {
                     invocation.buffer.selections.removeAllObjects()
                     invocation.buffer.selections.add(selectedRange)
                 }

@@ -5,12 +5,14 @@
 	<key>uiview</key>
 	<array>
 		<string>UIView *{query} = [[UIView alloc] init];</string>
+		<string>self.{query} = {query}</string>
 		<string>{query}.backgroundColor = &lt;#color#&gt;;</string>
 		<string>[&lt;#superView#&gt; addSubview:{query}];</string>
 	</array>
 	<key>uilabel</key>
 	<array>
 		<string>UILabel *{query} = [[UILabel alloc] init];</string>
+		<string>self.{query} = {query}</string>
 		<string>{query}.font = &lt;#font#&gt;;</string>
 		<string>{query}.textColor = &lt;#color#&gt;;</string>
 		<string>{query}.text = &lt;#text#&gt;;</string>
@@ -20,6 +22,7 @@
 	<key>uiimageview</key>
 	<array>
 		<string>UIImageView *{query} = [[UIImageView alloc] init];</string>
+		<string>self.{query} = {query}</string>
 		<string>{query}.backgroundColor = &lt;#color#&gt;;</string>
 		<string>{query}.image = &lt;#image#&gt;;</string>
 		<string>[&lt;#superView#&gt; addSubview: {query}];</string>
@@ -27,6 +30,7 @@
 	<key>uibutton</key>
 	<array>
 		<string>UIButton *{query} = [[UIButton alloc] init];</string>
+		<string>self.{query} = {query}</string>
 		<string>[{query} setImage:&lt;#(nullable UIImage *)#&gt; forState:&lt;#(UIControlState)#&gt;];</string>
 		<string>[{query} setTitle:&lt;#(nullable NSString *)#&gt; forState:&lt;#(UIControlState)#&gt;];</string>
 		<string>[{query} addTarget:&lt;#(nullable id)#&gt; action:&lt;#(nonnull SEL)#&gt; forControlEvents:&lt;#(UIControlEvents)#&gt;];</string>
@@ -35,6 +39,7 @@
 	<key>uitableview</key>
 	<array>
 		<string>UITableView *{query} = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];</string>
+		<string>self.{query} = {query}</string>
 		<string>{query}.backgroundColor = &lt;#color#&gt;;</string>
 		<string>{query}.delegate = &lt;#delegate#&gt;;</string>
 		<string>{query}.dataSource = &lt;#dataSource#&gt;;</string>
@@ -49,6 +54,7 @@
 		<string>flowLayout.minimumLineSpacing = &lt;#CGFloat#&gt;;</string>
 		<string>flowLayout.minimumInteritemSpacing = &lt;#CGFloat#&gt;;</string>
 		<string>UICollectionView *{query} = [[UICollectionView alloc] initWithFrame:&lt;#(CGRect)#&gt; collectionViewLayout:flowLayout];</string>
+		<string>self.{query} = {query}</string>
 		<string>{query}.showsVerticalScrollIndicator = &lt;#BOOL#&gt;;</string>
 		<string>{query}.showsHorizontalScrollIndicator = &lt;#BOOL#&gt;;</string>
 		<string>{query}.dataSource = &lt;#id#&gt;;</string>
