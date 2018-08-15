@@ -30,17 +30,26 @@ class GenerateViewSnip: Snip {
         
         var systemCodes: [String: [String]] = [:]
         var customCodes: [String: [String]] = [:]
+        var universalCodes: [String: [String]] = [:]
         if let systemCodesPath = Bundle.main.path(forResource: codeType == .swift ? "ui_swift.plist" : "ui_oc.plist", ofType: nil), let temp_system = NSDictionary(contentsOfFile: systemCodesPath) as? [String: [String]] {
             systemCodes.merge(temp_system) {return $1}
         }
         if let temp_custom = NSDictionary(contentsOfFile: "/Users/Shared/flyCoding/\(codeType == .swift ? "ui_swift.plist" : "ui_oc.plist")") as? [String: [String]] {
             customCodes.merge(temp_custom) {return $1}
         }
+        if let universalCodesPath = Bundle.main.path(forResource: "ui_universal.plist", ofType: nil), let temp_universal = NSDictionary(contentsOfFile: universalCodesPath) as? [String: [String]] {
+            universalCodes.merge(temp_universal) {return $1}
+        }
 
         var allCodes = [String: [String]]()
         allCodes.merge(systemCodes){return $1}
         allCodes.merge(customCodes) {return $1}
         var codes = allCodes[viewClassName.lowercased(), default: []]
+        // 如果没有匹配到任何系统类型，或是用户自定义类型，则使用通用类型处理
+        if codes.count == 0 {
+            codes = universalCodes[codeType == .swift ? "bz_swift_view" : "bz_oc_view", default: []]
+            codes = codes.map {return $0.replacingOccurrences(of: "{class}", with: String(viewClassName))}
+        }
         codes = codes.map {return $0.replacingOccurrences(of: "{query}", with: selfValue)}
         
         if codes.count > 0 {

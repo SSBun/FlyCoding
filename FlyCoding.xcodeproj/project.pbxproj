@@ -11,6 +11,7 @@
 		8E0BE07B1FEA5C6A008183D0 /* MasonryExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BE07A1FEA5C6A008183D0 /* MasonryExpression.swift */; };
 		8E0BE07D1FEA7492008183D0 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BE07C1FEA7492008183D0 /* Property.swift */; };
 		8E2BEAD61FEBC43100410D15 /* ui_swift.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E2BEAD51FEBC43100410D15 /* ui_swift.plist */; };
+		8E468D1B2123C22200EB560F /* ui_universal.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E468D1A2123C22200EB560F /* ui_universal.plist */; };
 		8E5233041FB3F8F200271022 /* GenerateViewSnip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5233031FB3F8F200271022 /* GenerateViewSnip.swift */; };
 		8E5233061FB3F93000271022 /* SnapSnip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5233051FB3F93000271022 /* SnapSnip.swift */; };
 		8E5233081FB3F96200271022 /* FunctionSnip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5233071FB3F96200271022 /* FunctionSnip.swift */; };
@@ -79,6 +80,7 @@
 		8E0BE07A1FEA5C6A008183D0 /* MasonryExpression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasonryExpression.swift; sourceTree = "<group>"; };
 		8E0BE07C1FEA7492008183D0 /* Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
 		8E2BEAD51FEBC43100410D15 /* ui_swift.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ui_swift.plist; sourceTree = "<group>"; };
+		8E468D1A2123C22200EB560F /* ui_universal.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ui_universal.plist; sourceTree = "<group>"; };
 		8E5233031FB3F8F200271022 /* GenerateViewSnip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateViewSnip.swift; sourceTree = "<group>"; };
 		8E5233051FB3F93000271022 /* SnapSnip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapSnip.swift; sourceTree = "<group>"; };
 		8E5233071FB3F96200271022 /* FunctionSnip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionSnip.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 			children = (
 				8E2BEAD51FEBC43100410D15 /* ui_swift.plist */,
 				C444576C208AD9240083F97E /* ui_oc.plist */,
+				8E468D1A2123C22200EB560F /* ui_universal.plist */,
 				8E5233031FB3F8F200271022 /* GenerateViewSnip.swift */,
 			);
 			name = GenerateViewModule;
@@ -441,6 +444,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C444576D208AD9240083F97E /* ui_oc.plist in Resources */,
+				8E468D1B2123C22200EB560F /* ui_universal.plist in Resources */,
 				8E2BEAD61FEBC43100410D15 /* ui_swift.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bz_oc_view</key>
+	<array>
+		<string>{class} *{query} = [[{class} alloc] init];</string>
+		<string>self.{query} = {query}</string>
+		<string>{query}.backgroundColor = &lt;#color#&gt;;</string>
+		<string>[&lt;#superView#&gt; addSubview:{query}];</string>
+	</array>
+	<key>bz_swift_view</key>
+	<array>
+		<string>let {query} = {class}()</string>
+		<string>{query}.backgroundColor = &lt;#color#&gt;</string>
+		<string>&lt;#superView#&gt;.addSubview({query})</string>
+	</array>
+</dict>
+</plist>
