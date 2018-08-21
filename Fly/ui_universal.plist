@@ -5,7 +5,7 @@
 	<key>bz_oc_view</key>
 	<array>
 		<string>{class} *{query} = [[{class} alloc] init];</string>
-		<string>self.{query} = {query}</string>
+		<string>self.{query} = {query};</string>
 		<string>{query}.backgroundColor = &lt;#color#&gt;;</string>
 		<string>[&lt;#superView#&gt; addSubview:{query}];</string>
 	</array>
