@@ -1,11 +1,13 @@
 <img src="http://upload-images.jianshu.io/upload_images/1594222-9138623383b862a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" />
-## iOS 版 Emmet
-#### ⚠️ **请使用 Swift 4.2 编译** ⚠️ 
+
+## FlyCoding - Xcode版 Element
+
+#### ⚠️ 请使用 Swift 4.2 编译 ⚠️ 
 
 FlyCoding 是一个 Xcode 插件，使用苹果提供的插件机制编写，可以运行在最新的Xcode上， 它提供了类似于前端中 **Emmet** 的功能。你可以通过特殊语法来快速的生成你想要的 **Swfit / Objective-C** 代码，特别是在大量的编写界面 UI 时， 重复的编写 UI 控件和约束是一件非常繁琐和机械的劳动， 但是这又是你不可避免的。
 而 FlyCoding 则可以帮助你快速的生成**属性、方法、约束（Masonry / SnapKit）**，目前 FlyCoding 刚刚发布了第一个版本，更多的功能还在构思当中，希望大家提供宝贵的意见和想法。
 
-#####目前开发进度：
+##### 目前开发进度：
 * [x] **Objective-C / Swift 属性生成**
 * [x] **Objective-C / Swift 视图的快速创建**
 * [x] **Masonry / SnapKit 约束生成**
@@ -84,7 +86,7 @@ private let <#name#> = UILabel()
 ```
 
 
-####Swift 属性标记快速查询表
+#### Swift 属性标记快速查询表
 
 | 符号 | 标记 |
 | :-: | :-: |
@@ -129,7 +131,7 @@ c.NSString *name;
 
 > Tips： class 可以用来标记类属性
 
-####Objective-C 属性标记快速查询表
+#### Objective-C 属性标记快速查询表
 | 符号 | 标记 |
 | :-: | :-: |
 | s | strong |
