@@ -16,7 +16,7 @@ class ViewController: NSViewController {
         self.view.layer?.backgroundColor = NSColor.white.cgColor
         
         let imageView = NSImageView(frame: self.view.bounds)
-        let image = NSImage(named: NSImage.Name(rawValue: "FlyCodingHomePage"))
+        let image = NSImage(named: NSImage.Name("FlyCodingHomePage"))
         imageView.image = image
         self.view.addSubview(imageView)
 

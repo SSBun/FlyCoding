@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0910"
+   LastUpgradeVersion = "1000"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -41,14 +41,13 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8E9748FE1F78BDC300925F3B"
+               BlueprintIdentifier = "8EA3DBA72122EF9F008463E8"
                BuildableName = "FlyCodingTests.xctest"
                BlueprintName = "FlyCodingTests"
                ReferencedContainer = "container:FlyCoding.xcodeproj">
@@ -71,7 +70,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = ""
       selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"

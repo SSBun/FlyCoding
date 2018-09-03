@@ -1,629 +1,431 @@
 <img src="http://upload-images.jianshu.io/upload_images/1594222-9138623383b862a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" />
+## iOS 版 Emmet
+#### ⚠️ **请使用 Swift 4.2 编译** ⚠️ 
 
-#### ⚠️ **To use with Swift 4.x please ensure you are using >= 4.0.0** ⚠️ 
+FlyCoding 是一个 Xcode 插件，使用苹果提供的插件机制编写，可以运行在最新的Xcode上， 它提供了类似于前端中 **Emmet** 的功能。你可以通过特殊语法来快速的生成你想要的 **Swfit / Objective-C** 代码，特别是在大量的编写界面 UI 时， 重复的编写 UI 控件和约束是一件非常繁琐和机械的劳动， 但是这又是你不可避免的。
+而 FlyCoding 则可以帮助你快速的生成**属性、方法、约束（Masonry / SnapKit）**，目前 FlyCoding 刚刚发布了第一个版本，更多的功能还在构思当中，希望大家提供宝贵的意见和想法。
 
+#####目前开发进度：
+* [x] **Objective-C / Swift 属性生成**
+* [x] **Objective-C / Swift 视图的快速创建**
+* [x] **Masonry / SnapKit 约束生成**
+* [x] **快速生成方法** 
+* [x] **任何完整操作都可以使用 ' + ' 进行分隔， 使用 '* N' 进行批量操作**
 
+### 属性生成
+#### Swift属性生成
+* **单个属性**
 
-FlyCoding是一个Xcode插件，使用苹果提供的插件机制编写，可以运行在最新的Xcode上， 它提供了类似于HTML中 **Emmet** 的功能。你可以通过特殊语法来快速的生成你想要的**Swfit**代码，特别是在大量的编写界面UI时， 重复的编写UI控件和约束是一件非常繁琐和机械的劳动， 但是这又是你不可避免的。
-而FlyCoding则可以帮助你快速的帮你生成**视图代码、属性、SnapKit约束**，目前FlyCoding刚刚发布了第一个版本，更多的功能还在构建当中，接下来我们先在看一下目前的三个功能：
-
-
-![img](http://upload-images.jianshu.io/upload_images/1594222-4f086115d244a228.gif?imageMogr2/auto-orient/strip)
-
-![img](http://upload-images.jianshu.io/upload_images/1594222-4ed65e4f26f2dfcf.gif?imageMogr2/auto-orient/strip)
-
-![img](http://upload-images.jianshu.io/upload_images/1594222-2c296f57ecf6b251.gif?imageMogr2/auto-orient/strip)
-
-### 生成Snapkit的约束代码
-使用Swift来编写UI的时候，AutoLayout肯定是必不可少的。而直接使用苹果的AutoLayout约束语句太过于麻烦，所以我们肯定会使用一些布局框架来实现AutoLayout， 在Swift当中，SnapKit的使用量最高，它和OC中的Masonry有着几乎一样的语法，这也使得使用过Masonry的从OC转向Swift的开发者能很快的适应SnapKit的语法。
-
-说完了SnapKit，我们来看一下FlyCoding是如何生成约束代码的, 我们假设有两个view(iconView 和 titleLabel)被添加在一个view(superView)上
-先来看几个例子:
-* **`#snpm(iconView, l=titleLabel.r+10, y=titleLabel)`**
-```swift
-//生成代码如下:
-iconView.snp.makeConstraints {
-    $0.left.equalTo(titleLabel.snp.right).offset(10)
-    $0.centerY.equalTo(titleLabel)
-}
+```Swift
+pv.UIImageView
+// pv 是属性控制，p 是 private， v 是 var，具体的列表可以在后文中查看; . 用于区分属性和类名
+private var <#name#>: UIImageView
 ```
-在这里`#snpm`就是一个标签，它代表创建一个snapKit约束，而小括号内的就是约束的参数，`iconView`是指谁接受约束，`l=titleLabel.r+10` 就是指iconView的左侧等于IconView的右侧再偏移10个点的位置。而`y=titleLabel`就是指iconView的中心y轴和titleLabel的中心y轴相等。
+* **可选属性**
 
-* **`#snpm(iconView, r=titleLabel.l-20, wh=20)`**
-
-类似的`wh=20`就是iconView的宽高等于20，你可以任意的组合要约束的部位，比如如果两个view的位置想同，你可以写`ltbr=titleLabel`,
-`l=left、r=right、t=top、b=bottom`。 当然直接写`e=titleLabel`就是`edges`的意思。
-
-* **`#snpm(iconView, t=titleLabel.b+superView.height-20, w=titLabel*0.5)`**
-```swift
-iconView.snp.makeConstraints {
-    $0.top.equalTo(titleLabel.snp.bottom).offset(superView.height-20)
-    $0.width.equalTo(titLabel).multipliedBy(0.5)
-}
+```Swift
+fv.UILabel?
+// fv 是属性控制， f 是 fileprivate, v 是 var; ？表示属性是可选的
+fileprivate var <#name#>: UILabel?
 ```
-再FlyCoding中，`t=titleLabel.b+superView.height-20`中的第一个`+`号拥有最低的执行等级， 哪怕此处由`+`成了`*`它也不会参与到后面的计算当中，或者你可以说它有特殊的作用。
-`w=titleLabel*0.5`就是说iconView的宽只有titleLabel的一半，这里写起来十分的简单。你也可以说是`w=titleLabel/2`,效果也是一样的。
+* **有默认值的属性**
 
-* **`#snpm(iconView, l = superView, r <= superView~l, r <= titleLabel.l - 20~h)`**
-```swift
-iconView.snp.makeConstraints {
-    $0.left.equalTo(superView)
-    $0.right.lessThanOrEqualTo(superView).priority(.low)
-    $0.right.lessThanOrEqualTo(titleLabel.snp.left).offset(-20).priority(.high)
-}
+```Swift
+Pl.UIView{}
+// Pl 是属性控制， P 是 public, l 是 let; {} 表示有默认值
+// 默认值使用 Class() 来生成
+// 如果有默认值，就不会再显示类型，因为 Swift 可以自己推断类型
+public let <#name#> = UIView()
+
+
+Pl.Int{100}
+// 如果在 ｛｝ 里面添加默认值，会直接使用此默认值
+public let <#name#> = 100
 ```
-这里的`<=`当然就是**小于等于**的意思啦， 在例子中你可以明显的看出它的用途，而`~`放在约束的最后用来设置约束的等级。你可以使用数值来表示，也可以通过几个默认的值如(r,h,m,l)来设置相应的约束等级。
+* **懒加载属性**
 
-* **`#snpm(iconView, t=titleLabel.b-20, w=titLabel*0.5) + snpm(titleLabe, wh = 100)`**
-```swift
-iconView.snp.makeConstraints {
-    $0.top.equalTo(titleLabel.snp.bottom).offset(-20)
-    $0.width.equalTo(titLabel).multipliedBy(0.5)
-}
-
-titleLabe.snp.makeConstraints {
-    $0.width.height.equalTo(100)
-}
+```Swift
+lv.UIButton
+// lv 是属性控制，lv 是一个特殊的组合,分来时 l 表示 let, v 表示 var; 合并在一起时表示 lazy var
+lazy var <#name#>: UIButton = {
+    <#code#>
+}()
 ```
+* **OC可访问属性**
 
-**如果你在一个约束写完以后想要直接写下一个直接在中间连一个`+`号即可，后面的`snpm`不用在跟`#`,`#`号是用来区分功能的. 所有同模块的功能都能在中间加上+号来连接**
-
-更多的用法，大家可以去尝试，下面是它的所有可用项：
-
-**除了#snpm以外，还可以使用#snprm、#snp，来分别remake和update约束**
-
-> * **属性** * 
->   * `l -> left`
->   * `t -> top`
->   * `b -> bottom`
->   * `r -> right`
->   * `w -> width`
->   * `h -> height`
->   * `x -> centerX`
->   * `y -> centerY`
->   * `c -> center`
->   * `s -> size`
->   * `e -> edges`
-
-> * **约束等级**
->   * `r -> .required`
->   * `h -> .high`
->   * `m -> .medium`
->   * `l -> .low`
-
-> * **比较参数**
->   * `>= -> greaterThanOrEqualTo `
->   * `<= -> lessThanOrEqualTo `
->   * `= -> equalTo`
-
-> * **运算符**
->   * `-` `-> offset(-value)`
->   * `+ -> offset(value)`
->   * `* -> multipliedBy(value)`
->   * `/ -> dividedBy(value)`
-
-### 生成属性代码
-
-如果你已经看过了SnapKit的用法，那这里就容易的多了，话不多说，我们举个🌰
-
-* **`pl.UIView{}*2 + .l.String{""}`**
-```swift
-  private let name = UIView()
-  private let name = UIView()
-  private let name = ""
+```Swift
+@Pv.UIImageView
+// 添加 @ 将把属性标记为 @objc
+@objc public var <#name#>: UIImageView
 ```
-不需要任何的前缀，`pl`分别是`private`和`let`,其实都是第一个字母. `UIView`表示你要创建的`Class`, `{}`就是你要初始化的意思，默认的初始化是在类名后面加上一对小括号, 当然你也可以在{}中写上你想要的默认值，`*2`就是要把这个属性重复两遍，对于码界面的时候，一个界面上显示多个UILabel是很正常的事，这里再也不用复制粘贴了。后面就很容易理解了,`{""}`的意思就是创建String的默认值
+* **特殊的属性标识**
 
-FlyCoding 会在你使用了默认值的时候，把你的类名给省略掉，如果你并没有设置默认值，就会是这个样子
-* **`@pl.String`**
-```swift
-@objc private let name: String
+```Swift
+ wv.EatProtocol?
+// 添加 w 将把属性标记为 weak, 除了 w 之外，还有 u/unowned、 c/class 和 s/static
+weak var <#name#>: EatProtocol?
 ```
 
-用起来十分的简单，下面是你能使用的属性
+* **批量生成属性**
 
-```swift
-"l": "let",
-"v": "var",
-"p": "private",
-"P": "public",
-"o": "open",
-"f": "fileprivate",
-"pl": "private let",
-"pv": "private var",
-"Pl": "public let",
-"Pv": "public var",
-"ol": "open let",
-"ov": "open var",
-"fl": "fileprivate let",
-"fv": "fileprivate var",
-"lv": "lazy var",
-
-"@": "@objc",
-"u": "unowned",
-"w": "weak",
-"c": "class"
+```Swift
+pl.UILabel{} *2
+// *2 中间不能有空格， 一般用于编写数据模型，或是编写 UI 时使用
+private let <#name#> = UILabel()
+private let <#name#> = UILabel()
 ```
 
-### 生成view代码
+>  Tips： 如果属性没有写标记，会自动使用  let 来标记属性
 
-这部分使用Xcode的代码块也可以实现，但是写代码的时候，打出了对应的短语后还要看一眼和等待Xcode反应实在是令人着急。我们为的就是快！！！
-通过**#make()**命令我们可以快速的添加创建一个View的代码，又是一波🌰
+```Swift
+.UIImageView 
 
-* **`#make(UILabel) + make(UILabel) + make(UITableView) + make(UICollectionView)`**
-```swift
-let name = UILabel()
-name.font = font
-name.textColor = color
-name.text = text
-name.backgroundColor = color
-superView.addSubview(name)
-
-let name = UILabel()
-name.font = font
-name.textColor = color
-name.text = text
-name.backgroundColor = color
-superView.addSubview(name)
-
-let name = UITableView(frame: frame, style: style)
-name.backgroundColor = color
-name.delegate = delegate
-name.dataSource = dataSource
-name.separatorStyle = style
-name.register(class, forCellReuseIdentifier: identifier)
-superView.addSubview(name)
-
-let flowLayout = UICollectionViewFlowLayout()
-flowLayout.scrollDirection = direction
-flowLayout.minimumInteritemSpacing = spacing
-let name = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
-name.showsVerticalScrollIndicator = show
-name.showsHorizontalScrollIndicator = show
-name.dataSource = self
-name.delegate = self
-name.backgroundColor = color
-name.register(class, forCellWithReuseIdentifier: id)
-superView.addSubview(name)
-```
-当然了，这里你同样可是使用`*`来创建多个视图，目前支持的种类不是很多，常见的够用，以后会继续的添加
-
-**这是目前支持的创建类型**
-- UIView
-- UILabel
-- UIButton
-- UIImageView
-- UITableView
-- UICollectionView
-
-然后，目前的主要功能就说完了，刚开始使用的时候可能不习惯，但是用惯了以后，真不想在一行一行的去敲键盘了，对于码农来说，懒就是生产力。
-
-现在你可以跳转到[FlyCoding](https://github.com/SSBun/FlyCoding/blob/master/README.md#installation)去下载此插件，你可以直接下载作者的[压缩包](https://github.com/SSBun/FlyCoding/blob/master/FlyCoding.zip) 打开后，直接运行程序，然后关闭程序就ok了，最好设置一个你喜欢的快捷键，这样才能体会飞一般的速度。
-
-如果有什么问题的话，大家可以在github上提交issue，有想要的特性也可以提交issue。
-
-
-
-
-
-
-
-
-
-
-
- [图片上传失败...(image-a8f742-1510135880746)]
-
-FlyCoding是一个Xcode插件，使用苹果提供的插件机制编写，可以运行在最新的Xcode上， 它提供了类似于HTML中 **Emmet** 的功能。你可以通过特殊语法来快速的生成你想要的**Swfit**代码，特别是在大量的编写界面UI时， 重复的编写UI控件和约束是一件非常繁琐和机械的劳动， 但是这又是你不可避免的。
-而FlyCoding则可以帮助你快速的帮你生成**视图代码、属性、SnapKit约束**，目前FlyCoding刚刚发布了第一个版本，更多的功能还在构建当中，接下来我们先在看一下目前的三个功能：
-
-### 生成Snapkit的约束代码
-使用Swift来编写UI的时候，AutoLayout肯定是必不可少的。而直接使用苹果的AutoLayout约束语句太过于麻烦，所以我们肯定会使用一些布局框架来实现AutoLayout， 在Swift当中，SnapKit的使用量最高，它和OC中的Masonry有着几乎一样的语法，这也使得使用过Masonry的从OC转向Swift的开发者能很快的适应SnapKit的语法。
-
-说完了SnapKit，我们来看一下FlyCoding是如何生成约束代码的, 我们假设有两个view(iconView 和 titleLabel)被添加在一个view(superView)上
-先来看几个例子:
-* **`#snpm(iconView, l=titleLabel.r+10, y=titleLabel)`**
-```swift
-//生成代码如下:
-iconView.snp.makeConstraints {
-    $0.left.equalTo(titleLabel.snp.right).offset(10)
-    $0.centerY.equalTo(titleLabel)
-}
-```
-在这里`#snpm`就是一个标签，它代表创建一个snapKit约束，而小括号内的就是约束的参数，`iconView`是指谁接受约束，`l=titleLabel.r+10` 就是指iconView的左侧等于IconView的右侧再偏移10个点的位置。而`y=titleLabel`就是指iconView的中心y轴和titleLabel的中心y轴相等。
-
-* **`#snpm(iconView, r=titleLabel.l-20, wh=20)`**
-
-类似的`wh=20`就是iconView的宽高等于20，你可以任意的组合要约束的部位，比如如果两个view的位置想同，你可以写`ltbr=titleLabel`,
-`l=left、r=right、t=top、b=bottom`。 当然直接写`e=titleLabel`就是`edges`的意思。
-
-* **`#snpm(iconView, t=titleLabel.b+superView.height-20, w=titLabel*0.5)`**
-```swift
-iconView.snp.makeConstraints {
-    $0.top.equalTo(titleLabel.snp.bottom).offset(superView.height-20)
-    $0.width.equalTo(titLabel).multipliedBy(0.5)
-}
-```
-再FlyCoding中，`t=titleLabel.b+superView.height-20`中的第一个`+`号拥有最低的执行等级， 哪怕此处由`+`成了`*`它也不会参与到后面的计算当中，或者你可以说它有特殊的作用。
-`w=titleLabel*0.5`就是说iconView的宽只有titleLabel的一半，这里写起来十分的简单。你也可以说是`w=titleLabel/2`,效果也是一样的。
-
-* **`#snpm(iconView, l = superView, r <= superView~l, r <= titleLabel.l - 20~h)`**
-```swift
-iconView.snp.makeConstraints {
-    $0.left.equalTo(superView)
-    $0.right.lessThanOrEqualTo(superView).priority(.low)
-    $0.right.lessThanOrEqualTo(titleLabel.snp.left).offset(-20).priority(.high)
-}
-```
-这里的`<=`当然就是**小于等于**的意思啦， 在例子中你可以明显的看出它的用途，而`~`放在约束的最后用来设置约束的等级。你可以使用数值来表示，也可以通过几个默认的值如(r,h,m,l)来设置相应的约束等级。
-
-* **`#snpm(iconView, t=titleLabel.b-20, w=titLabel*0.5) + snpm(titleLabe, wh = 100)`**
-```swift
-iconView.snp.makeConstraints {
-    $0.top.equalTo(titleLabel.snp.bottom).offset(-20)
-    $0.width.equalTo(titLabel).multipliedBy(0.5)
-}
-
-titleLabe.snp.makeConstraints {
-    $0.width.height.equalTo(100)
-}
+ let <#name#>: UIImageView
 ```
 
-**如果你在一个约束写完以后想要直接写下一个直接在中间连一个`+`号即可，后面的`snpm`不用在跟`#`,`#`号是用来区分功能的. 所有同模块的功能都能在中间加上+号来连接**
 
-更多的用法，大家可以去尝试，下面是它的所有可用项：
+####Swift 属性标记快速查询表
 
-**除了#snpm以外，还可以使用#snprm、#snp，来分别remake和update约束**
+| 符号 | 标记 |
+| :-: | :-: |
+| l | Let |
+| v | var |
+| p | private |
+| P | public |
+| o | open |
+| f | fileprivate |
+| pl | private let |
+| pv | private var |
+| ol | open let |
+| Ov | open var |
+| fl | fileprivate let |
+| fv | fileprivate var |
+| lv | Lazy var |
+| -- | -- |
+| @ | @objc |
+| u | unowned |
+| w | weak |
+| c | class |
+| s | static |
 
-> * **属性** * 
->   * `l -> left`
->   * `t -> top`
->   * `b -> bottom`
->   * `r -> right`
->   * `w -> width`
->   * `h -> height`
->   * `x -> centerX`
->   * `y -> centerY`
->   * `c -> center`
->   * `s -> size`
->   * `e -> edges`
 
-> * **约束等级**
->   * `r -> .required`
->   * `h -> .high`
->   * `m -> .medium`
->   * `l -> .low`
+#### Objective-C属性生成
+Objective-C 中的使用语法和 Swift 区别不大，主要是关键字和生成的样子不同
 
-> * **比较参数**
->   * `>= -> greaterThanOrEqualTo `
->   * `<= -> lessThanOrEqualTo `
->   * `= -> equalTo`
+* **单个属性**
 
-> * **运算符**
->   * `-` `-> offset(-value)`
->   * `+ -> offset(value)`
->   * `* -> multipliedBy(value)`
->   * `/ -> dividedBy(value)`
-
-### 生成属性代码
-
-如果你已经看过了SnapKit的用法，那这里就容易的多了，话不多说，我们举个🌰
-
-* **`pl.UIView{}*2 + .l.String{""}`**
-```swift
-  private let name = UIView()
-  private let name = UIView()
-  private let name = ""
+```Swift
+.UIImageView *
+// 默认描述就是 nonatomic, strong
+@property (nonatomic, strong) UIImageView *<#name#>
 ```
-不需要任何的前缀，`pl`分别是`private`和`let`,其实都是第一个字母. `UIView`表示你要创建的`Class`, `{}`就是你要初始化的意思，默认的初始化是在类名后面加上一对小括号, 当然你也可以在{}中写上你想要的默认值，`*2`就是要把这个属性重复两遍，对于码界面的时候，一个界面上显示多个UILabel是很正常的事，这里再也不用复制粘贴了。后面就很容易理解了,`{""}`的意思就是创建String的默认值
+* **生成完整属性**
 
-FlyCoding 会在你使用了默认值的时候，把你的类名给省略掉，如果你并没有设置默认值，就会是这个样子
-* **`@pl.String`**
-```swift
-@objc private let name: String
+```Swift
+c.NSString *name;
+// 如果在末尾添加 ' ; ' 表示 Class 后面已经衔接了属性名， 为了方便快速编码
+@property (nonatomic, copy) NSString *name;
 ```
 
-用起来十分的简单，下面是你能使用的属性
+> Tips： class 可以用来标记类属性
 
-```swift
-"l": "let",
-"v": "var",
-"p": "private",
-"P": "public",
-"o": "open",
-"f": "fileprivate",
-"pl": "private let",
-"pv": "private var",
-"Pl": "public let",
-"Pv": "public var",
-"ol": "open let",
-"ov": "open var",
-"fl": "fileprivate let",
-"fv": "fileprivate var",
-"lv": "lazy var",
-
-"@": "@objc",
-"u": "unowned",
-"w": "weak",
-"c": "class"
-```
-
-### 生成view代码
-
-这部分使用Xcode的代码块也可以实现，但是写代码的时候，打出了对应的短语后还要看一眼和等待Xcode反应实在是令人着急。我们为的就是快！！！
-通过**#make()**命令我们可以快速的添加创建一个View的代码，又是一波🌰
-
-* **`#make(UILabel) + make(UILabel) + make(UITableView) + make(UICollectionView)`**
-```swift
-let name = UILabel()
-name.font = font
-name.textColor = color
-name.text = text
-name.backgroundColor = color
-superView.addSubview(name)
-
-let name = UILabel()
-name.font = font
-name.textColor = color
-name.text = text
-name.backgroundColor = color
-superView.addSubview(name)
-
-let name = UITableView(frame: frame, style: style)
-name.backgroundColor = color
-name.delegate = delegate
-name.dataSource = dataSource
-name.separatorStyle = style
-name.register(class, forCellReuseIdentifier: identifier)
-superView.addSubview(name)
-
-let flowLayout = UICollectionViewFlowLayout()
-flowLayout.scrollDirection = direction
-flowLayout.minimumInteritemSpacing = spacing
-let name = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
-name.showsVerticalScrollIndicator = show
-name.showsHorizontalScrollIndicator = show
-name.dataSource = self
-name.delegate = self
-name.backgroundColor = color
-name.register(class, forCellWithReuseIdentifier: id)
-superView.addSubview(name)
-```
-当然了，这里你同样可是使用`*`来创建多个视图，目前支持的种类不是很多，常见的够用，以后会继续的添加
-
-**这是目前支持的创建类型**
-- UIView
-- UILabel
-- UIButton
-- UIImageView
-- UITableView
-- UICollectionView
-
-# 1.1
-#### 新增方法创建功能
-* **` #func(p.getAge:>)  `**
-```
-private func getAge(param) -> return {
-    code
-}
-```
-通过 `#func`调用，只有一个参数，`getAge`是方法名， `p`就是方法权限， 中间使用`.`隔开，与我们使用属性时相同, 参数中的`:`和`>`分别代表是否有参数和返回值。同样可以使用`*`来进行复制，或是使用`+`来继续添加
-
-当然也可以写入多个`:`来生成多个参数，大于一个`>`所产生的返回是一个元组，元组在Swfit中可以被用来返回多个结果
-
-#### 新增UIView动画创建功能(相比较系统的自动提示并没有什么太大的区别，就是懒得选)
-* **` #anim(df)`**
-```
-UIView.animate(withDuration: T##TimeInterval) {
-    code
-}
-```
-通过 `#anim`调用，只有一个参数用来表示是什么动动画
-* df 普通的动画
-* dc  带完成回调的普通动画
-* dd 普通延时动画
-* ds 弹簧动画
-* dk 关键帧动画
-
-
-#End
-
-
-FlyCoding is a Xcode plugin to make auto-generate swift code with marking language.
-
-
-![img](https://ws2.sinaimg.cn/large/006tKfTcly1fljxvy6u2og30go0g4gmi.gif)
-
-![img](https://ws1.sinaimg.cn/large/006tKfTcly1fljxx4234bg30go0g4gm5.gif)
-
-![img](https://ws2.sinaimg.cn/large/006tKfTcly1fljxxaavzdg30go0g4dgp.gif)
-
-## Contents
-
-- [Requirements](#requirements)
-- [Communication](#communication)
-- [Installation](#installation)
-- [Usage](#usage)
-  - Generate Constraints (SnapKit)
-  - Generate Property
-  - Generate View
-- [Credits](#credits)
-- [License](#license)
-
-## Requirements
-
-- Xcode 9.0+
-- Swift 4.0+
-
-## Communication
-
-- If you **found a bug**, open an issue.
-- If you **have a feature request**, open an issue.
-- If you **want to contribute**, submit a pull request.
-
-
-## Installation
-
-### Download Application
-[FlyCoding.dmg](https://github.com/SSBun/FlyCoding/blob/master/FlyCoding.dmg)
-
-### Build Project
-* You can download this project and build it in your Xcode
-* You should move the application in project folder 'Products' to Mac Application and run it.
-
-⚠️ **If you cannot see 'flyCoding' in Xcode menu Editor, you can go to System Extension config to check flyCoding** ⚠️
+####Objective-C 属性标记快速查询表
+| 符号 | 标记 |
+| :-: | :-: |
+| s | strong |
+| w | weak |
+| a | assign |
+| r | readonly |
+| g | getter=<#getterName#> |
+| c | copy |
+| n | nullable |
+| N | nonnull |
+| C | class |
 
 ---
 
-## Usage
+### 生成约束代码
+我选取了最常用的两个框架来实现， 在 Objective-C 中使用 Masonry，而在 Swift 当中使用 SnapKit。
 
-[中文指南](http://www.jianshu.com/p/5a1b064b2457)
+#### SnapKit
 
-You write marking language then click FlyCoding or use shortcut, The generated code will be print.
+* **添加布局**
 
-### Generate Constraints (use [SnapKit](https://github.com/SnapKit/SnapKit/blob/develop/README.md#license))
+```Swift
+ #snpm(iconView, e=self)
+ // snpm 就是 makeConstraints， 在 （） 中使用，号来分割各个语句
+ // 第一个参数是要添加约束的对象，剩下的都是布局语句
+ // 每个语句都分为三个部分，左边是被约束对象的属性，中间是约束方式，
+ // 而右边是约束的值或是其它的约束对象
+ iconView.snp.makeConstraints {
+    $0.edges.equalTo(self)
+ }
+```
+* **更新布局**
 
-> *Grammar:*  ***`#snpm(iconView, l=titleLabel.r+10, y=titleLabel)`***
-```swift
-// #snpm(iconView, l=titleLabel.r+10, y=titleLabel)
-iconView.snp.makeConstraints {
-    $0.left.equalTo(titleLabel.snp.right).offset(10)
-    $0.centerY.equalTo(titleLabel)
+```Swift
+#snpu(iconView, h=100)
+// snpu 是 updateConstraints
+iconView.snp.updateConstraints {
+    $0.height.equalTo(100)
 }
+```
+* **重置布局**
 
-// #snpm(iconView, r=titleLabel.l-20, wh=20)
+```Swift
+#snprm(iconView, r=self - 20)
+// snprm 是 remakeConstraints
+iconView.snp.remakeConstraints {
+    $0.right.equalTo(self).offset(-20)
+}
+```
+
+* **布局演示 1 (相对距离)**
+
+```Swift
+#snpm(iconView, r=titleLabel.l-20, wh=20)
+// 更加直观的使用 + - 来进行相对距离的设置
 iconView.snp.makeConstraints {
     $0.right.equalTo(titleLabel.snp.left).offset(-20)
     $0.width.height.equalTo(20)
 }
+```
+* **布局演示 2 (+-的作用)**
 
-// #snpm(iconView, t=titleLabel.b+titleLabel.height-20, w=titLabel*0.5)
+```Swift
+#snpm(iconView, t=titleLabel.b-superView.height-20, wh=100)
+// 在约束语句中，第一个加减号除了有正负的含义，还是分割前后语句的标记
+ iconView.snp.makeConstraints {
+    $0.top.equalTo(titleLabel.snp.bottom).offset(-superView.height-20)
+    $0.width.height.equalTo(100)
+}
+```
+* **布局演示 3 (比例约束)**
+
+```Swift
+#snpm(iconView, wh=self/2)
+// 进行比例约束也是常用的约束手法
 iconView.snp.makeConstraints {
-    $0.top.equalTo(titleLabel.snp.bottom).offset(titleLabel.height-20)
-    $0.width.equalTo(titLabel).multipliedBy(0.5)
+    $0.width.height.equalTo(self).dividedBy(2)
 }
 
-// #snpm(iconView, l = superView, r <= superView~l, r <= titleLabel.l - 20~h)
+// 相同作用 
+#snpm(iconView, wh=self*0.5)
+// 使用 * 法当然也是可以的
 iconView.snp.makeConstraints {
-    $0.left.equalTo(superView)
-    $0.right.lessThanOrEqualTo(superView).priority(.low)
+    $0.width.height.equalTo(self).multipliedBy(0.5)
+}
+```
+* **布局演示 4 (比较)**
+
+```Swift
+#snpm(titleLabel, tl=self, r<=self - 20)
+// 常用的根据文本的长度自适应宽度
+// 也可以使用 >= 表示大于等于
+ titleLabel.snp.makeConstraints {
+    $0.top.left.equalTo(self)
+    $0.right.lessThanOrEqualTo(self).offset(-20)
+}
+```
+
+* **布局演示 4 (约束等级)**
+
+```Swift
+#snpm(iconView, l = self, r <= superView~20, r <= titleLabel.l - 20~h)
+// 在约束语句的最后使用 ～ 可以用来设置约束登记
+// 你可以使用数字来表示约束登记，也可以使用 r\h\m\l 来标记
+ iconView.snp.makeConstraints {
+    $0.left.equalTo(self)
+    $0.right.lessThanOrEqualTo(superView).priority(20)
     $0.right.lessThanOrEqualTo(titleLabel.snp.left).offset(-20).priority(.high)
 }
-
-```
-**Constraints List**
-
-```swift
-// ConstraintMakerExtendable
-static let makerMap = ["l": "left",
-                       "t": "top",
-                       "b": "bottom",
-                       "r": "right",
-                       "w": "width",
-                       "h": "height",
-                       "x": "centerX",
-                       "y": "centerY",
-                       "c": "center",
-                       "s": "size",
-                       "e": "edges"]
-                       
-// ConstraintPriority
-let flags = ["r": ".required",
-             "h": ".high",
-             "m": ".medium",
-             "l": ".low"]
-             
-// compareFlagCode             
-let flags = [">=": "greaterThanOrEqualTo",
-             "<=": "lessThanOrEqualTo",
-             "=": "equalTo"]
-
-// computeFlagCode
-let flags = ["-": "offset(-value)",
-             "+": "offset(value)",
-             "*": "multipliedBy(value)",
-             "/": "dividedBy(value)"]
 ```
 
+#### SnapKit 属性标记快速查询表
+* 属性
 
-### Generate Property
+| 符号 | 属性 |
+| --- | --- |
+| l | left |
+| t | top |
+| b | bottom |
+| r | right |
+| w | width |
+| h | height |
+| x | centerX |
+| y | centerY |
+| c | center |
+| s | size |
+| e | edges |
+| **---** | **约束等级** |
+| r | .required |
+| h | .high |
+| m | .medium |
+| l | .low |
+| **---** | **比较参数** |
+| >= | greaterThanOrEqualTo |
+| <= | lessThanOrEqualTo |
+| = | equalTo |
+| **---** | **运算符号** |
+| - | Offset(-value) |
+| + | Offset(value) |
+| * | multipliedBy(value) |
+| / | dividedBy(value) |
 
-> *Grammar:*  ***`pl.UIView{}*2 + .l.String{""}`***
+#### Masonry
 
-```swift
-  private let <#name#> = UIView()
-  private let <#name#> = UIView()
-  private let <#name#> = ""
+主要的用法和 SnapKit 一致， 下面主要说不同点
+
+* **创建、更新、重置**
+
+```Swift
+@masm(iconView, e=self)   // 创建
+@masu(iconView, e=self)    // 更新
+@masrm(iconView, e=self)  // 重置
 ```
-- `[pl]` is property prefix
-- `[.]`  separate prefix and property class
-- `[{}]` give a default value, you can pass a value or default `class()`
-- `[*2]` you can duplicate the property serveal times.
-- `[+]`  you can generate another property at the same time.
+> Tips: 在 OC 中可以使用 @ 作为命令的前缀，主要是 # 在OC文件中会自动变第一列， 影响代码结构
 
-**Prefix List**
+* **约束中没有 r 这个等级了**
+* **比较里面新加了 == / >== / <==， 主要是相比少一个 = 的版本，在前面加上了 mas_** 
 
-```swift
-static let allScopeMark = ["l": "let",
-                               "v": "var",
-                               "p": "private",
-                               "P": "public",
-                               "o": "open",
-                               "f": "fileprivate",
-                               "pl": "private let",
-                               "pv": "private var",
-                               "Pl": "public let",
-                               "Pv": "public var",
-                               "ol": "open let",
-                               "ov": "open var",
-                               "fl": "fileprivate let",
-                               "fv": "fileprivate var",
-                               "lv": "lazy var"]
-    
-    static let allSystemMark = ["@": "@objc",
-                                "u": "unowned",
-                                "w": "weak",
-                                "c": "class"]
-
+```Swift
+@masm(iconView, e=self)   // 创建
+@masu(iconView, e=self)    // 更新
+@masrm(iconView, e=self)  // 重置
 ```
 
-### Generate View
+### 视图的快速创建
 
-> *Grammar:*  ***`#make(UILabel) + make(UIView)`***
-```swift
-let <#name#> = UILabel()
-<#name#>.font = <#font#>
-<#name#>.textColor = <#color#>
-<#name#>.text = <#text#>
+这部分使用 Xcode 的代码块也可以实现，但是写代码的时候，打出了对应的短语后还要看一眼和等待Xcode反应实在是令人着急。我们为的就是快！！！并且我们可以直接赋予视图一个变量名，而代码块还是不行的
+
+通过 **#make** 命令我们可以快速的添加创建一个 View 的代码
+
+**这是目前支持的创建类型**
+
+* UIView
+* UILabel
+* UIButton
+* UIImageView
+* UITableView
+* UICollectionView
+* 
+
+* **普通创建 UIImageView**
+
+```Swift
+#make(UIImageView)
+// 生成 Swift 视图
+let <#name#>  = UIImageView()
 <#name#>.backgroundColor = <#color#>
+<#name#>.image = <#image#>
 <#superView#>.addSubview(<#name#>)
-
-let <#name#>  = UIView()
-<#name#>.backgroundColor = <#color#>
-<#superView#>.addSubview(<#name#>)
+// 生成 OC 视图
+UIImageView *<#name#> = [[UIImageView alloc] init];
+self.<#name#> = <#name#>;
+<#name#>.backgroundColor = <#color#>;
+<#name#>.image = <#image#>;
+[<#superView#> addSubview: <#name#>];
 ```
-**Supprot View**
 
-- UIView
-- UILabel
-- UIButton
-- UIImageView
-- UITableView
-- UICollectionView
+* **设置属性名创建 UILabel**
 
-### Generate Func
+```Swift
+@make(UILabel, titleLabel)
+// 生成 Swift 视图
+let titleLabel = UILabel()
+titleLabel.font = <#font#>
+titleLabel.textColor = <#color#>
+titleLabel.text = <#text#>
+titleLabel.backgroundColor = <#color#>
+<#superView#>.addSubview(titleLabel)
+// 生成 OC 视图
+UILabel *titleLabel = [[UILabel alloc] init];
+self.titleLabel = titleLabel;
+titleLabel.font = <#font#>;
+titleLabel.textColor = <#color#>;
+titleLabel.text = <#text#>;
+titleLabel.backgroundColor = <#color#>;
+[<#superView#> addSubview:titleLabel];
+```
 
+### 创建方法
+#### Swift
+* **创建方法**
 
+``` Swift
+#func(eat)
+// 生成一个简单的方法
+func eat() {
+    <#code#>
+}
+```
+* **设定权限的方法**
 
+``` Swift
+#func(@p.run)
+// 标记和属性一样
+@objc private func run() {
+    <#code#>
+}
+```
 
----
+* **有参数的方法**
 
-## Credits
+``` Swift
+#func(run::)
+// 一个 ： 代表有一个参数
+func run(<#name#>: <#type#>, <#name#>: <#type#>) {
+    <#code#>
+}
+```
+* **有返回值的方法**
 
-- SSBun ([@ssbun](http://www.jianshu.com/u/3e8081b02399))
+``` Swift
+#func(run>)
+// 一个 > 代表有一个返回值
+func run() -> <#return#> {
+    <#code#>
+}
+// 多个返回值会返回元组
+#func(run>>)
+func run() -> (<#return#>, <#return#>) {
+    <#code#>
+}
+```
+#### Objective-C
+* **创建方法**
 
-## License
+``` Swift
+#func(run)
+// 生成一个简单的方法
+- (void)run {
+    <#code#>
+}
+```
+* **有返回值的方法**
 
-FlyCoding is released under the MIT license. See LICENSE for details.
+``` Swift
+#func(run>)
+// 一个 > 代表有一个返回值
+- (<#type#>)run {
+    <#code#>
+}
+```
+* **有参数的方法**
 
+``` Swift
+#func(run::)
+// 一个 ： 代表有一个参数
+- (void)run:(<#type#>)<#param0#> <#name1#>:(<#type#>)<#param1#> {
+    <#code#>
+}
+```
+
+### 通用语法功能
+* **批量处理：** 以上所有的命令都可以通过后接 ***n** 进行批量的生成
+* **多命令执行：** 你可以通过 **+** 连续的编写多句命令一块生成 
+
+> **希望大家提出宝贵的意见和建议, 你可以提出 issue 或是发邮件到 caishilin@yahoo.com**
+
+#End
 

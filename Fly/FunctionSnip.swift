@@ -82,8 +82,10 @@ class FunctionSnip: Snip {
         var firstLine = ""
         if let prefix = prefix {
             firstLine += prefix
+            firstLine += " func \(functionName)("
+        } else {
+            firstLine += "func \(functionName)("
         }
-        firstLine += " func \(functionName)("
         
         if paramCount > 0 {
             for i in 0..<paramCount {
