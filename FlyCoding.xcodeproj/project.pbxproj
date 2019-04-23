@@ -24,6 +24,20 @@
 		8E8B8D761F710DEA002EBF80 /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D751F710DEA002EBF80 /* SourceEditorExtension.swift */; };
 		8E8B8D781F710DEA002EBF80 /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D771F710DEA002EBF80 /* SourceEditorCommand.swift */; };
 		8E8B8D7C1F710DEA002EBF80 /* Fly.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8E8B8D6E1F710DEA002EBF80 /* Fly.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8EA0A1372148B0BF00CDAEAD /* FCUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0A12C2148B0BF00CDAEAD /* FCUtils.swift */; };
+		8EA0A1382148B0BF00CDAEAD /* FCProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0A12D2148B0BF00CDAEAD /* FCProcessor.swift */; };
+		8EA0A1392148B0BF00CDAEAD /* FCEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0A12E2148B0BF00CDAEAD /* FCEnum.swift */; };
+		8EA0A13A2148B0BF00CDAEAD /* FCPreprocessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0A12F2148B0BF00CDAEAD /* FCPreprocessor.swift */; };
+		8EA0A13B2148B0BF00CDAEAD /* FCCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0A1302148B0BF00CDAEAD /* FCCore.swift */; };
+		8EA0A13C2148B0BF00CDAEAD /* CodeFormatCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0A1322148B0BF00CDAEAD /* CodeFormatCommand.swift */; };
+		8EA0A13D2148B0BF00CDAEAD /* MoveCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0A1332148B0BF00CDAEAD /* MoveCommand.swift */; };
+		8EA0A13E2148B0BF00CDAEAD /* ToCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0A1342148B0BF00CDAEAD /* ToCommand.swift */; };
+		8EA0A13F2148B0BF00CDAEAD /* CopyCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0A1352148B0BF00CDAEAD /* CopyCommand.swift */; };
+		8EA0A1402148B0BF00CDAEAD /* RemoveCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0A1362148B0BF00CDAEAD /* RemoveCommand.swift */; };
+		8EA0A1462148B10D00CDAEAD /* GrammarAnalyser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0A1422148B10D00CDAEAD /* GrammarAnalyser.swift */; };
+		8EA0A1472148B10D00CDAEAD /* AnalyserErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0A1432148B10D00CDAEAD /* AnalyserErrorManager.swift */; };
+		8EA0A1482148B10D00CDAEAD /* CalculatorAnalyser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0A1442148B10D00CDAEAD /* CalculatorAnalyser.swift */; };
+		8EA0A1492148B10D00CDAEAD /* LexicalAnalyser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0A1452148B10D00CDAEAD /* LexicalAnalyser.swift */; };
 		8EA3DBAB2122EF9F008463E8 /* FlyCodingOCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA3DBAA2122EF9F008463E8 /* FlyCodingOCTests.swift */; };
 		8EA3DBB32122F428008463E8 /* FlyCodingSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA3DBB22122F428008463E8 /* FlyCodingSwiftTests.swift */; };
 		8EF3B3F31F73BB20002BB6D1 /* Snip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF3B3F21F73BB20002BB6D1 /* Snip.swift */; };
@@ -97,6 +111,20 @@
 		8E8B8D751F710DEA002EBF80 /* SourceEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorExtension.swift; sourceTree = "<group>"; };
 		8E8B8D771F710DEA002EBF80 /* SourceEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorCommand.swift; sourceTree = "<group>"; };
 		8E8B8D791F710DEA002EBF80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EA0A12C2148B0BF00CDAEAD /* FCUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCUtils.swift; sourceTree = "<group>"; };
+		8EA0A12D2148B0BF00CDAEAD /* FCProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCProcessor.swift; sourceTree = "<group>"; };
+		8EA0A12E2148B0BF00CDAEAD /* FCEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCEnum.swift; sourceTree = "<group>"; };
+		8EA0A12F2148B0BF00CDAEAD /* FCPreprocessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPreprocessor.swift; sourceTree = "<group>"; };
+		8EA0A1302148B0BF00CDAEAD /* FCCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCCore.swift; sourceTree = "<group>"; };
+		8EA0A1322148B0BF00CDAEAD /* CodeFormatCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeFormatCommand.swift; sourceTree = "<group>"; };
+		8EA0A1332148B0BF00CDAEAD /* MoveCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveCommand.swift; sourceTree = "<group>"; };
+		8EA0A1342148B0BF00CDAEAD /* ToCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToCommand.swift; sourceTree = "<group>"; };
+		8EA0A1352148B0BF00CDAEAD /* CopyCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopyCommand.swift; sourceTree = "<group>"; };
+		8EA0A1362148B0BF00CDAEAD /* RemoveCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveCommand.swift; sourceTree = "<group>"; };
+		8EA0A1422148B10D00CDAEAD /* GrammarAnalyser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrammarAnalyser.swift; sourceTree = "<group>"; };
+		8EA0A1432148B10D00CDAEAD /* AnalyserErrorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyserErrorManager.swift; sourceTree = "<group>"; };
+		8EA0A1442148B10D00CDAEAD /* CalculatorAnalyser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorAnalyser.swift; sourceTree = "<group>"; };
+		8EA0A1452148B10D00CDAEAD /* LexicalAnalyser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LexicalAnalyser.swift; sourceTree = "<group>"; };
 		8EA3DBA82122EF9F008463E8 /* FlyCodingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlyCodingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EA3DBAA2122EF9F008463E8 /* FlyCodingOCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyCodingOCTests.swift; sourceTree = "<group>"; };
 		8EA3DBAC2122EF9F008463E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -255,6 +283,8 @@
 				8E8B8D751F710DEA002EBF80 /* SourceEditorExtension.swift */,
 				8E8B8D771F710DEA002EBF80 /* SourceEditorCommand.swift */,
 				8E5233021FB3F8BF00271022 /* Snips */,
+				8EA0A12A2148B08E00CDAEAD /* Do */,
+				8EA0A1412148B0ED00CDAEAD /* grammarAnalyer */,
 				8EF3B3F61F74AC22002BB6D1 /* Match.swift */,
 				8E8B8D791F710DEA002EBF80 /* Info.plist */,
 				8E8B8D731F710DEA002EBF80 /* Supporting Files */,
@@ -268,6 +298,50 @@
 				8E8B8D741F710DEA002EBF80 /* Fly_Coding.entitlements */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8EA0A12A2148B08E00CDAEAD /* Do */ = {
+			isa = PBXGroup;
+			children = (
+				8EA0A1312148B0BF00CDAEAD /* Command */,
+				8EA0A12B2148B0BF00CDAEAD /* Core */,
+			);
+			name = Do;
+			sourceTree = "<group>";
+		};
+		8EA0A12B2148B0BF00CDAEAD /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				8EA0A12C2148B0BF00CDAEAD /* FCUtils.swift */,
+				8EA0A12D2148B0BF00CDAEAD /* FCProcessor.swift */,
+				8EA0A12E2148B0BF00CDAEAD /* FCEnum.swift */,
+				8EA0A12F2148B0BF00CDAEAD /* FCPreprocessor.swift */,
+				8EA0A1302148B0BF00CDAEAD /* FCCore.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		8EA0A1312148B0BF00CDAEAD /* Command */ = {
+			isa = PBXGroup;
+			children = (
+				8EA0A1322148B0BF00CDAEAD /* CodeFormatCommand.swift */,
+				8EA0A1332148B0BF00CDAEAD /* MoveCommand.swift */,
+				8EA0A1342148B0BF00CDAEAD /* ToCommand.swift */,
+				8EA0A1352148B0BF00CDAEAD /* CopyCommand.swift */,
+				8EA0A1362148B0BF00CDAEAD /* RemoveCommand.swift */,
+			);
+			path = Command;
+			sourceTree = "<group>";
+		};
+		8EA0A1412148B0ED00CDAEAD /* grammarAnalyer */ = {
+			isa = PBXGroup;
+			children = (
+				8EA0A1432148B10D00CDAEAD /* AnalyserErrorManager.swift */,
+				8EA0A1442148B10D00CDAEAD /* CalculatorAnalyser.swift */,
+				8EA0A1422148B10D00CDAEAD /* GrammarAnalyser.swift */,
+				8EA0A1452148B10D00CDAEAD /* LexicalAnalyser.swift */,
+			);
+			name = grammarAnalyer;
 			sourceTree = "<group>";
 		};
 		8EA3DBA92122EF9F008463E8 /* FlyCodingTests */ = {
@@ -483,15 +557,29 @@
 				8EF3B3F31F73BB20002BB6D1 /* Snip.swift in Sources */,
 				8E52330A1FB40CBE00271022 /* AnimationSnip.swift in Sources */,
 				8E8B8D761F710DEA002EBF80 /* SourceEditorExtension.swift in Sources */,
+				8EA0A1492148B10D00CDAEAD /* LexicalAnalyser.swift in Sources */,
+				8EA0A1382148B0BF00CDAEAD /* FCProcessor.swift in Sources */,
 				8E5233061FB3F93000271022 /* SnapSnip.swift in Sources */,
+				8EA0A1402148B0BF00CDAEAD /* RemoveCommand.swift in Sources */,
 				8EF3B3F91F74EABF002BB6D1 /* SnapExpression.swift in Sources */,
 				8E0BE0791FEA58C8008183D0 /* MasonrySnip.swift in Sources */,
+				8EA0A13C2148B0BF00CDAEAD /* CodeFormatCommand.swift in Sources */,
 				8E0BE07D1FEA7492008183D0 /* Property.swift in Sources */,
 				8E5233041FB3F8F200271022 /* GenerateViewSnip.swift in Sources */,
+				8EA0A13B2148B0BF00CDAEAD /* FCCore.swift in Sources */,
+				8EA0A1372148B0BF00CDAEAD /* FCUtils.swift in Sources */,
+				8EA0A1392148B0BF00CDAEAD /* FCEnum.swift in Sources */,
 				8EF3B3F71F74AC22002BB6D1 /* Match.swift in Sources */,
 				8E8B8D781F710DEA002EBF80 /* SourceEditorCommand.swift in Sources */,
+				8EA0A1462148B10D00CDAEAD /* GrammarAnalyser.swift in Sources */,
+				8EA0A1472148B10D00CDAEAD /* AnalyserErrorManager.swift in Sources */,
 				8E5233081FB3F96200271022 /* FunctionSnip.swift in Sources */,
+				8EA0A13F2148B0BF00CDAEAD /* CopyCommand.swift in Sources */,
+				8EA0A13E2148B0BF00CDAEAD /* ToCommand.swift in Sources */,
+				8EA0A1482148B10D00CDAEAD /* CalculatorAnalyser.swift in Sources */,
+				8EA0A13D2148B0BF00CDAEAD /* MoveCommand.swift in Sources */,
 				8E0BE07B1FEA5C6A008183D0 /* MasonryExpression.swift in Sources */,
+				8EA0A13A2148B0BF00CDAEAD /* FCPreprocessor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
