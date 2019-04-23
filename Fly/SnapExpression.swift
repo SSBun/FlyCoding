@@ -14,10 +14,10 @@ import Foundation
  View constrained labels
  */
 public struct ConstraintMaker {
-    static let makerMap = ["l": "left",
+    static let makerMap = ["l": "leading",
                            "t": "top",
                            "b": "bottom",
-                           "r": "right",
+                           "r": "trailing",
                            "w": "width",
                            "h": "height",
                            "x": "centerX",
@@ -79,7 +79,7 @@ public struct SnapExpression {
         let selfConstraint = nsExpression.substring(to: nCompareFlagRange.location)
         guard ConstraintMaker.isMakerCode(code: selfConstraint) else {return}
         
-        // The layout flags that will be add.
+        // The layout flags that will be added.
         let selfMakers = ConstraintMaker(code: selfConstraint).makers
         if selfMakers.isEmpty {return}
         nsExpression = NSString(string: nsExpression.substring(from: nCompareFlagRange.location + nCompareFlagRange.length))
@@ -109,16 +109,30 @@ public struct SnapExpression {
                 }
             }
         }
+        
+        var isPositiveOrNegativeComputeFlag = false
+        if computeFlag == "+" || computeFlag == "-" {
+            isPositiveOrNegativeComputeFlag = true
+        }
+        
         if let nComputeFlagRange = computeFlagRange {
             computeValue = nsExpression.substring(from: nComputeFlagRange.location + nComputeFlagRange.length)
             nsExpression = NSString(string: nsExpression.substring(to: nComputeFlagRange.location))
         }
         var computeObjects = nsExpression.components(separatedBy: ".")
-        if computeObjects.isEmpty {return}
+        if  computeObjects.first?.count == 0 && !isPositiveOrNegativeComputeFlag {return}
         if computeObjects.count >= 2, let lastObject = computeObjects.last, ConstraintMaker.isMakerCode(code: lastObject) {
             computeObjects.removeLast()
             computeObjects.append("snp")
             computeObjects += ConstraintMaker(code: lastObject).makers
+        }
+        if computeObjects.first?.count == 0 {
+            if let c = computeFlag, let v = computeValue {
+                computeObjects.removeAll()
+                computeObjects.append(baseValueCode(with: c, value: v))
+                computeFlag = nil
+                computeValue = nil
+            }
         }
         
         var decoderCode = "$0."
@@ -155,6 +169,15 @@ public struct SnapExpression {
                      "<=": "lessThanOrEqualTo",
                      "=": "equalTo"]
         return flags[flag] ?? "="
+    }
+    
+    private func baseValueCode(with flag: String, value: String) -> String {
+        switch flag {
+        case "-":
+            return "-\(value)"
+        default:
+            return value
+        }
     }
     
     private func computeFlagCode(with flag: String, value: String) -> String {

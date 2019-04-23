@@ -39,7 +39,7 @@ class FCPreprocessor {
 //@fc mv b
 
 struct Preprocessor {
-    static let commandFlag = "@fc"
+    static let commandFlag = "@do"
     static var allCommands: [Command.Type] = [RemoveCommand.self,
                                               MoveCommand.self,
                                               CopyCommand.self,
