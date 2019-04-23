@@ -15,10 +15,10 @@ import Foundation
  View constrained labels
  */
 public struct MSLConstraintMaker {
-    static let makerMap = ["l": "left",
+    static let makerMap = ["l": "leading",
                            "t": "top",
                            "b": "bottom",
-                           "r": "right",
+                           "r": "trailing",
                            "w": "width",
                            "h": "height",
                            "x": "centerX",
@@ -52,10 +52,10 @@ public struct MSLConstraintMaker {
 }
 
 public struct MSRConstraintMaker {
-    static let makerMap = ["l": "mas_left",
+    static let makerMap = ["l": "mas_leading",
                            "t": "mas_top",
                            "b": "mas_bottom",
-                           "r": "mas_right",
+                           "r": "mas_trailing",
                            "w": "mas_width",
                            "h": "mas_height",
                            "x": "mas_centerX",
@@ -143,16 +143,32 @@ public struct MasonryExpression {
                 }
             }
         }
+        
+        var isPositiveOrNegativeComputeFlag = false
+        if computeFlag == "+" || computeFlag == "-" {
+            isPositiveOrNegativeComputeFlag = true
+        }
+        
         if let nComputeFlagRange = computeFlagRange {
             computeValue = nsExpression.substring(from: nComputeFlagRange.location + nComputeFlagRange.length)
             nsExpression = NSString(string: nsExpression.substring(to: nComputeFlagRange.location))
         }
         var computeObjects = nsExpression.components(separatedBy: ".")
-        if computeObjects.isEmpty {return}
+        if computeObjects.first?.count == 0 && !isPositiveOrNegativeComputeFlag {return}
         if computeObjects.count >= 2, let lastObject = computeObjects.last, MSRConstraintMaker.isMakerCode(code: lastObject) {
             computeObjects.removeLast()
             computeObjects += MSRConstraintMaker(code: lastObject).makers
         }
+        if computeObjects.first?.count == 0 {
+            if let c = computeFlag, let v = computeValue {
+                computeObjects.removeAll()
+                computeObjects.append(baseValueCode(with: c, value: v))
+                computeFlag = nil
+                computeValue = nil
+            }
+        }
+        
+        
         var decoderCode = "make."
         
         decoderCode += selfMakers.joined(separator: ".")
@@ -190,6 +206,15 @@ public struct MasonryExpression {
                      ">==": "mas_greaterThanOrEqualTo",
                      "==": "mas_equalTo"]
         return flags[flag] ?? "equalTo"
+    }
+    
+    private func baseValueCode(with flag: String, value: String) -> String {
+        switch flag {
+        case "-":
+            return "-\(value)"
+        default:
+            return value
+        }
     }
     
     private func computeFlagCode(with flag: String, value: String) -> String {
