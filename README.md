@@ -2,7 +2,7 @@
 
 ## FlyCoding - Xcode版 Emmet
 
-#### ⚠️ 请使用 Swift 4.2 编译 ⚠️ 
+#### ⚠️ 请使用 Swift 5 编译 ⚠️ 
 
 FlyCoding 是一个 Xcode 插件，使用苹果提供的插件机制编写，可以运行在最新的Xcode上， 它提供了类似于前端中 **Emmet** 的功能。你可以通过特殊语法来快速的生成你想要的 **Swfit / Objective-C** 代码，特别是在大量的编写界面 UI 时， 重复的编写 UI 控件和约束是一件非常繁琐和机械的劳动， 但是这又是你不可避免的。
 而 FlyCoding 则可以帮助你快速的生成**属性、方法、约束（Masonry / SnapKit）**，目前 FlyCoding 刚刚发布了第一个版本，更多的功能还在构思当中，希望大家提供宝贵的意见和想法。
@@ -11,6 +11,7 @@ FlyCoding 是一个 Xcode 插件，使用苹果提供的插件机制编写，可
 * [x] **Objective-C / Swift 属性生成**
 * [x] **Objective-C / Swift 视图的快速创建**
 * [x] **Masonry / SnapKit 约束生成**
+* [x] **Swift 下的 AutoLayout 约束**
 * [x] **快速生成方法** 
 * [x] **任何完整操作都可以使用 ' + ' 进行分隔， 使用 '\* N' 进行批量操作**
 
@@ -295,6 +296,22 @@ iconView.snp.makeConstraints {
 @masu(iconView, e=self)    // 更新
 @masrm(iconView, e=self)  // 重置
 ```
+
+#### AutoLayout(Swift)
+
+主要的用法和 SnapKit/Masonry 一致， 下面主要说不同点
+
+* **使用 #layout 来执行语句**
+* **移除了 s(size) / c(center) / e(edges) 的支持， 在以后的版本更新当中会重新添加回来**
+* **移除了约束中除法的运算不能再使用 `/`**
+* **对于偏移的控制不在简单的使用`+``-`, 如果想要设置常量约束或是偏移使用 `:100` 的形式**
+
+```Swift
+@layout(view, l=self:100, t=self:-20, w=self*2, h=:50)
+```
+
+
+
 
 ### 视图的快速创建
 
