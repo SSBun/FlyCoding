@@ -38,6 +38,7 @@ class BaseSnip: Snip {
                         "masrm": MasonrySinp.self as Snip.Type,
                         "func": FunctionSnip.self as Snip.Type,
                         "anim": AnimationSnip.self as Snip.Type,
+                        "layout": AutoLayoutSwift.self as Snip.Type
                         ]
         guard let mark = regularMatch(text: label, expression: "^[a-zA-Z]+").first else {return nil}
         guard let snipType = snipList[mark] else {return nil}
