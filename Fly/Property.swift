@@ -156,10 +156,11 @@ func decoderPropertyCode(code: String, codeType: CodeType) -> [Property] {
 /*!
  Generate property code
  
- @disscussion If it is not an optional property but has a default value, the class name is ignored.
- Set to class name append `()` if the default value is "".
- @param proerpty The property node that involve class name and access control.
- @param spaceCount: Code identation count
+ @disscussion Being not an optional property but has a default value, the class name wil be ignored.
+ If the default value is empty string(eg: ""), we will modify the default value to that append a
+ string `()` after the class name.
+ @param proerpty: The property willing be parsed.
+ @param spaceCount: The number of code identation
  @return Property code
  */
 func generatePropertyCode(property: Property, spaceCount: Int) -> String {
