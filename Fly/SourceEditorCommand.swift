@@ -66,12 +66,12 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                         }
                         if codeType == .oc {
                             propertyCode = generateOCPropertyCode(property: property, spaceCount: colCount)
-                            if autoSelectFirstPlaceholder == nil, let range = regularMatchRange(text: propertyCode, expression: "<#(.*)?#>").first {
-                                autoSelectFirstPlaceholder = XCSourceTextRange(start: XCSourceTextPosition(line: lineCount,
-                                                                                                           column: range.location),
-                                                                               end: XCSourceTextPosition(line: lineCount,
-                                                                                                         column: range.location + range.length))
-                            }
+                        }
+                        if autoSelectFirstPlaceholder == nil, let range = regularMatchRange(text: propertyCode, expression: "<#(.*)?#>").first {
+                            autoSelectFirstPlaceholder = XCSourceTextRange(start: XCSourceTextPosition(line: lineCount,
+                                                                                                       column: range.location),
+                                                                           end: XCSourceTextPosition(line: lineCount,
+                                                                                                     column: range.location + range.length))
                         }
                         invocation.buffer.lines.insert(propertyCode, at: lineCount)
                         autoMoveCursorBehindLastChar = XCSourceTextRange(start: XCSourceTextPosition(line: lineCount,
