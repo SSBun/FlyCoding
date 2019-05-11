@@ -78,6 +78,16 @@ private let <#name#> = UILabel()
 private let <#name#> = UILabel()
 ```
 
+* **生成block初始化值**
+
+```Swift
+plb.UIButton
+// 标记 b 表示的是 block 的意思
+private let <#name#>: UIButton = {
+    <#code#>
+}()
+```
+
 >  Tips： 如果属性没有写标记，会自动使用  let 来标记属性
 
 ```Swift
@@ -110,6 +120,11 @@ private let <#name#> = UILabel()
 | w | weak |
 | c | class |
 | s | static |
+
+| 特殊符号 | 功能 |
+| :-: | :-: |
+| b | block, 为属性生成block形式的初始化值，类似于 lazy var |
+
 
 
 #### Objective-C属性生成
