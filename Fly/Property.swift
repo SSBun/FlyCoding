@@ -42,7 +42,8 @@ struct Property {
                                 "u": "unowned",
                                 "w": "weak",
                                 "c": "class",
-                                "s": "static"]
+                                "s": "static",
+                                "b": "_B__B_"]
     
     var className: String
     let scope: String
@@ -182,6 +183,9 @@ func generatePropertyCode(property: Property, spaceCount: Int) -> String {
     } else {
         if property.scope.contains("lazy") {
             code += " " * spaceCount + property.scope + " " + "<#name#>" + ": " + property.className + " = {\n" + " " * (spaceCount + 4) + "<#code#>" + "\n" + " " * spaceCount + "}()"
+        } else if let range = regularMatchRange(text: property.scope, expression: "_B__B_[\\ ]?").first {
+            let scope = String(property.scope[..<property.scope.index(property.scope.startIndex, offsetBy: range.location)] + property.scope[property.scope.index(property.scope.startIndex, offsetBy: range.location+range.length)...])
+            code += " " * spaceCount + scope + " " + "<#name#>" + ": " + property.className + " = {\n" + " " * (spaceCount + 4) + "<#code#>" + "\n" + " " * spaceCount + "}()"
         } else {
             code += " " * spaceCount + property.scope + " " + "<#name#>" + ": " + property.className
         }
