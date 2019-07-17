@@ -20,6 +20,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
+    @IBAction func gotoHelp(_ sender: Any) {
+        guard let url = URL(string: "https://github.com/SSBun/FlyCoding/blob/master/README.md") else {return}
+        NSWorkspace.shared.open(url)
+    }
 }
 
 
