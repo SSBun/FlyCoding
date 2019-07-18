@@ -24,6 +24,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let url = URL(string: "https://github.com/SSBun/FlyCoding/blob/master/README.md") else {return}
         NSWorkspace.shared.open(url)
     }
+    
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return true
+    }
 }
 
 
