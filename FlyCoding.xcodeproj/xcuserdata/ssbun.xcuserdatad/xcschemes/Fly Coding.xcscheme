@@ -53,6 +53,16 @@
                ReferencedContainer = "container:FlyCoding.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8EAC3A2A22EAD40500A1B896"
+               BuildableName = "BZCodeXTests.xctest"
+               BlueprintName = "BZCodeXTests"
+               ReferencedContainer = "container:FlyCoding.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
