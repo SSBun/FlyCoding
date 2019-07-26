@@ -9,16 +9,13 @@
 import Foundation
 import XcodeKit
 
-enum CodeType {
-    case swift
-    case oc
-}
-
 class SourceEditorCommand: NSObject, XCSourceEditorCommand {
     
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {
         
-        let codeType = analyzeCodeType(codeLines: invocation.buffer.lines)
+        defer {completionHandler(nil)}
+        // Swift or Objective-C ?
+        let codeType = InputHandle.analyzeCodeType(codeLines: invocation.buffer.lines)
         if let lines = invocation.buffer.selections as? [XCSourceTextRange],
             let codeRange = lines.first,
             var codes = invocation.buffer.lines as? [String] {
@@ -28,13 +25,14 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
             // The command code
             var code = codes[lineCount]
             if code.isEmpty {return}
+            // @do command system
             if let codeContext = Preprocessor.preprocess(codes: &codes, commandRow: lineCount) {
                 let result = Processor.process(codeContext: codeContext, codes: &codes)
                 invocation.buffer.lines.removeAllObjects()
                 invocation.buffer.lines.addObjects(from: result)
             } else {
-                // Nonblank col
-                let colCount = regularMatchRange(text: code, expression: "[\\S]+?").first?.location ?? 0
+                // Code indentation
+                let colCount = InputHandle.indentationLength(code: code)
                 // Clear whitespace
                 code = code.trimmingCharacters(in: .whitespacesAndNewlines)
                 // Command model
@@ -90,29 +88,7 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                 }
             }
         }
-        completionHandler(nil)
-        return;
     }
-}
-
-func analyzeCodeType(codeLines lines: NSMutableArray) -> CodeType {
-    guard let codeLines = lines as? [String] else {return .swift}
-    var maxLineCount = 0
-    if codeLines.count <= 50 {
-        maxLineCount = codeLines.count
-    } else {
-        maxLineCount = 50
-    }
-    let prefix50Lines = codeLines[0..<maxLineCount]
-    for line in prefix50Lines {
-        if line.contains(".swift") {
-            return .swift
-        }
-        if line.contains(".h") || line.contains(".m") {
-            return .oc
-        }
-    }
-    return .swift
 }
 
 

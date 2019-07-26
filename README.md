@@ -11,7 +11,7 @@ FlyCoding 是一个 Xcode 插件，使用苹果提供的插件机制编写，可
 * [x] **Objective-C / Swift 属性生成**
 * [x] **Objective-C / Swift 视图的快速创建**
 * [x] **Masonry / SnapKit 约束生成**
-* [x] **Swift 下的 AutoLayout 约束**
+* [x] **Swift 下的系统原生的 AutoLayout 约束**
 * [x] **快速生成方法** 
 * [x] **任何完整操作都可以使用 ' + ' 进行分隔， 使用 '\* N' 进行批量操作**
 

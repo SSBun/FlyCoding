@@ -11,7 +11,7 @@ import Foundation
 
 // MARK: - Property
 
-struct Property {
+public struct Property {
     static let allScopeMark = ["l": "let",
                                "v": "var",
                                "p": "private",
@@ -123,7 +123,7 @@ struct Property {
  @param code The command string.
  @return The result of the Analysis.
  */
-func decoderPropertyCode(code: String, codeType: CodeType) -> [Property] {
+public func decoderPropertyCode(code: String, codeType: CodeType) -> [Property] {
     let modules = code.components(separatedBy: "+")
     var properties = [Property]()
     var currentScope = "let"
@@ -164,7 +164,7 @@ func decoderPropertyCode(code: String, codeType: CodeType) -> [Property] {
  @param spaceCount: The number of code identation
  @return Property code
  */
-func generatePropertyCode(property: Property, spaceCount: Int) -> String {
+public func generatePropertyCode(property: Property, spaceCount: Int) -> String {
     var code = ""
     if let defaultValue = property.defaultValue {
         if property.className.hasSuffix("?") || property.className.hasSuffix("!") {
@@ -193,7 +193,7 @@ func generatePropertyCode(property: Property, spaceCount: Int) -> String {
     return code
 }
 
-func generateOCPropertyCode(property: Property, spaceCount: Int) -> String {
+public func generateOCPropertyCode(property: Property, spaceCount: Int) -> String {
     var code = property.scope
     code += " "
     code += property.className
