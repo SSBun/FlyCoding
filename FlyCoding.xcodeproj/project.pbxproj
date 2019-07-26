@@ -15,6 +15,9 @@
 		8E8B8D761F710DEA002EBF80 /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D751F710DEA002EBF80 /* SourceEditorExtension.swift */; };
 		8E8B8D781F710DEA002EBF80 /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D771F710DEA002EBF80 /* SourceEditorCommand.swift */; };
 		8E8B8D7C1F710DEA002EBF80 /* Fly.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8E8B8D6E1F710DEA002EBF80 /* Fly.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8E8E3C8222EAF77A00342FE9 /* InputHandleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E3C8022EAF77A00342FE9 /* InputHandleTest.swift */; };
+		8E8E3C8322EAF77A00342FE9 /* PropertyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E3C8122EAF77A00342FE9 /* PropertyTest.swift */; };
+		8E8E3C8622EB0EE300342FE9 /* TestTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8E3C8522EB0EE300342FE9 /* TestTool.swift */; };
 		8EAC3A2C22EAD40500A1B896 /* BZCodeX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EAC3A2322EAD40500A1B896 /* BZCodeX.framework */; };
 		8EAC3A3322EAD40500A1B896 /* BZCodeXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAC3A3222EAD40500A1B896 /* BZCodeXTests.swift */; };
 		8EAC3A3522EAD40500A1B896 /* BZCodeX.h in Headers */ = {isa = PBXBuildFile; fileRef = 8EAC3A2522EAD40500A1B896 /* BZCodeX.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -149,6 +152,9 @@
 		8E8B8D751F710DEA002EBF80 /* SourceEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorExtension.swift; sourceTree = "<group>"; };
 		8E8B8D771F710DEA002EBF80 /* SourceEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorCommand.swift; sourceTree = "<group>"; };
 		8E8B8D791F710DEA002EBF80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E8E3C8022EAF77A00342FE9 /* InputHandleTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputHandleTest.swift; sourceTree = "<group>"; };
+		8E8E3C8122EAF77A00342FE9 /* PropertyTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyTest.swift; sourceTree = "<group>"; };
+		8E8E3C8522EB0EE300342FE9 /* TestTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TestTool.swift; path = ../../../../../../System/Volumes/Data/Users/ssbun/Desktop/FlyCoding/BZCodeXTests/TestTool/TestTool.swift; sourceTree = "<group>"; };
 		8EAC3A2322EAD40500A1B896 /* BZCodeX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BZCodeX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EAC3A2522EAD40500A1B896 /* BZCodeX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BZCodeX.h; sourceTree = "<group>"; };
 		8EAC3A2622EAD40500A1B896 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -289,6 +295,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8E8E3C8422EB0ED500342FE9 /* TestTool */ = {
+			isa = PBXGroup;
+			children = (
+				8E8E3C8522EB0EE300342FE9 /* TestTool.swift */,
+			);
+			path = TestTool;
+			sourceTree = "<group>";
+		};
 		8EAC3A2422EAD40500A1B896 /* BZCodeX */ = {
 			isa = PBXGroup;
 			children = (
@@ -306,6 +320,9 @@
 		8EAC3A3122EAD40500A1B896 /* BZCodeXTests */ = {
 			isa = PBXGroup;
 			children = (
+				8E8E3C8422EB0ED500342FE9 /* TestTool */,
+				8E8E3C8022EAF77A00342FE9 /* InputHandleTest.swift */,
+				8E8E3C8122EAF77A00342FE9 /* PropertyTest.swift */,
 				8EAC3A3222EAD40500A1B896 /* BZCodeXTests.swift */,
 				8EAC3A3422EAD40500A1B896 /* Info.plist */,
 			);
@@ -692,7 +709,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E8E3C8322EAF77A00342FE9 /* PropertyTest.swift in Sources */,
+				8E8E3C8222EAF77A00342FE9 /* InputHandleTest.swift in Sources */,
 				8EAC3A3322EAD40500A1B896 /* BZCodeXTests.swift in Sources */,
+				8E8E3C8622EB0EE300342FE9 /* TestTool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

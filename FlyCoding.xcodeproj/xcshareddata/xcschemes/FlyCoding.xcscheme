@@ -26,18 +26,18 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "8E8B8D571F710DC1002EBF80"
+            BuildableName = "FlyCoding.app"
+            BlueprintName = "FlyCoding"
+            ReferencedContainer = "container:FlyCoding.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8EA3DBA72122EF9F008463E8"
-               BuildableName = "FlyCodingTests.xctest"
-               BlueprintName = "FlyCodingTests"
-               ReferencedContainer = "container:FlyCoding.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
          <TestableReference
             skipped = "NO">
             <BuildableReference
@@ -49,17 +49,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8E8B8D571F710DC1002EBF80"
-            BuildableName = "FlyCoding.app"
-            BlueprintName = "FlyCoding"
-            ReferencedContainer = "container:FlyCoding.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -81,8 +70,6 @@
             ReferencedContainer = "container:FlyCoding.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
