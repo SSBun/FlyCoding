@@ -10,21 +10,21 @@ import Foundation
 
 
 public struct RemoveCommand: Command {
-    static var keyWord: String = "remove"
+    public static var keyWord: String = "remove"
     
-    static var alias: String = "rm"
+    public static var alias: String = "rm"
     
-    static var executor: Executor.Type = RemoveExecutor.self
+    public static var executor: Executor.Type = RemoveExecutor.self
     
-    static var options: [Command.Type] = []
+    public static var options: [Command.Type] = []
     
-    static func execute(context: CodeContext, params: [Token]) -> CommandResult {
+    public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
         return executor.execute(context:context, params:params)
     }
     
     
     public struct RemoveExecutor: Executor {
-        static func execute(context: CodeContext, params: [Token]) -> CommandResult {
+        public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
             var context = context
             var tempArr:[Code] = []
             if params ~= [] {

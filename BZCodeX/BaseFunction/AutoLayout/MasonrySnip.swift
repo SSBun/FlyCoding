@@ -8,14 +8,14 @@
 
 import Foundation
 
-class MasonrySinp: Snip {
+public class MasonrySinp: Snip {
     
-    var label: String
-    var code: String
-    var lineCount: Int
-    var codeType: CodeType    
+    public private(set) var label: String
+    public private(set) var code: String
+    public private(set) var lineCount: Int
+    public private(set) var codeType: CodeType
     
-    required init?(label: String, spaceCount: Int, codeType: CodeType) {
+    public required init?(label: String, spaceCount: Int, codeType: CodeType) {
         if codeType != .oc {return nil}
         guard let code = regularMatch(text: label, expression: "(?<=\\().+(?=\\))").first else {return nil}
         guard let mark = regularMatch(text: label, expression: "^[a-zA-Z]+").first else {return nil}

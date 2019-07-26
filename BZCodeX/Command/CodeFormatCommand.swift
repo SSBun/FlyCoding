@@ -10,20 +10,20 @@ import Foundation
 
 
 public struct CodeFormatCommand: Command {
-    static var keyWord: String = "format"
+    public static var keyWord: String = "format"
     
-    static var alias: String = "fm"
+    public static var alias: String = "fm"
     
-    static var executor: Executor.Type = CodeFormatExecutor.self
+    public static var executor: Executor.Type = CodeFormatExecutor.self
     
-    static var options: [Command.Type] = []
+    public static var options: [Command.Type] = []
     
-    static func execute(context: CodeContext, params: [Token]) -> CommandResult {
+    public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
         return executor.execute(context:context, params:params)
     }
     
     public struct CodeFormatExecutor: Executor {
-        static func execute(context: CodeContext, params: [Token]) -> CommandResult {
+        public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
             var context = context
             var tempArr:[Code] = []
             if params ~= [.number, .dot] {

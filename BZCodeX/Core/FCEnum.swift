@@ -8,21 +8,21 @@
 
 import Foundation
 
-enum CommandError {
+public enum CommandError {
     case noneMatch
 }
 
-enum CommandResult {
+public enum CommandResult {
     case success(CodeContext)
     case error(CommandError)
 }
 
-enum ParseResult {
+public enum ParseResult {
     case success([(Command.Type, [Token])])
     case error(String?)
 }
 
-enum CodeSate {
+public enum CodeSate {
     case normal
     case insert
     case remove

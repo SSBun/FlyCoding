@@ -8,6 +8,7 @@
 
 import Foundation
 import XcodeKit
+import BZCodeX
 
 class SourceEditorCommand: NSObject, XCSourceEditorCommand {
     
@@ -19,7 +20,7 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
         if let lines = invocation.buffer.selections as? [XCSourceTextRange],
             let codeRange = lines.first,
             var codes = invocation.buffer.lines as? [String] {
-            
+
             // The start line number
             var lineCount = codeRange.start.line
             // The command code

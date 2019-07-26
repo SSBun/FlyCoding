@@ -8,11 +8,11 @@
 
 import Foundation
 
-protocol Executor {
+public protocol Executor {
     static func execute(context: CodeContext, params: [Token]) -> CommandResult
 }
 
-protocol Command {
+public protocol Command {
     static var keyWord: String {get}
     static var alias: String {get}
     static var executor: Executor.Type {get}
@@ -20,7 +20,7 @@ protocol Command {
     static func execute(context: CodeContext, params: [Token]) -> CommandResult
 }
 
-struct Code {
+public struct Code {
     var state: CodeSate
     var scope: Scope
     var value: String
@@ -42,7 +42,7 @@ struct Code {
     }
 }
 
-struct CodeContext {
+public struct CodeContext {
     var commandCode: Code
     var codes: [Code]
 }

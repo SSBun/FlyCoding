@@ -14,7 +14,7 @@ import Foundation
 
  Any objects that complies with the protocol can extend a new command.
  */
-protocol Snip {
+public protocol Snip {
     var label: String {get}
     var code: String {get}
     var lineCount: Int {get}
@@ -22,13 +22,13 @@ protocol Snip {
     init?(label: String, spaceCount: Int, codeType: CodeType)
 }
 
-class BaseSnip: Snip {
-    var label: String
-    var code: String
-    var lineCount: Int
-    var codeType: CodeType
+public class BaseSnip: Snip {
+    public var label: String
+    public var code: String
+    public var lineCount: Int
+    public var codeType: CodeType
     
-    required init?(label: String, spaceCount: Int, codeType: CodeType) {
+    public required init?(label: String, spaceCount: Int, codeType: CodeType) {
         let snipList = ["make": GenerateViewSnip.self as Snip.Type,
                         "snpm": SnapSnip.self as Snip.Type,
                         "snpu": SnapSnip.self as Snip.Type,

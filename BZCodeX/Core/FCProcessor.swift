@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct Processor {
-    static func process(codeContext: CodeContext, codes: inout [String]) -> [String] {
+public struct Processor {
+    public static func process(codeContext: CodeContext, codes: inout [String]) -> [String] {
         var codeContext = codeContext
         codeContext.codes.sort {
             if $0.row >= $1.row {

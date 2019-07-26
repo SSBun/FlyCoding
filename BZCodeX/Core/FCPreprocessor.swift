@@ -38,14 +38,14 @@ class FCPreprocessor {
 //@fc mv t
 //@fc mv b
 
-struct Preprocessor {
+public struct Preprocessor {
     static let commandFlag = "@do"
     static var allCommands: [Command.Type] = [RemoveCommand.self,
                                               MoveCommand.self,
                                               CopyCommand.self,
                                               ToCommand.self]
 
-    static func preprocess(codes: inout [String], commandRow: Int) -> CodeContext? {
+    public static func preprocess(codes: inout [String], commandRow: Int) -> CodeContext? {
         let codeValue = codes[commandRow]
         guard let range = regularMatchRange(text: codeValue, expression: "\(commandFlag)").last else {return nil}
         var commandStr = ""

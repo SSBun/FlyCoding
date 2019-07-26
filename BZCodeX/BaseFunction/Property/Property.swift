@@ -45,12 +45,12 @@ public struct Property {
                                 "s": "static",
                                 "b": "_B__B_"]
     
-    var className: String
+    public private(set) var className: String
     let scope: String
     let defaultValue: String?
-    var lineCount: Int = 1
-    var instanceName: String = "<#name#>"
-    let codeType: CodeType
+    public private(set) var lineCount: Int = 1
+    public private(set) var instanceName: String = "<#name#>"
+    public let codeType: CodeType
     
     init(className: String, scope: String, defaultValue: String?, codeType: CodeType = .swift) {
         self.className = className

@@ -67,7 +67,7 @@ enum TokenType: String {
 
 
 /// 代码中的标签
-struct Token {
+public struct Token {
     var str: String = ""
     var kind: TokenType = .bad
     var scope: Scope = .zero
@@ -75,7 +75,7 @@ struct Token {
 }
 
 /// 标签识别中的状态
-enum TokenStatus {
+public enum TokenStatus {
     /* 初始化 **/
     
     case initPart
@@ -96,7 +96,7 @@ enum TokenStatus {
 }
 
 /// 词法解析
-class LexicalAnalyser {
+public class LexicalAnalyser {
     public private(set) var tokens: [Token] = []
     public let code: String
     public private(set) var string: String = ""

@@ -9,20 +9,20 @@
 import Foundation
 
 public struct CopyCommand: Command {
-    static var keyWord: String = "copy"
+    public static var keyWord: String = "copy"
     
-    static var alias: String = "cp"
+    public static var alias: String = "cp"
     
-    static var executor: Executor.Type = CopyExecutor.self
+    public static var executor: Executor.Type = CopyExecutor.self
     
-    static var options: [Command.Type] = []
+    public static var options: [Command.Type] = []
     
-    static func execute(context: CodeContext, params: [Token]) -> CommandResult {
+    public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
         return executor.execute(context:context, params:params)
     }
     
     public struct CopyExecutor: Executor {
-        static func execute(context: CodeContext, params: [Token]) -> CommandResult {
+        public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
             var context = context
             var tempArr:[Code] = []
             if params ~= [] {

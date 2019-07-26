@@ -9,20 +9,20 @@
 import Foundation
 
 public struct ToCommand: Command {
-    static var keyWord: String = "to"
+    public static var keyWord: String = "to"
     
-    static var alias: String = "to"
+    public static var alias: String = "to"
     
-    static var executor: Executor.Type = ToExector.self
+    public static var executor: Executor.Type = ToExector.self
     
-    static var options: [Command.Type] = []
+    public static var options: [Command.Type] = []
     
-    static func execute(context: CodeContext, params: [Token]) -> CommandResult {
+    public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
         return ToExector.execute(context:context, params:params)
     }
     
     public struct ToExector: Executor {
-        static func execute(context: CodeContext, params: [Token]) -> CommandResult {
+        public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
             var context = context
             if params ~= [.dot] {
                 let insertRow = context.commandCode.row
