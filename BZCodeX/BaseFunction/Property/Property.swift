@@ -14,19 +14,23 @@ import Foundation
 public struct Property {
     static let allScopeMark = ["l": "let",
                                "v": "var",
+                               "lv": "lazy var",
                                "p": "private",
                                "P": "public",
                                "o": "open",
                                "f": "fileprivate",
                                "pl": "private let",
                                "pv": "private var",
+                               "plv": "private lazy var",
                                "Pl": "public let",
                                "Pv": "public var",
+                               "Plv": "public lazy var",
                                "ol": "open let",
                                "ov": "open var",
+                               "olv": "open lazy var",
                                "fl": "fileprivate let",
                                "fv": "fileprivate var",
-                               "lv": "lazy var"]
+                               "flv": "fileprivate lazy var"]
     
     static let allOCScopeMark = ["s": "strong",
                                  "w": "weak",
@@ -52,11 +56,12 @@ public struct Property {
     public private(set) var instanceName: String = "<#name#>"
     public let codeType: CodeType
     
-    init(className: String, scope: String, defaultValue: String?, codeType: CodeType = .swift) {
+    init(className: String, scope: String, defaultValue: String?, codeType: CodeType = .swift, instanceName: String = "<#name#>") {
         self.className = className
         self.defaultValue = defaultValue
         self.codeType = codeType
         self.scope = scope
+        self.instanceName = instanceName
         if className.count == 0 {
             self.className = handleOCClassNameWithEmpty(scope: scope)
         }
@@ -127,15 +132,19 @@ public func decoderPropertyCode(code: String, codeType: CodeType) -> [Property] 
     let modules = code.components(separatedBy: "+")
     var properties = [Property]()
     var currentScope = "let"
+    var instanceName = "<#name#>"
     if codeType == .oc {
         currentScope = "@property (nonatomic, strong)"
     }
     
     for var module in modules {
-        guard let className = regularMatch(text: module, expression: codeType == .swift ? "(?<=\\.)[<>&,\\(\\)\\?!a-zA-Z0-9_\\:\\[\\]\\ ]+" : "(?<=\\.)([\\*<>&,\\(\\)\\?!a-zA-Z0-9_\\:\\[\\]\\ ;](?!\\*\\ *\\d+))*").first else {continue}
+        let className = regularMatch(text: module, expression: codeType == .swift ? "(?<=\\.)[<>&,\\(\\)\\?!a-zA-Z0-9_\\:\\[\\]\\ ]+" : "(?<=\\.)([\\*<>&,\\(\\)\\?!a-zA-Z0-9_\\:\\[\\]\\ ;](?!\\*\\ *\\d+))*").first ?? "<#Class#>"
         module = module.trimmingCharacters(in: .whitespacesAndNewlines)
         if codeType == .swift, let scopStr = regularMatch(text: module, expression: "^[a-zA-Z@]+(?=\\.)").first, let scop = Property.scopeWithShortcuts(scopStr) {
             currentScope = scop
+        }
+        if codeType == .swift, let instanceNameStr = regularMatch(text: module, expression: "(?<=\\/)[a-zA-z_0-9]+").first {
+            instanceName = instanceNameStr
         }
         if codeType == .oc, let scopStr = regularMatch(text: module, expression: "^[a-zA-Z]+(?=\\.)").first, let scop = Property.scopeWithOCShortcuts(scopStr) {
             currentScope = scop
@@ -146,7 +155,7 @@ public func decoderPropertyCode(code: String, codeType: CodeType) -> [Property] 
             count = countN
         }
         for _ in 0..<count {
-            let property = Property(className: className, scope: currentScope, defaultValue: defaultValue, codeType: codeType)
+            let property = Property(className: className, scope: currentScope, defaultValue: defaultValue, codeType: codeType, instanceName: instanceName)
             properties.append(property)
         }
     }
@@ -169,42 +178,53 @@ public func generatePropertyCode(property: Property, spaceCount: Int) -> String 
     if let defaultValue = property.defaultValue {
         if property.className.hasSuffix("?") || property.className.hasSuffix("!") {
             if defaultValue.count == 0 {
-                code += " " * spaceCount + property.scope + " " + "<#name#>" + ": " + property.className + " = " + String(property.className[..<property.className.index(before: property.className.endIndex)]) + "()"
+                code += " " * spaceCount + property.scope + " " + property.instanceName + ": " + property.className + " = " + String(property.className[..<property.className.index(before: property.className.endIndex)]) + "()"
             } else {
-                code += " " * spaceCount + property.scope + " " + "<#name#>" + ": " + property.className + " = " + defaultValue
+                code += " " * spaceCount + property.scope + " " + property.instanceName + ": " + property.className + " = " + defaultValue
             }
         } else {
             if defaultValue.count == 0 {
-                code += " " * spaceCount + property.scope + " " + "<#name#>" + " = " + property.className + "()"
+                code += " " * spaceCount + property.scope + " " + property.instanceName + " = " + property.className + "()"
             } else {
-                code += " " * spaceCount + property.scope + " " + "<#name#>" + " = " + defaultValue
+                code += " " * spaceCount + property.scope + " " + property.instanceName + " = " + defaultValue
             }
         }
     } else {
         if property.scope.contains("lazy") {
-            code += " " * spaceCount + property.scope + " " + "<#name#>" + ": " + property.className + " = {\n" + " " * (spaceCount + 4) + "<#code#>" + "\n" + " " * spaceCount + "}()"
+            code += " " * spaceCount + property.scope + " " + property.instanceName + ": " + property.className + " = {\n" + " " * (spaceCount + 4) + "<#code#>" + "\n" + " " * spaceCount + "}()"
         } else if let range = regularMatchRange(text: property.scope, expression: "_B__B_[\\ ]?").first {
             let scope = String(property.scope[..<property.scope.index(property.scope.startIndex, offsetBy: range.location)] + property.scope[property.scope.index(property.scope.startIndex, offsetBy: range.location+range.length)...])
-            code += " " * spaceCount + scope + " " + "<#name#>" + ": " + property.className + " = {\n" + " " * (spaceCount + 4) + "<#code#>" + "\n" + " " * spaceCount + "}()"
+            code += " " * spaceCount + scope + " " + property.instanceName + ": " + property.className + " = {\n" + " " * (spaceCount + 4) + "<#code#>" + "\n" + " " * spaceCount + "}()"
         } else {
-            code += " " * spaceCount + property.scope + " " + "<#name#>" + ": " + property.className
+            code += " " * spaceCount + property.scope + " " + property.instanceName + ": " + property.className
         }
     }
     return code
 }
 
+
+/// Generate Objective-C properties
+/// - Parameter property: property
+/// - Parameter spaceCount: indent length
 public func generateOCPropertyCode(property: Property, spaceCount: Int) -> String {
+    ///● 1: The property mark, such as: `@property(nonatomic, strong)`
     var code = property.scope
+    /// 2: The whiespace between `property` and `mark`
     code += " "
+    /// 3: The property class
     code += property.className
     code = code.trimmingCharacters(in: .whitespacesAndNewlines)
+    ///⦿ 4-1:The class name contains instance name so just return;
+    ///such as: `UIView *bgView;`
     if property.className.hasSuffix(";") {
         return code
     }
+    ///4-2: Add a white space between the type and instance name If the type is class.
     if !property.className.hasSuffix("*") {
         code += " "
     }
-    code += "<#name#>"
+    ///⦿ 5: Append instance name
+    code += property.instanceName
     return code
 }
 

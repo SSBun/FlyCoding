@@ -23,6 +23,11 @@ FlyCoding 是一个 Xcode 插件，使用苹果提供的插件机制编写，可
 pv.UIImageView
 // pv 是属性控制，p 是 private， v 是 var，具体的列表可以在后文中查看; . 用于区分属性和类名
 private var <#name#>: UIImageView
+
+Pv.Int/age
+// Pv: public var
+// `/age` 这里的 `/` 用来标记属性名
+public var age: Int
 ```
 * **可选属性**
 
@@ -103,17 +108,23 @@ private let <#name#>: UIButton = {
 | :-: | :-: |
 | l | Let |
 | v | var |
+| lv | lazy var |
 | p | private |
 | P | public |
 | o | open |
 | f | fileprivate |
 | pl | private let |
 | pv | private var |
+| plv | private lazy var |
+| Pl | public let |
+| Pv | public var |
+| Plv | public lazy var |
 | ol | open let |
-| Ov | open var |
+| ov | open var |
+| olv | open lazy var |
 | fl | fileprivate let |
 | fv | fileprivate var |
-| lv | Lazy var |
+| flv | fileprivate lazy var |
 | -- | -- |
 | @ | @objc |
 | u | unowned |
@@ -158,7 +169,7 @@ c.NSString *name;
 | c | copy |
 | n | nullable |
 | N | nonnull |
-| C | class |
+| c | class |
 
 ---
 

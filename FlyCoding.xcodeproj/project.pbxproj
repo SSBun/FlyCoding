@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E055F8A2303D872001C81F9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8E055F892303D872001C81F9 /* README.md */; };
 		8E8B8D5C1F710DC1002EBF80 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D5B1F710DC1002EBF80 /* AppDelegate.swift */; };
 		8E8B8D5E1F710DC1002EBF80 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D5D1F710DC1002EBF80 /* ViewController.swift */; };
 		8E8B8D601F710DC1002EBF80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E8B8D5F1F710DC1002EBF80 /* Assets.xcassets */; };
@@ -140,6 +141,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8E055F892303D872001C81F9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8E8B8D581F710DC1002EBF80 /* FlyCoding.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlyCoding.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E8B8D5B1F710DC1002EBF80 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E8B8D5D1F710DC1002EBF80 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 		8E8B8D4F1F710DC1002EBF80 = {
 			isa = PBXGroup;
 			children = (
+				8E055F892303D872001C81F9 /* README.md */,
 				8E8B8D5A1F710DC1002EBF80 /* FlyCoding */,
 				8E8B8D721F710DEA002EBF80 /* Fly */,
 				8EAC3A2422EAD40500A1B896 /* BZCodeX */,
@@ -621,6 +624,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E055F8A2303D872001C81F9 /* README.md in Resources */,
 				8E8B8D601F710DC1002EBF80 /* Assets.xcassets in Resources */,
 				8E8B8D631F710DC1002EBF80 /* Main.storyboard in Resources */,
 			);

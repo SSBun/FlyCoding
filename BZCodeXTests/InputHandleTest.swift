@@ -38,6 +38,7 @@ class InputHandleTest: XCTestCase {
         let case4 = InputHandle.analyzeCodeType(codeLines: NSMutableArray(array: ["//InputHandleTest.m"])) == .oc
         let case5 = InputHandle.analyzeCodeType(codeLines: NSMutableArray(array: ["//InputHandleTest.h", "TestViewController.swift"])) == .oc
         let case6 = InputHandle.analyzeCodeType(codeLines: NSMutableArray(array: ["//InputHandleTest.swift", "TestViewController.h"])) == .swift
-        XCTAssertTrue(case1 && case2 && case3 && case4 && case5 && case6)
+        let case7 = InputHandle.analyzeCodeType(codeLines: NSMutableArray(array: [""])) == .swift
+        XCTAssertTrue(case1 && case2 && case3 && case4 && case5 && case6 && case7)
     }
 }
