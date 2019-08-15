@@ -36,7 +36,8 @@ public class BaseSnip: Snip {
                         "masm": MasonrySinp.self as Snip.Type,
                         "masu": MasonrySinp.self as Snip.Type,
                         "masrm": MasonrySinp.self as Snip.Type,
-                        "func": FunctionSnip.self as Snip.Type,
+                        "func": FunctionSnip.self as Snip.Type,                       
+                        "f": FunctionSnip.self as Snip.Type,
                         "anim": AnimationSnip.self as Snip.Type,
                         "layout": AutoLayoutSwift.self as Snip.Type
                         ]
