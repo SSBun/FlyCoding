@@ -45,8 +45,8 @@ public struct Preprocessor {
                                               CopyCommand.self,
                                               ToCommand.self]
 
-    public static func preprocess(codes: inout [String], commandRow: Int) -> CodeContext? {
-        let codeValue = codes[commandRow]
+    public static func preprocess(codes: NSMutableArray, commandRow: Int) -> CodeContext? {
+        let codeValue = codes[commandRow] as! String
         guard let range = regularMatchRange(text: codeValue, expression: "\(commandFlag)").last else {return nil}
         var commandStr = ""
         if range.location >= 1 {
@@ -60,7 +60,8 @@ public struct Preprocessor {
         var formatCodes:[Code] = []
         var index = 0
         for code in codes {
-            let formatCode = Code(state: .normal, scope: Scope(start: Position(row: index, col: 0), end: Position(row: index, col: code.count)), value: code)
+            let ncode = code as! String
+            let formatCode = Code(state: .normal, scope: Scope(start: Position(row: index, col: 0), end: Position(row: index, col: ncode.count)), value: ncode)
             formatCodes.append(formatCode)
             index+=1
         }

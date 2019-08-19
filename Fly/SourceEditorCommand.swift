@@ -19,7 +19,7 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
         let codeType = InputHandle.analyzeCodeType(codeLines: invocation.buffer.lines)
         if let lines = invocation.buffer.selections as? [XCSourceTextRange],
             let codeRange = lines.first,
-            var codes = invocation.buffer.lines as? [String] {
+            let codes = invocation.buffer.lines as? [String] {
 
             // The start line number
             var lineCount = codeRange.start.line
@@ -27,10 +27,8 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
             var code = codes[lineCount]
             if code.isEmpty {return}
             // @do command system
-            if let codeContext = Preprocessor.preprocess(codes: &codes, commandRow: lineCount) {
-                let result = Processor.process(codeContext: codeContext, codes: &codes)
-                invocation.buffer.lines.removeAllObjects()
-                invocation.buffer.lines.addObjects(from: result)
+            if let codeContext = Preprocessor.preprocess(codes: invocation.buffer.lines, commandRow: lineCount) {
+                Processor.process(codeContext: codeContext, codes: invocation.buffer.lines)
             } else {
                 // Code indentation
                 let colCount = InputHandle.indentationLength(code: code)

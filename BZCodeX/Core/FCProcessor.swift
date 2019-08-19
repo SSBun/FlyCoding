@@ -9,7 +9,7 @@
 import Foundation
 
 public struct Processor {
-    public static func process(codeContext: CodeContext, codes: inout [String]) -> [String] {
+    public static func process(codeContext: CodeContext, codes: NSMutableArray) {
         var codeContext = codeContext
         codeContext.codes.sort {
             if $0.row >= $1.row {
@@ -27,18 +27,17 @@ public struct Processor {
                 let insertOffset = insertRow - codes.count
                 if insertOffset >= 0 {
                     for _ in 0...(insertOffset) {
-                        codes.append("")
+                        codes.add("")
                     }
                 }
                 codes.insert(code.value, at: insertRow)
                 offset += 1
             case .remove:
-                codes.remove(at: code.row+code.executeOffset+offset)
+                codes.removeObject(at: code.row+code.executeOffset+offset)
                 offset -= 1
             case .replace(_):
                 codes[code.row+code.executeOffset] = code.value
             }
         }
-        return codes
     }
 }
