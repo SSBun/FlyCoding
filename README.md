@@ -446,6 +446,8 @@ titleLabel.backgroundColor = <#color#>;
 #### Swift
 * **创建方法**
 
+>`#func` 可以使用 `#f` 缩写
+
 ``` Swift
 #func(eat)
 // 生成一个简单的方法
