@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1020"
+   LastUpgradeVersion = "1110"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -89,7 +89,7 @@
       <RemoteRunnable
          runnableDebuggingMode = "0"
          BundleIdentifier = "com.apple.dt.Xcode"
-         RemotePath = "/Applications/Xcode.app">
+         RemotePath = "/Applications/Xcode-beta.app">
       </RemoteRunnable>
       <MacroExpansion>
          <BuildableReference

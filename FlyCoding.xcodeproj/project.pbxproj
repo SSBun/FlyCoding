@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8E055F8A2303D872001C81F9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8E055F892303D872001C81F9 /* README.md */; };
+		8E6FEA702366D7DC00656491 /* SortCodeCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6FEA6F2366D7DC00656491 /* SortCodeCommand.swift */; };
 		8E8B8D5C1F710DC1002EBF80 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D5B1F710DC1002EBF80 /* AppDelegate.swift */; };
 		8E8B8D5E1F710DC1002EBF80 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D5D1F710DC1002EBF80 /* ViewController.swift */; };
 		8E8B8D601F710DC1002EBF80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E8B8D5F1F710DC1002EBF80 /* Assets.xcassets */; };
@@ -142,6 +143,7 @@
 
 /* Begin PBXFileReference section */
 		8E055F892303D872001C81F9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8E6FEA6F2366D7DC00656491 /* SortCodeCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortCodeCommand.swift; sourceTree = "<group>"; };
 		8E8B8D581F710DC1002EBF80 /* FlyCoding.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlyCoding.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E8B8D5B1F710DC1002EBF80 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E8B8D5D1F710DC1002EBF80 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 				8EAC3ABC22EAD66900A1B896 /* ToCommand.swift */,
 				8EAC3ABD22EAD66900A1B896 /* CopyCommand.swift */,
 				8EAC3ABE22EAD66900A1B896 /* RemoveCommand.swift */,
+				8E6FEA6F2366D7DC00656491 /* SortCodeCommand.swift */,
 			);
 			path = Command;
 			sourceTree = "<group>";
@@ -560,7 +563,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = SSBun;
 				TargetAttributes = {
 					8E8B8D571F710DC1002EBF80 = {
@@ -689,6 +692,7 @@
 				8EAC3AD522EAD66900A1B896 /* GrammarAnalyser.swift in Sources */,
 				8EAC3ACB22EAD66900A1B896 /* InputHandle.swift in Sources */,
 				8EAC3AD322EAD66900A1B896 /* GenerateViewSnip.swift in Sources */,
+				8E6FEA702366D7DC00656491 /* SortCodeCommand.swift in Sources */,
 				8EAC3ACC22EAD66900A1B896 /* SnapExpression.swift in Sources */,
 				8EAC3AD422EAD66900A1B896 /* AnimationSnip.swift in Sources */,
 				8EAC3ADC22EAD66900A1B896 /* RemoveCommand.swift in Sources */,
@@ -878,6 +882,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 7467638S34;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = FlyCoding/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -900,6 +905,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 7467638S34;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = FlyCoding/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -918,6 +924,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7467638S34;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Fly/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -936,6 +943,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7467638S34;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Fly/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -953,7 +961,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -985,7 +993,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;

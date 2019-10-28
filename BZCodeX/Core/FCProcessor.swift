@@ -35,8 +35,8 @@ public struct Processor {
             case .remove:
                 codes.removeObject(at: code.row+code.executeOffset+offset)
                 offset -= 1
-            case .replace(_):
-                codes[code.row+code.executeOffset] = code.value
+            case .replace(let newValue):
+                codes[code.row+code.executeOffset] = newValue
             }
         }
     }

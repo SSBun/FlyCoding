@@ -30,7 +30,7 @@ public struct Code {
             return scope.row
         }
         set {
-            scope.row = row
+            scope.row = newValue
         }
     }
     

@@ -43,7 +43,8 @@ public struct Preprocessor {
     static var allCommands: [Command.Type] = [RemoveCommand.self,
                                               MoveCommand.self,
                                               CopyCommand.self,
-                                              ToCommand.self]
+                                              ToCommand.self,
+                                              SortCodeCommand.self]
 
     public static func preprocess(codes: NSMutableArray, commandRow: Int) -> CodeContext? {
         let codeValue = codes[commandRow] as! String
