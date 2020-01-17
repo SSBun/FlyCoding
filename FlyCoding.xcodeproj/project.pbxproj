@@ -80,9 +80,12 @@
 		8EAC3B0322EAD8BC00A1B896 /* FCCore.swift in Headers */ = {isa = PBXBuildFile; fileRef = 8EAC3AA822EAD66900A1B896 /* FCCore.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		8EAC3B0422EAD8DC00A1B896 /* BZCodeX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EAC3A2322EAD40500A1B896 /* BZCodeX.framework */; };
 		C47CB61D23D1531800187DCB /* GenerateViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47CB61C23D1531800187DCB /* GenerateViewTest.swift */; };
-		C47CB62523D159DE00187DCB /* ui_swift.plist in Resources */ = {isa = PBXBuildFile; fileRef = C47CB62223D159DE00187DCB /* ui_swift.plist */; };
-		C47CB62623D159DE00187DCB /* ui_universal.plist in Resources */ = {isa = PBXBuildFile; fileRef = C47CB62323D159DE00187DCB /* ui_universal.plist */; };
-		C47CB62723D159DE00187DCB /* ui_oc.plist in Resources */ = {isa = PBXBuildFile; fileRef = C47CB62423D159DE00187DCB /* ui_oc.plist */; };
+		C4E7D45323D1A19A0021EC4F /* ui_universal.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4E7D45023D1A19A0021EC4F /* ui_universal.plist */; };
+		C4E7D45423D1A19A0021EC4F /* ui_oc.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4E7D45123D1A19A0021EC4F /* ui_oc.plist */; };
+		C4E7D45523D1A19A0021EC4F /* ui_swift.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4E7D45223D1A19A0021EC4F /* ui_swift.plist */; };
+		C4E7D45F23D1A3C60021EC4F /* ui_universal.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4E7D45C23D1A3C60021EC4F /* ui_universal.plist */; };
+		C4E7D46023D1A3C60021EC4F /* ui_oc.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4E7D45D23D1A3C60021EC4F /* ui_oc.plist */; };
+		C4E7D46123D1A3C60021EC4F /* ui_swift.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4E7D45E23D1A3C60021EC4F /* ui_swift.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,9 +197,12 @@
 		8EEAA80022DC983400335A60 /* FlyCoding.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlyCoding.entitlements; sourceTree = "<group>"; };
 		8EEAA80122DC983C00335A60 /* Fly.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fly.entitlements; sourceTree = "<group>"; };
 		C47CB61C23D1531800187DCB /* GenerateViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateViewTest.swift; sourceTree = "<group>"; };
-		C47CB62223D159DE00187DCB /* ui_swift.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ui_swift.plist; sourceTree = "<group>"; };
-		C47CB62323D159DE00187DCB /* ui_universal.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ui_universal.plist; sourceTree = "<group>"; };
-		C47CB62423D159DE00187DCB /* ui_oc.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ui_oc.plist; sourceTree = "<group>"; };
+		C4E7D45023D1A19A0021EC4F /* ui_universal.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ui_universal.plist; sourceTree = "<group>"; };
+		C4E7D45123D1A19A0021EC4F /* ui_oc.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ui_oc.plist; sourceTree = "<group>"; };
+		C4E7D45223D1A19A0021EC4F /* ui_swift.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ui_swift.plist; sourceTree = "<group>"; };
+		C4E7D45C23D1A3C60021EC4F /* ui_universal.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ui_universal.plist; sourceTree = "<group>"; };
+		C4E7D45D23D1A3C60021EC4F /* ui_oc.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ui_oc.plist; sourceTree = "<group>"; };
+		C4E7D45E23D1A3C60021EC4F /* ui_swift.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ui_swift.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,8 +273,8 @@
 				8E8B8D5D1F710DC1002EBF80 /* ViewController.swift */,
 				8E8B8D5F1F710DC1002EBF80 /* Assets.xcassets */,
 				8E8B8D611F710DC1002EBF80 /* Main.storyboard */,
+				C4E7D45B23D1A3C60021EC4F /* Resources */,
 				8E8B8D641F710DC1002EBF80 /* Info.plist */,
-				C47CB62923D159FB00187DCB /* Resources */,
 			);
 			path = FlyCoding;
 			sourceTree = "<group>";
@@ -288,6 +294,7 @@
 				8E8B8D751F710DEA002EBF80 /* SourceEditorExtension.swift */,
 				8E8B8D771F710DEA002EBF80 /* SourceEditorCommand.swift */,
 				8E8B8D791F710DEA002EBF80 /* Info.plist */,
+				C4E7D44F23D1A19A0021EC4F /* Resources */,
 				8E8B8D731F710DEA002EBF80 /* Supporting Files */,
 			);
 			path = Fly;
@@ -438,15 +445,26 @@
 			path = RegularExpression;
 			sourceTree = "<group>";
 		};
-		C47CB62923D159FB00187DCB /* Resources */ = {
+		C4E7D44F23D1A19A0021EC4F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C47CB62423D159DE00187DCB /* ui_oc.plist */,
-				C47CB62223D159DE00187DCB /* ui_swift.plist */,
-				C47CB62323D159DE00187DCB /* ui_universal.plist */,
+				C4E7D45023D1A19A0021EC4F /* ui_universal.plist */,
+				C4E7D45123D1A19A0021EC4F /* ui_oc.plist */,
+				C4E7D45223D1A19A0021EC4F /* ui_swift.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
+		};
+		C4E7D45B23D1A3C60021EC4F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C4E7D45C23D1A3C60021EC4F /* ui_universal.plist */,
+				C4E7D45D23D1A3C60021EC4F /* ui_oc.plist */,
+				C4E7D45E23D1A3C60021EC4F /* ui_swift.plist */,
+			);
+			name = Resources;
+			path = Fly/Resources;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -636,10 +654,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E055F8A2303D872001C81F9 /* README.md in Resources */,
-				C47CB62623D159DE00187DCB /* ui_universal.plist in Resources */,
-				C47CB62723D159DE00187DCB /* ui_oc.plist in Resources */,
 				8E8B8D601F710DC1002EBF80 /* Assets.xcassets in Resources */,
-				C47CB62523D159DE00187DCB /* ui_swift.plist in Resources */,
+				C4E7D46123D1A3C60021EC4F /* ui_swift.plist in Resources */,
+				C4E7D46023D1A3C60021EC4F /* ui_oc.plist in Resources */,
+				C4E7D45F23D1A3C60021EC4F /* ui_universal.plist in Resources */,
 				8E8B8D631F710DC1002EBF80 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -648,6 +666,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4E7D45423D1A19A0021EC4F /* ui_oc.plist in Resources */,
+				C4E7D45323D1A19A0021EC4F /* ui_universal.plist in Resources */,
+				C4E7D45523D1A19A0021EC4F /* ui_swift.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -888,13 +909,13 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = 7467638S34;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = FlyCoding/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ssbun.www.FlyCoding;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -911,13 +932,13 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = 7467638S34;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = FlyCoding/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ssbun.www.FlyCoding;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -972,7 +993,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 7467638S34;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -984,8 +1005,10 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MARKETING_VERSION = 2.2.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-fprofile-instr-generate";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ssbun.www.BZCodeX;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1004,7 +1027,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 7467638S34;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1016,7 +1039,9 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MARKETING_VERSION = 2.2.1;
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-fprofile-instr-generate";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ssbun.www.BZCodeX;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
