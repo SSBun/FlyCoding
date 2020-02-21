@@ -8,16 +8,11 @@
 
 import Foundation
 
-
 func correctParamType(tokens: [Token], types: [TokenType]) -> Bool {
     if tokens.count != types.count {
         return false
     }
-    for v in zip(tokens, types) {
-        if v.0.kind != v.1 {
-            return false
-        }
-    }
+    for v in zip(tokens, types) where v.0.kind != v.1 { return false }
     return true
 }
 

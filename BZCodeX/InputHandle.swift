@@ -13,13 +13,12 @@ public enum CodeType {
     case oc
 }
 
-
 public struct InputHandle {
-    
+
 }
 
 public extension InputHandle {
-    
+
     /// Jugle code type
     ///
     /// - Parameter lines: codes
@@ -44,7 +43,6 @@ public extension InputHandle {
         return .swift
     }
 
-    
     /// Code indentation
     ///
     /// - Parameter code: The target coe

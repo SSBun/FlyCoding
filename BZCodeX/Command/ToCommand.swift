@@ -10,23 +10,23 @@ import Foundation
 
 public struct ToCommand: Command {
     public static var keyWord: String = "to"
-    
+
     public static var alias: String = "to"
-    
+
     public static var executor: Executor.Type = ToExector.self
-    
+
     public static var options: [Command.Type] = []
-    
+
     public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
-        return ToExector.execute(context:context, params:params)
+        return ToExector.execute(context: context, params: params)
     }
-    
+
     public struct ToExector: Executor {
         public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
             var context = context
             if params ~= [.dot] {
                 let insertRow = context.commandCode.row
-                
+
                 var insertCodes: [Code] = []
                 for i in 0..<context.codes.count {
                     var scope = context.codes[i].scope

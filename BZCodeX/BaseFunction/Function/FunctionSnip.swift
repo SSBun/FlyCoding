@@ -19,8 +19,7 @@ class FunctionSnip: Snip {
     var code: String
     var lineCount: Int
     var codeType: CodeType
-   
-    
+
     required init?(label: String, spaceCount: Int, codeType: CodeType) {
         guard let paramStr = regularMatch(text: label, expression: "(?<=\\().+(?=\\))").first else {return nil}
         self.label = label
@@ -39,10 +38,10 @@ class FunctionSnip: Snip {
             return nil
         }
     }
-    
+    // swiftlint:disable cyclomatic_complexity
     private func generateSwiftFunction(paramStr: String, spaceCount: Int) -> (String, Int)? {
         let params = paramStr.split(separator: ".")
-        var prefix: String? = nil // Function prefix mark
+        var prefix: String? // Function prefix mark
         var functionName: String = ""
         if params.count >= 2 {
             prefix = String(params[0])
@@ -51,13 +50,13 @@ class FunctionSnip: Snip {
             functionName = String(params[0])
         }
         if functionName.count <= 0 {return nil}
-        
+
         if let prefixMark = prefix {
             prefix = Property.scopeWithShortcuts(prefixMark, isFunction: true) // Generate function prefix
         }
         var paramCount = 0
         var returnCount = 0
-        
+
         func filterParamMark() {
             if let paramMarkRange = functionName.range(of: ":") {
                 paramCount += 1
@@ -66,8 +65,7 @@ class FunctionSnip: Snip {
             }
         }
         filterParamMark()
-        
-        
+
         func filterReturnMark() {
             if let returnMarkRange = functionName.range(of: ">") {
                 returnCount += 1
@@ -76,7 +74,7 @@ class FunctionSnip: Snip {
             }
         }
         filterReturnMark()
-        
+
         let repeatCount = Int(regularMatch(text: label, expression: "(?<=\\*)[0-9]+").first ?? "1") ?? 1
         var codes = [String]()
         var firstLine = ""
@@ -86,7 +84,7 @@ class FunctionSnip: Snip {
         } else {
             firstLine += "func \(functionName)("
         }
-        
+
         if paramCount > 0 {
             for i in 0..<paramCount {
                 if i == 0 {
@@ -99,7 +97,7 @@ class FunctionSnip: Snip {
         } else {
             firstLine += ")"
         }
-        
+
         if returnCount > 0 {
             if returnCount == 1 {
                 firstLine += " -> <#return#>"
@@ -115,12 +113,12 @@ class FunctionSnip: Snip {
                 firstLine += ")"
             }
         }
-        
+
         firstLine += " {"
         codes.append(firstLine)
         codes.append(" " * 4 + "<#code#>")
         codes.append("}")
-        
+
         if codes.count > 0 {
             var code = ""
             for _ in 0..<repeatCount {
@@ -137,7 +135,7 @@ class FunctionSnip: Snip {
 
     private func generateOCFunction(paramStr: String, spaceCount: Int) -> (String, Int)? {
         let params = paramStr.split(separator: ".")
-        var prefix: String? = nil // Function prefix mark
+        var prefix: String? // Function prefix mark
         var functionName: String = ""
         if params.count >= 2 {
             prefix = String(params[0])
@@ -153,7 +151,7 @@ class FunctionSnip: Snip {
         }
         var paramCount = 0
         var returnCount = 0
-        
+
         func filterParamMark() {
             if let paramMarkRange = functionName.range(of: ":") {
                 paramCount += 1
@@ -162,8 +160,7 @@ class FunctionSnip: Snip {
             }
         }
         filterParamMark()
-        
-        
+
         func filterReturnMark() {
             if let returnMarkRange = functionName.range(of: ">") {
                 returnCount += 1
@@ -172,14 +169,14 @@ class FunctionSnip: Snip {
             }
         }
         filterReturnMark()
-        
+
         let repeatCount = Int(regularMatch(text: label, expression: "(?<=\\*)[0-9]+").first ?? "1") ?? 1
         var codes = [String]()
         var firstLine = ""
         if let prefix = prefix {
             firstLine += prefix
         }
-        
+
         if returnCount > 0 {
             firstLine += " (<#type#>)\(functionName)"
         } else {
@@ -195,12 +192,12 @@ class FunctionSnip: Snip {
                 }
             }
         }
-        
+
         firstLine += " {"
         codes.append(firstLine)
         codes.append(" " * 4 + "<#code#>")
         codes.append("}")
-        
+
         if codes.count > 0 {
             var code = ""
             for _ in 0..<repeatCount {

@@ -10,23 +10,22 @@ import Foundation
 
 public struct SortCodeCommand: Command {
     public static var keyWord: String = "sort"
-    
+
     public static var alias: String = "st"
-    
+
     public static var executor: Executor.Type = SortCodeExecutor.self
-    
+
     public static var options: [Command.Type] = []
-    
+
     public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
-        return executor.execute(context:context, params:params)
+        return executor.execute(context: context, params: params)
     }
-    
-    
+
     public struct SortCodeExecutor: Executor {
         public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
             var context = context
             var range: (Int, Int)?
-            
+
             if params ~= [.number, .dot] {
                 range = sortIndex(one: ROW(Int(params[0].value as! Double)), two: context.commandCode.row)
             } else if params ~= [.number, .number] {
@@ -34,13 +33,13 @@ public struct SortCodeCommand: Command {
             } else {
                 return .error(.noneMatch)
             }
-            
+
             guard let codeRange = range else { return .error(.noneMatch) }
-            
-            var originCodes:[Code] = (codeRange.0...codeRange.1).compactMap {
+
+            var originCodes: [Code] = (codeRange.0...codeRange.1).compactMap {
                 context.codes[safe: $0]
             }
-            let sortedCodes:[Code] = originCodes.sorted { (l, r) -> Bool in
+            let sortedCodes: [Code] = originCodes.sorted { (l, r) -> Bool in
                 return l.scope.end.col < r.scope.end.col
             }
             for (index, code) in originCodes.enumerated() {

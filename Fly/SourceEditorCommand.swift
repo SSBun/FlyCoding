@@ -11,14 +11,14 @@ import XcodeKit
 import BZCodeX
 
 class SourceEditorCommand: NSObject, XCSourceEditorCommand {
-    
-    func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {
-        
+    // swiftlint:disable cyclomatic_complexity
+    func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) {
+
         defer { completionHandler(nil) }
-        
+
         // Swift or Objective-C ?
         let codeType = InputHandle.analyzeCodeType(codeLines: invocation.buffer.lines)
-        
+
         guard let lines = invocation.buffer.selections as? [XCSourceTextRange],
             let codeRange = lines.first,
             let codes = invocation.buffer.lines as? [String]
@@ -29,7 +29,7 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
         // The command code
         var code = codes[lineCount]
         if code.isEmpty {return}
-        
+
         // @do command system
         if let codeContext = Preprocessor.preprocess(codes: invocation.buffer.lines, commandRow: lineCount) {
             Processor.process(codeContext: codeContext, codes: invocation.buffer.lines)
@@ -57,9 +57,9 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                 let properties = decoderPropertyCode(code: code, codeType: codeType)
                 invocation.buffer.lines.removeObject(at: lineCount)
                 // 默认让鼠标光标选中第一个变量;
-                var autoSelectFirstPlaceholder: XCSourceTextRange? = nil
+                var autoSelectFirstPlaceholder: XCSourceTextRange?
                 // 当生成的代码没有变量时，则将光标移动到最后一个字符后面，方便换行以及后续的操作
-                var autoMoveCursorBehindLastChar: XCSourceTextRange? = nil
+                var autoMoveCursorBehindLastChar: XCSourceTextRange?
                 for property in properties {
                     var propertyCode: String = ""
                     if codeType == .swift {
@@ -92,13 +92,3 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-

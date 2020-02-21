@@ -25,10 +25,10 @@ public struct ConstraintMaker {
                            "c": "center",
                            "s": "size",
                            "e": "edges"]
-    
+
     /*! all constrainted items */
     var makers: [String]
-   
+
     /*!
      Resolves each character of the string to constraint.
      */
@@ -41,7 +41,7 @@ public struct ConstraintMaker {
         }
         self.makers = tempArr
     }
-    
+
     /*!
      Verify that the string can be parsed.
      */
@@ -49,7 +49,6 @@ public struct ConstraintMaker {
         return regularMatchLike(text: code, expression: "^[ltbrwhxycse]+$")
     }
 }
-
 
 /*!
  Snap constraint expression
@@ -59,7 +58,7 @@ public struct SnapExpression {
     public private(set) var expression: String
     /// Results of parsed.
     public private(set) var decoderCode: String?
-    
+    // swiftlint:disable cyclomatic_complexity
     public init(_ expression: String) {
         self.expression = expression
         guard expression.count > 0 else {return}
@@ -75,15 +74,15 @@ public struct SnapExpression {
             }
         }
         guard let nCompareFlagRange = compareFlagRange else {return}
-        
+
         let selfConstraint = nsExpression.substring(to: nCompareFlagRange.location)
         guard ConstraintMaker.isMakerCode(code: selfConstraint) else {return}
-        
+
         // The layout flags that will be added.
         let selfMakers = ConstraintMaker(code: selfConstraint).makers
         if selfMakers.isEmpty {return}
         nsExpression = NSString(string: nsExpression.substring(from: nCompareFlagRange.location + nCompareFlagRange.length))
-        
+
         // The constrain priority
         var constrainPriority: String?
         let constrainPriorityRange = nsExpression.range(of: "~")
@@ -91,7 +90,7 @@ public struct SnapExpression {
             constrainPriority = nsExpression.substring(from: constrainPriorityRange.location)
             nsExpression = NSString(string: nsExpression.substring(to: constrainPriorityRange.location))
         }
-        
+
         var computeFlagRange: NSRange?
         var computeFlag: String?
         var computeValue: String?
@@ -109,12 +108,12 @@ public struct SnapExpression {
                 }
             }
         }
-        
+
         var isPositiveOrNegativeComputeFlag = false
         if computeFlag == "+" || computeFlag == "-" {
             isPositiveOrNegativeComputeFlag = true
         }
-        
+
         if let nComputeFlagRange = computeFlagRange {
             computeValue = nsExpression.substring(from: nComputeFlagRange.location + nComputeFlagRange.length)
             nsExpression = NSString(string: nsExpression.substring(to: nComputeFlagRange.location))
@@ -134,9 +133,9 @@ public struct SnapExpression {
                 computeValue = nil
             }
         }
-        
+
         var decoderCode = "$0."
-        
+
         decoderCode += selfMakers.joined(separator: ".")
         decoderCode += ".\(compareFlagCode(with: compareFlag))"
         decoderCode += "(\(computeObjects.joined(separator: ".")))"
@@ -148,7 +147,7 @@ public struct SnapExpression {
         }
         self.decoderCode = decoderCode
     }
-    
+
     private func constrainPriorityCode(with code: String) -> String? {
         let nCode = String(code[code.index(after: code.startIndex)...])
         let flags = ["r": ".required",
@@ -163,14 +162,14 @@ public struct SnapExpression {
         }
         return nil
     }
-    
+
     private func compareFlagCode(with flag: String) -> String {
         let flags = [">=": "greaterThanOrEqualTo",
                      "<=": "lessThanOrEqualTo",
                      "=": "equalTo"]
         return flags[flag] ?? "="
     }
-    
+
     private func baseValueCode(with flag: String, value: String) -> String {
         switch flag {
         case "-":
@@ -179,7 +178,7 @@ public struct SnapExpression {
             return value
         }
     }
-    
+
     private func computeFlagCode(with flag: String, value: String) -> String {
         switch flag {
         case "-":
@@ -195,4 +194,3 @@ public struct SnapExpression {
         }
     }
 }
-

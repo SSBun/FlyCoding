@@ -8,24 +8,23 @@
 
 import Foundation
 
-
 public struct CodeFormatCommand: Command {
     public static var keyWord: String = "format"
-    
+
     public static var alias: String = "fm"
-    
+
     public static var executor: Executor.Type = CodeFormatExecutor.self
-    
+
     public static var options: [Command.Type] = []
-    
+
     public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
-        return executor.execute(context:context, params:params)
+        return executor.execute(context: context, params: params)
     }
-    
+
     public struct CodeFormatExecutor: Executor {
         public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
             var context = context
-            var tempArr:[Code] = []
+            var tempArr: [Code] = []
             if params ~= [.number, .dot] {
                 let range = sortIndex(one: ROW(Int(params[0].value as! Double)), two: context.commandCode.row)
                 for i in range.0...range.1 {
@@ -63,5 +62,3 @@ public struct CodeFormatCommand: Command {
         return codes
     }
 }
-
-

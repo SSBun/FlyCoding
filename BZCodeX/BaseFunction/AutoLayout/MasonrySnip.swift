@@ -1,4 +1,3 @@
-
 //  MasonrySnip.swift
 //  Fly
 //
@@ -9,12 +8,12 @@
 import Foundation
 
 public class MasonrySinp: Snip {
-    
+
     public private(set) var label: String
     public private(set) var code: String
     public private(set) var lineCount: Int
     public private(set) var codeType: CodeType
-    
+
     public required init?(label: String, spaceCount: Int, codeType: CodeType) {
         if codeType != .oc {return nil}
         guard let code = regularMatch(text: label, expression: "(?<=\\().+(?=\\))").first else {return nil}
@@ -25,7 +24,7 @@ public class MasonrySinp: Snip {
         }
         let snapList = ["masm": "mas_makeConstraints:^(MASConstraintMaker *make) {\n",
                         "masu": "mas_updateConstraints:^(MASConstraintMaker *make) {\n",
-                        "masrm": "mas_remakeConstraints:^(MASConstraintMaker *make) {\n",
+                        "masrm": "mas_remakeConstraints:^(MASConstraintMaker *make) {\n"
                         ]
 
         let params = code.split(separator: ",").map {String($0)}
@@ -38,7 +37,7 @@ public class MasonrySinp: Snip {
                 layoutCodes.append(layoutStr)
             }
         }
-        
+
         var resultCode = ""
         for _ in 0..<repeatCount {
             resultCode += " " * spaceCount + "[" + layoutView + " " + snapList[mark]!

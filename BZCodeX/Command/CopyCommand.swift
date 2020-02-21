@@ -10,21 +10,21 @@ import Foundation
 
 public struct CopyCommand: Command {
     public static var keyWord: String = "copy"
-    
+
     public static var alias: String = "cp"
-    
+
     public static var executor: Executor.Type = CopyExecutor.self
-    
+
     public static var options: [Command.Type] = []
-    
+
     public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
-        return executor.execute(context:context, params:params)
+        return executor.execute(context: context, params: params)
     }
-    
+
     public struct CopyExecutor: Executor {
         public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
             var context = context
-            var tempArr:[Code] = []
+            var tempArr: [Code] = []
             if params ~= [] {
                 if var code = context.codes[safe:context.commandCode.row] {
                     code.state = .normal

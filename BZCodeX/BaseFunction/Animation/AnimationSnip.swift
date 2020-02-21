@@ -16,15 +16,15 @@ class AnimationSnip: Snip {
     var code: String
     var lineCount: Int
     var codeType: CodeType
-    
+
     required init?(label: String, spaceCount: Int, codeType: CodeType) {
-        
+
         guard let paramStr = regularMatch(text: label, expression: "(?<=\\().+(?=\\))").first else {return nil}
         let params = paramStr.split(separator: ".")
         var prefix: String = "" // Animation type
         prefix = String(params[0])
         if prefix.count <= 0 {prefix = "df"}
-        
+
         var codes = [String]()
         switch prefix.lowercased() {
         case "df":
@@ -58,7 +58,7 @@ class AnimationSnip: Snip {
         default:
             codes = []
         }
-        
+
         let repeatCount = Int(regularMatch(text: label, expression: "(?<=\\*)[0-9]+").first ?? "1") ?? 1
         if codes.count > 0 {
             self.label = label

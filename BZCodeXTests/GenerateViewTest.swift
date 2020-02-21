@@ -6,20 +6,19 @@
 //  Copyright © 2020 SSBun. All rights reserved.
 //
 
-
 import XCTest
 @testable import BZCodeX
 
 class GenerateViewTest: XCTestCase {
-    
+
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
-    
+
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-    
+
     func test_swift_make_uiview() {
         let code = "make(UIView,testView)"
         let answer =

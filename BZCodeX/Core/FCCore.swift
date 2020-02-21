@@ -33,7 +33,7 @@ public struct Code {
             scope.row = newValue
         }
     }
-    
+
     init(state: CodeSate, scope: Scope, value: String, executeOffset: Int = 0) {
         self.state = state
         self.scope = scope
@@ -46,4 +46,3 @@ public struct CodeContext {
     var commandCode: Code
     var codes: [Code]
 }
-

@@ -8,25 +8,23 @@
 
 import Foundation
 
-
 public struct RemoveCommand: Command {
     public static var keyWord: String = "remove"
-    
+
     public static var alias: String = "rm"
-    
+
     public static var executor: Executor.Type = RemoveExecutor.self
-    
+
     public static var options: [Command.Type] = []
-    
+
     public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
-        return executor.execute(context:context, params:params)
+        return executor.execute(context: context, params: params)
     }
-    
-    
+
     public struct RemoveExecutor: Executor {
         public static func execute(context: CodeContext, params: [Token]) -> CommandResult {
             var context = context
-            var tempArr:[Code] = []
+            var tempArr: [Code] = []
             if params ~= [] {
                 if var code = context.codes[safe:context.commandCode.row] {
                     code.state = .remove

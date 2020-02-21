@@ -9,12 +9,12 @@
 import Foundation
 
 class AutoLayoutSwift: Snip {
-    
+
     var label: String
     var code: String
     var lineCount: Int
     var codeType: CodeType
-    
+
     required init?(label: String, spaceCount: Int, codeType: CodeType) {
         if codeType != .swift {return nil}
         guard let code = regularMatch(text: label, expression: "(?<=\\().+(?=\\))").first else {return nil}
@@ -25,7 +25,7 @@ class AutoLayoutSwift: Snip {
         }
         let snapList = ["layout": "NSLayoutConstraint.activate([\n"
         ]
-        
+
         let params = code.split(separator: ",").map {String($0)}
         if params.isEmpty {return nil}
         let layoutView = params[0]
@@ -36,7 +36,7 @@ class AutoLayoutSwift: Snip {
                 layoutCodes.append(contentsOf: layoutStrs)
             }
         }
-        
+
         var resultCode = ""
         for _ in 0..<repeatCount {
             resultCode += " " * spaceCount + snapList[mark]!

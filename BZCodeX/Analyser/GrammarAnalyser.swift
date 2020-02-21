@@ -25,6 +25,3 @@ protocol GrammarAnalyser {
     init(tokens: [Token])
     func parseTokens() -> Any
 }
-
-
-

@@ -27,7 +27,7 @@ public class BaseSnip: Snip {
     public var code: String
     public var lineCount: Int
     public var codeType: CodeType
-    
+
     public required init?(label: String, spaceCount: Int, codeType: CodeType) {
         let snipList = ["make": GenerateViewSnip.self as Snip.Type,
                         "snpm": SnapSnip.self as Snip.Type,
@@ -36,7 +36,7 @@ public class BaseSnip: Snip {
                         "masm": MasonrySinp.self as Snip.Type,
                         "masu": MasonrySinp.self as Snip.Type,
                         "masrm": MasonrySinp.self as Snip.Type,
-                        "func": FunctionSnip.self as Snip.Type,                       
+                        "func": FunctionSnip.self as Snip.Type,
                         "f": FunctionSnip.self as Snip.Type,
                         "anim": AnimationSnip.self as Snip.Type,
                         "layout": AutoLayoutSwift.self as Snip.Type
@@ -50,4 +50,3 @@ public class BaseSnip: Snip {
         self.lineCount = snip.lineCount
     }
 }
-

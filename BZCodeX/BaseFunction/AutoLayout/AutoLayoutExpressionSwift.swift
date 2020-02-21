@@ -18,20 +18,16 @@ import Foundation
  View constrained labels
  */
 
-fileprivate struct Anchor {
+private struct Anchor {
     let view: String
     let anchor: String
-    var code: String {
-        get {
-            return "\(view).\(AutoLayoutConstraintMaker.parse(anchor))"
-        }
-    }
+    var code: String { "\(view).\(AutoLayoutConstraintMaker.parse(anchor))" }
 }
 
-fileprivate typealias ConstraintRealtion = (left: Anchor, to: Anchor?, multiplier: String?, constant: String?)
+private typealias ConstraintRealtion = (left: Anchor, to: Anchor?, multiplier: String?, constant: String?)
 
-fileprivate enum AutoLayoutConstraintMode {
-    //MARK: - EqualTo
+private enum AutoLayoutConstraintMode {
+    // MARK: - EqualTo
     /// view.leadingAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutXAxisAnchor>#>)
     /// view.widthAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutDimension>#>)
     /// view.widthAnchor.constraint(equalToConstant: <#T##CGFloat#>)
@@ -40,8 +36,8 @@ fileprivate enum AutoLayoutConstraintMode {
     /// view.widthAnchor.constraint(equalTo: <#T##NSLayoutDimension#>, multiplier: <#T##CGFloat#>)
     /// view.widthAnchor.constraint(equalTo: <#T##NSLayoutDimension#>, multiplier: <#T##CGFloat#>, constant: <#T##CGFloat#>)
     case equal(ConstraintRealtion)
-    
-    //MARK: - GreaterThanOrEqualTo
+
+    // MARK: - GreaterThanOrEqualTo
     /// view.leadingAnchor.constraint(greaterThanOrEqualTo: <#T##NSLayoutAnchor<NSLayoutXAxisAnchor>#>)
     /// view.leadingAnchor.constraint(greaterThanOrEqualTo: <#T##NSLayoutAnchor<NSLayoutXAxisAnchor>#>, constant: <#T##CGFloat#>)
     /// view.widthAnchor.constraint(greaterThanOrEqualToConstant: <#T##CGFloat#>)
@@ -50,7 +46,7 @@ fileprivate enum AutoLayoutConstraintMode {
     /// view.widthAnchor.constraint(greaterThanOrEqualTo: <#T##NSLayoutDimension#>, multiplier: <#T##CGFloat#>)
     /// view.widthAnchor.constraint(greaterThanOrEqualTo: <#T##NSLayoutDimension#>, multiplier: <#T##CGFloat#>, constant: <#T##CGFloat#>)
     case greaterThanOrEqualTo(ConstraintRealtion)
-    
+
     /// view.leadingAnchor.constraint(lessThanOrEqualTo: <#T##NSLayoutAnchor<NSLayoutXAxisAnchor>#>)
     /// view.leadingAnchor.constraint(lessThanOrEqualTo: <#T##NSLayoutAnchor<NSLayoutXAxisAnchor>#>, constant: <#T##CGFloat#>)
     /// view.widthAnchor.constraint(lessThanOrEqualToConstant: <#T##CGFloat#>)
@@ -62,6 +58,7 @@ fileprivate enum AutoLayoutConstraintMode {
 }
 
 extension AutoLayoutConstraintMode {
+    // swiftlint:disable cyclomatic_complexity
     func transform() -> String {
         switch self {
         case .equal(left: let left, to: .some(let right), multiplier: .none, constant: .none):
@@ -74,7 +71,7 @@ extension AutoLayoutConstraintMode {
             return "\(left.code).constraint(equalTo: \(right.code), multiplier:\(multiplier))"
         case .equal(left: let left, to: .some(let right), multiplier: .some(let multiplier), constant: .some(let constant)):
             return "\(left.code).constraint(equalTo: \(right.code), multiplier:\(multiplier), constant:(\(constant))"
-            
+
         case .greaterThanOrEqualTo(left: let left, to: .some(let right), multiplier: .none, constant: .none):
             return "\(left.code).constraint(greaterThanOrEqualTo: \(right.code))"
         case .greaterThanOrEqualTo(left: let left, to: .some(let right), multiplier: .none, constant: .some(let constant)):
@@ -85,7 +82,7 @@ extension AutoLayoutConstraintMode {
             return "\(left.code).constraint(greaterThanOrEqualTo: \(right.code), multiplier:\(multiplier))"
         case .greaterThanOrEqualTo(left: let left, to: .some(let right), multiplier: .some(let multiplier), constant: .some(let constant)):
             return "\(left.code).constraint(greaterThanOrEqualTo: \(right.code), multiplier:\(multiplier), constant:(\(constant))"
-            
+
         case .lessThanOrEqualTo(left: let left, to: .some(let right), multiplier: .none, constant: .none):
             return "\(left.code).constraint(lessThanOrEqualTo: \(right.code))"
         case .lessThanOrEqualTo(left: let left, to: .some(let right), multiplier: .none, constant: .some(let constant)):
@@ -115,14 +112,14 @@ public struct AutoLayoutConstraintMaker {
                            "y": "centerYAnchor",
                            "F": "firstBaselineAnchor",
                            "L": "lastBaselineAnchor"]
-    
+
     /*!
      Verify whether the string can be parsed.
      */
     static func isMakerCode(code: String) -> Bool {
         return regularMatchLike(text: code, expression: "^[ltbrwhxyFL]+$")
     }
-    
+
     static func parse(_ code: String) -> String {
         if isMakerCode(code: code) {
             return makerMap[code] ?? "unsupport"
@@ -136,13 +133,13 @@ public struct AutoLayoutConstraintMaker {
  Snap constraint expression
  */
 public struct AutoLayoutExpression {
-    
+
     /// Constraint expressionn code
     public private(set) var expression: String
     private let layoutView: String
     /// Result of the resolved.
     public private(set) var decoderCode: [String]?
-    
+
     public init(layoutView: String, expression: String) {
         self.layoutView = layoutView
         self.expression = expression
@@ -160,13 +157,13 @@ public struct AutoLayoutExpression {
             }
         }
         guard let nCompareFlagRange = compareFlagRange else {return}
-        
+
         // The constraint flags of left view.
         let selfConstraint = nsExpression.substring(to: nCompareFlagRange.location)
         guard AutoLayoutConstraintMaker.isMakerCode(code: selfConstraint) else {return}
-        
+
         nsExpression = NSString(string: nsExpression.substring(from: nCompareFlagRange.location + nCompareFlagRange.length))
-        
+
         // Get constant vlaue from expresison if it has existed.
         var constant: String?
         let constantFlagRange = nsExpression.range(of: ":")
@@ -178,31 +175,31 @@ public struct AutoLayoutExpression {
         // The multiplier value
         var computeFlagRange: NSRange?
         var computeValue: String?
-        
+
         let tempRange = nsExpression.range(of: "*")
         if tempRange.location != NSNotFound {
             computeFlagRange = tempRange
         }
-        
+
         if let nComputeFlagRange = computeFlagRange {
             computeValue = nsExpression.substring(from: nComputeFlagRange.location + nComputeFlagRange.length)
             nsExpression = NSString(string: nsExpression.substring(to: nComputeFlagRange.location))
         }
-        
-        let computeObjects = nsExpression.components(separatedBy: ".")        
-        
+
+        let computeObjects = nsExpression.components(separatedBy: ".")
+
         // The right view needing adds constraints.
         var targetView: String?
         // The constraint flags relate with the right view.
         var targetConstraint: String?
-        
+
         if computeObjects.count == 1 && computeObjects[0].count != 0 {
             targetView = computeObjects.first
         } else if computeObjects.count == 2, AutoLayoutConstraintMaker.isMakerCode(code: computeObjects[1]) {
             targetView = computeObjects[0]
             targetConstraint = computeObjects[1]
         }
-        
+
         // If the left layout view has more than one constraint flags, the right view does not be allowed to have any constraint flags.
         if selfConstraint.count > 1 && nil != targetConstraint {
             return
@@ -211,9 +208,9 @@ public struct AutoLayoutExpression {
         if selfConstraint.count == 1 && targetConstraint?.count ?? 0 > 1 {
             return
         }
-        
+
         var modes: [AutoLayoutConstraintMode] = []
-        
+
         // State: the left view has only one constraint flag.
         if selfConstraint.count == 1 {
             let leftAnchor = Anchor(view: layoutView, anchor: selfConstraint)
@@ -224,7 +221,7 @@ public struct AutoLayoutExpression {
             let relation: ConstraintRealtion = (left: leftAnchor, to: rightAnchor, multiplier:computeValue, constant: constant)
             modes.append(generateMode(relation: relation, compareFlag: compareFlag))
         }
-        
+
         // State: the left view has more than one constraint flags.
         if selfConstraint.count > 1 {
             for char in selfConstraint {
@@ -238,13 +235,13 @@ public struct AutoLayoutExpression {
                 modes.append(generateMode(relation: relation, compareFlag: compareFlag))
             }
         }
-        
+
         self.decoderCode = modes.map {
             return $0.transform()
         }
 
     }
-    
+
     private func generateMode(relation: ConstraintRealtion, compareFlag: String) -> AutoLayoutConstraintMode {
         switch compareFlag {
         case "=":
@@ -257,7 +254,7 @@ public struct AutoLayoutExpression {
             return .equal(relation)
         }
     }
-    
+
     private func baseValueCode(with flag: String, value: String) -> String {
         switch flag {
         case "-":

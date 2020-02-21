@@ -9,12 +9,12 @@
 import Cocoa
 
 class ViewController: NSViewController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.view.layer?.backgroundColor = NSColor.white.cgColor
-        
+
         let imageView = NSImageView(frame: self.view.bounds)
         let image = NSImage(named: NSImage.Name("FlyCodingHomePage"))
         imageView.image = image
@@ -27,6 +27,4 @@ class ViewController: NSViewController {
         }
     }
 
-
 }
-

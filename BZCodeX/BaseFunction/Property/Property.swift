@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 // MARK: - Property
 
 public struct Property {
@@ -31,7 +30,7 @@ public struct Property {
                                "fl": "fileprivate let",
                                "fv": "fileprivate var",
                                "flv": "fileprivate lazy var"]
-    
+
     static let allOCScopeMark = ["s": "strong",
                                  "w": "weak",
                                  "a": "assign",
@@ -41,21 +40,21 @@ public struct Property {
                                  "n": "nullable",
                                  "N": "nonnull",
                                  "C": "class"]
-    
+
     static let allSystemMark = ["@": "@objc",
                                 "u": "unowned",
                                 "w": "weak",
                                 "c": "class",
                                 "s": "static",
                                 "b": "_B__B_"]
-    
+
     public private(set) var className: String
     let scope: String
     let defaultValue: String?
     public private(set) var lineCount: Int = 1
     public private(set) var instanceName: String = "<#name#>"
     public let codeType: CodeType
-    
+
     init(className: String, scope: String, defaultValue: String?, codeType: CodeType = .swift, instanceName: String = "<#name#>") {
         self.className = className
         self.defaultValue = defaultValue
@@ -69,7 +68,7 @@ public struct Property {
             self.lineCount = 3
         }
     }
-    
+
     private func handleOCClassNameWithEmpty(scope: String) -> String {
         if scope.contains(Property.allOCScopeMark["s"]!) || scope.contains(Property.allOCScopeMark["c"]!) {
             return "<#type#> *"
@@ -79,7 +78,7 @@ public struct Property {
         }
         return "<#type#> *"
     }
-    
+
     static func scopeWithShortcuts(_ p: String, isFunction: Bool = false) -> String? {
         if p.count == 0 {return nil}
         var systemMarks = [String]()
@@ -98,9 +97,9 @@ public struct Property {
                 systemMarks.append("let")
             }
         }
-        return systemMarks.joined(separator:" ")
+        return systemMarks.joined(separator: " ")
     }
-    
+
     static func scopeWithOCShortcuts(_ p: String) -> String? {
         if p.count == 0 {return nil}
         var scopeMark = "@property (nonatomic, "
@@ -119,7 +118,6 @@ public struct Property {
     }
 }
 
-
 /*!
  Analyse command string and generate an array of `Property` objects.
  
@@ -136,7 +134,7 @@ public func decoderPropertyCode(code: String, codeType: CodeType) -> [Property] 
     if codeType == .oc {
         currentScope = "@property (nonatomic, strong)"
     }
-    
+
     for var module in modules {
         let className = regularMatch(text: module, expression: codeType == .swift ? "(?<=\\.)[<>&,\\(\\)\\?!a-zA-Z0-9_\\:\\[\\]\\ ]+" : "(?<=\\.)([\\*<>&,\\(\\)\\?!a-zA-Z0-9_\\:\\[\\]\\ ;](?!\\*\\ *\\d+))*").first ?? "<#Class#>"
         module = module.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -151,7 +149,7 @@ public func decoderPropertyCode(code: String, codeType: CodeType) -> [Property] 
         }
         let defaultValue = regularMatch(text: module, expression: "(?<=\\{).*(?=\\})").first
         var count = 1
-        if let countStr = regularMatch(text: module, expression: "(?<=\\*)[0-9]+").first, let countN = Int(countStr), countN > 1{
+        if let countStr = regularMatch(text: module, expression: "(?<=\\*)[0-9]+").first, let countN = Int(countStr), countN > 1 {
             count = countN
         }
         for _ in 0..<count {
@@ -161,7 +159,6 @@ public func decoderPropertyCode(code: String, codeType: CodeType) -> [Property] 
     }
     return properties
 }
-
 
 /*!
  Generate property code
@@ -202,7 +199,6 @@ public func generatePropertyCode(property: Property, spaceCount: Int) -> String 
     return code
 }
 
-
 /// Generate Objective-C properties
 /// - Parameter property: property
 /// - Parameter spaceCount: indent length
@@ -227,4 +223,3 @@ public func generateOCPropertyCode(property: Property, spaceCount: Int) -> Strin
     code += property.instanceName
     return code
 }
-

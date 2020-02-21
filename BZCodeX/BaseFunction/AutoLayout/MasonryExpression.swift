@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 // le.,r,b,t,cx,cy,c,w,h,s,e,
 
 /*!
@@ -26,10 +25,10 @@ public struct MSLConstraintMaker {
                            "c": "center",
                            "s": "size",
                            "e": "edges"]
-    
+
     /*! all constrainted items */
     var makers: [String]
-    
+
     /*!
      Resolves each character of the string to constraint.
      */
@@ -42,7 +41,7 @@ public struct MSLConstraintMaker {
         }
         self.makers = tempArr
     }
-    
+
     /*!
      Verify that the string can be resolved.
      */
@@ -62,7 +61,7 @@ public struct MSRConstraintMaker {
                            "y": "mas_centerY"]
     /*! all constrainted items */
     var makers: [String]
-    
+
     /*!
      Generate constraints with characters from the string;
      */
@@ -75,7 +74,7 @@ public struct MSRConstraintMaker {
         }
         self.makers = tempArr
     }
-    
+
     /*!
      Verify that the string can be resolved.
      */
@@ -83,7 +82,6 @@ public struct MSRConstraintMaker {
         return regularMatchLike(text: code, expression: "^[ltbrwhxy]+$")
     }
 }
-
 
 /*!
  Snap constraint expression
@@ -93,7 +91,7 @@ public struct MasonryExpression {
     public private(set) var expression: String
     /// Result of the resolved.
     public private(set) var decoderCode: String?
-    
+    // swiftlint:disable cyclomatic_complexity
     public init(_ expression: String) {
         self.expression = expression
         guard expression.count > 0 else {return}
@@ -109,15 +107,15 @@ public struct MasonryExpression {
             }
         }
         guard let nCompareFlagRange = compareFlagRange else {return}
-        
+
         let selfConstraint = nsExpression.substring(to: nCompareFlagRange.location)
         guard MSLConstraintMaker.isMakerCode(code: selfConstraint) else {return}
-        
+
         // There are the layout flags will be add.
         let selfMakers = MSLConstraintMaker(code: selfConstraint).makers
         if selfMakers.isEmpty {return}
         nsExpression = NSString(string: nsExpression.substring(from: nCompareFlagRange.location + nCompareFlagRange.length))
-        
+
         // The constrain priority
         var constrainPriority: String?
         let constrainPriorityRange = nsExpression.range(of: "~")
@@ -125,7 +123,7 @@ public struct MasonryExpression {
             constrainPriority = nsExpression.substring(from: constrainPriorityRange.location)
             nsExpression = NSString(string: nsExpression.substring(to: constrainPriorityRange.location))
         }
-        
+
         var computeFlagRange: NSRange?
         var computeFlag: String?
         var computeValue: String?
@@ -143,12 +141,12 @@ public struct MasonryExpression {
                 }
             }
         }
-        
+
         var isPositiveOrNegativeComputeFlag = false
         if computeFlag == "+" || computeFlag == "-" {
             isPositiveOrNegativeComputeFlag = true
         }
-        
+
         if let nComputeFlagRange = computeFlagRange {
             computeValue = nsExpression.substring(from: nComputeFlagRange.location + nComputeFlagRange.length)
             nsExpression = NSString(string: nsExpression.substring(to: nComputeFlagRange.location))
@@ -167,10 +165,9 @@ public struct MasonryExpression {
                 computeValue = nil
             }
         }
-        
-        
+
         var decoderCode = "make."
-        
+
         decoderCode += selfMakers.joined(separator: ".")
         decoderCode += ".\(compareFlagCode(with: compareFlag))"
         decoderCode += "(\(computeObjects.joined(separator: ".")))"
@@ -183,7 +180,7 @@ public struct MasonryExpression {
         decoderCode += ";"
         self.decoderCode = decoderCode
     }
-    
+
     private func constrainPriorityCode(with code: String) -> String? {
         let nCode = String(code[code.index(after: code.startIndex)...])
         let flags = ["h": "priorityHigh",
@@ -197,7 +194,7 @@ public struct MasonryExpression {
         }
         return nil
     }
-    
+
     private func compareFlagCode(with flag: String) -> String {
         let flags = [">=": "greaterThanOrEqualTo",
                      "<=": "lessThanOrEqualTo",
@@ -207,7 +204,7 @@ public struct MasonryExpression {
                      "==": "mas_equalTo"]
         return flags[flag] ?? "equalTo"
     }
-    
+
     private func baseValueCode(with flag: String, value: String) -> String {
         switch flag {
         case "-":
@@ -216,7 +213,7 @@ public struct MasonryExpression {
             return value
         }
     }
-    
+
     private func computeFlagCode(with flag: String, value: String) -> String {
         switch flag {
         case "-":

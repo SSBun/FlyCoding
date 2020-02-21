@@ -9,24 +9,24 @@
 import Foundation
 
 class CalculatorAnalyser: GrammarAnalyser {
-    
+
     let tokens: [Token]
-    
+
     required init(tokens: [Token]) {
         self.tokens = tokens.filter { $0.kind != .space}
     }
-    
+
     func parseTokens() -> Any {
         /// 存储前置 token
-        var st_ahead_token: Token? = nil
+        var st_ahead_token: Token?
         /// 当前正在处理的 token
         var current_pos = 0
-        
+
         /// 回撤 token 到前置 token
         func unget_token(_ token: Token) {
             st_ahead_token = token
         }
-        
+
         /// 获取一个新的 token
         func get_token() -> Token {
             if st_ahead_token != nil {
@@ -37,7 +37,7 @@ class CalculatorAnalyser: GrammarAnalyser {
                 return tokens[current_pos]
             }
         }
-        
+
         /// 三级解析
         func parse_primary_expression() -> Double {
             var token = get_token()
@@ -66,9 +66,9 @@ class CalculatorAnalyser: GrammarAnalyser {
             } else {
                 unget_token(token)
             }
-            return v1;
+            return v1
         }
-        
+
         /// 二级解析
         func parse_term() -> Double {
             var v1: Double = 0
@@ -89,7 +89,7 @@ class CalculatorAnalyser: GrammarAnalyser {
             }
             return v1
         }
-        
+
         /// 一级解析
         func parse_expression() -> Double {
             var v1: Double = 0
@@ -110,8 +110,8 @@ class CalculatorAnalyser: GrammarAnalyser {
             }
             return v1
         }
-        
-        return parse_expression();
+
+        return parse_expression()
     }
-    
+
 }

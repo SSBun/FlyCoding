@@ -9,7 +9,7 @@
 import Foundation
 
 class FCPreprocessor {
-    
+
 }
 
 // copy
@@ -58,7 +58,7 @@ public struct Preprocessor {
             commandStr = codeValue
         }
         let commandCode = Code(state: .normal, scope: Scope(start: Position(row: commandRow, col: range.location), end: Position(row: commandRow, col: range.location + commandStr.count)), value: commandStr)
-        var formatCodes:[Code] = []
+        var formatCodes: [Code] = []
         var index = 0
         for code in codes {
             let ncode = code as! String
@@ -67,7 +67,7 @@ public struct Preprocessor {
             index+=1
         }
         var codeContext = CodeContext(commandCode: commandCode, codes: formatCodes)
-        
+
         // Parse command
         let tokens = LexicalAnalyser(code: commandCode.value).tokens
         guard case .success(let commands) = parseCommand(tokens: tokens) else {return nil}
@@ -80,7 +80,7 @@ public struct Preprocessor {
         }
         return codeContext
     }
-    
+
     static func parseCommand(tokens: [Token]) -> ParseResult {
         var tokens = tokens
         if tokens.count < 2 {return .error("empty command")}
@@ -90,10 +90,10 @@ public struct Preprocessor {
         tokens.remove(at: 0)
         tokens = tokens.filter {$0.kind != .space && $0.kind != .end}
         var tasks: [(Command.Type, [Token])] = []
-        
-        var command: Command.Type? = nil
+
+        var command: Command.Type?
         var params: [Token] = []
-        
+
         for t in tokens {
             if let result = checkCommand(t) {
                 if let aCommand = command {
@@ -112,7 +112,7 @@ public struct Preprocessor {
         }
         return .success(tasks)
     }
-    
+
     static func checkCommand(_ token: Token) -> Command.Type? {
         guard token.kind == .identifier, let code = token.value as? String else {return nil}
         for command in allCommands {
@@ -122,6 +122,5 @@ public struct Preprocessor {
         }
         return nil
     }
-    
-}
 
+}

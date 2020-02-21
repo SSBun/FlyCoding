@@ -8,13 +8,12 @@
 
 import Foundation
 
-
 class GenerateViewSnip: Snip {
     var label: String
     var code: String
     var lineCount: Int
     var codeType: CodeType
-    
+
     required init?(label: String, spaceCount: Int, codeType: CodeType) {
         guard let paramStr = regularMatch(text: label, expression: "(?<=\\()[_a-zA-Z,]+(?=\\))").first else {return nil}
         let params = paramStr.split(separator: ",")
@@ -27,7 +26,7 @@ class GenerateViewSnip: Snip {
             }
         }
         let repeatCount = Int(regularMatch(text: label, expression: "(?<=\\*)[0-9]+").first ?? "1") ?? 1
-        
+
         var systemCodes: [String: [String]] = [:]
 //        var customCodes: [String: [String]] = [:]
         var universalCodes: [String: [String]] = [:]
@@ -42,7 +41,7 @@ class GenerateViewSnip: Snip {
         }
 
         var allCodes = [String: [String]]()
-        allCodes.merge(systemCodes){return $1}
+        allCodes.merge(systemCodes) {return $1}
 //        allCodes.merge(customCodes) {return $1}
         var codes = allCodes[viewClassName.lowercased(), default: []]
         // Can not matching anything by use system formats or user custom formats, we will use common format to parse it.
@@ -51,7 +50,7 @@ class GenerateViewSnip: Snip {
             codes = codes.map {return $0.replacingOccurrences(of: "{class}", with: String(viewClassName))}
         }
         codes = codes.map {return $0.replacingOccurrences(of: "{query}", with: selfValue)}
-        
+
         if codes.count > 0 {
             self.label = label
             var code = ""
@@ -69,4 +68,3 @@ class GenerateViewSnip: Snip {
         }
     }
 }
-
