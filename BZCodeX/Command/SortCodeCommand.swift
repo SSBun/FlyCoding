@@ -30,6 +30,8 @@ public struct SortCodeCommand: Command {
                 range = sortIndex(one: ROW(Int(params[0].value as! Double)), two: context.commandCode.row)
             } else if params ~= [.number, .number] {
                 range = sortIndex(one: ROW(Int(params[0].value as! Double)), two: ROW(Int(params[1].value as! Double)))
+            } else if params ~= [.number] {
+                range = sortIndex(one: context.commandCode.row - Int(params[0].value as! Double), two: context.commandCode.row)
             } else {
                 return .error(.noneMatch)
             }
