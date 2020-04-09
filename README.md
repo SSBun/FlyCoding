@@ -195,6 +195,7 @@ private let <#name#>: UIButton = {
 | 特殊符号 | 功能 |
 | :-: | :-: |
 | b | block, 为属性生成block形式的初始化值，类似于 lazy var |
+| F | 自用，属性的初始值是由 config 函数来提供的 |
 
 
 

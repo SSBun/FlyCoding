@@ -46,7 +46,8 @@ public struct Property {
                                 "w": "weak",
                                 "c": "class",
                                 "s": "static",
-                                "b": "_B__B_"]
+                                "b": "_B__B_",
+                                "F": "_F__F_"]
 
     public private(set) var className: String
     let scope: String
@@ -187,11 +188,14 @@ public func generatePropertyCode(property: Property, spaceCount: Int) -> String 
             }
         }
     } else {
-        if property.scope.contains("lazy") {
-            code += " " * spaceCount + property.scope + " " + property.instanceName + ": " + property.className + " = {\n" + " " * (spaceCount + 4) + "<#code#>" + "\n" + " " * spaceCount + "}()"
+        if let range = regularMatchRange(text: property.scope, expression: "_F__F_[\\ ]?").first {
+            let scope = String(property.scope[..<property.scope.index(property.scope.startIndex, offsetBy: range.location)] + property.scope[property.scope.index(property.scope.startIndex, offsetBy: range.location+range.length)...])
+            code += " " * spaceCount + scope + " " + property.instanceName + " = config(\(property.className)()) {\n" + " " * (spaceCount + 4) + "<#code#>" + "\n" + " " * spaceCount + "}"
         } else if let range = regularMatchRange(text: property.scope, expression: "_B__B_[\\ ]?").first {
             let scope = String(property.scope[..<property.scope.index(property.scope.startIndex, offsetBy: range.location)] + property.scope[property.scope.index(property.scope.startIndex, offsetBy: range.location+range.length)...])
             code += " " * spaceCount + scope + " " + property.instanceName + ": " + property.className + " = {\n" + " " * (spaceCount + 4) + "<#code#>" + "\n" + " " * spaceCount + "}()"
+        } else if property.scope.contains("lazy") {
+            code += " " * spaceCount + property.scope + " " + property.instanceName + ": " + property.className + " = {\n" + " " * (spaceCount + 4) + "<#code#>" + "\n" + " " * spaceCount + "}()"
         } else {
             code += " " * spaceCount + property.scope + " " + property.instanceName + ": " + property.className
         }
