@@ -61,37 +61,37 @@ extension AutoLayoutConstraintMode {
     // swiftlint:disable cyclomatic_complexity
     func transform() -> String {
         switch self {
-        case .equal(left: let left, to: .some(let right), multiplier: .none, constant: .none):
+        case .equal((left: let left, to: .some(let right), multiplier: .none, constant: .none)):
             return "\(left.code).constraint(equalTo: \(right.code))"
-        case .equal(left: let left, to: .some(let right), multiplier: .none, constant: .some(let constant)):
+        case .equal((left: let left, to: .some(let right), multiplier: .none, constant: .some(let constant))):
             return "\(left.code).constraint(equalTo: \(right.code), constant:\(constant))"
-        case .equal(left: let left, to: .none, multiplier: .none, constant: .some(let constant)):
+        case .equal((left: let left, to: .none, multiplier: .none, constant: .some(let constant))):
             return "\(left.code).constraint(equalToConstant: \(constant))"
-        case .equal(left: let left, to: .some(let right), multiplier: .some(let multiplier), constant: .none):
+        case .equal((left: let left, to: .some(let right), multiplier: .some(let multiplier), constant: .none)):
             return "\(left.code).constraint(equalTo: \(right.code), multiplier:\(multiplier))"
-        case .equal(left: let left, to: .some(let right), multiplier: .some(let multiplier), constant: .some(let constant)):
+        case .equal((left: let left, to: .some(let right), multiplier: .some(let multiplier), constant: .some(let constant))):
             return "\(left.code).constraint(equalTo: \(right.code), multiplier:\(multiplier), constant:(\(constant))"
 
-        case .greaterThanOrEqualTo(left: let left, to: .some(let right), multiplier: .none, constant: .none):
+        case .greaterThanOrEqualTo((left: let left, to: .some(let right), multiplier: .none, constant: .none)):
             return "\(left.code).constraint(greaterThanOrEqualTo: \(right.code))"
-        case .greaterThanOrEqualTo(left: let left, to: .some(let right), multiplier: .none, constant: .some(let constant)):
+        case .greaterThanOrEqualTo((left: let left, to: .some(let right), multiplier: .none, constant: .some(let constant))):
             return "\(left.code).constraint(greaterThanOrEqualTo: \(right.code), constant:\(constant))"
-        case .greaterThanOrEqualTo(left: let left, to: .none, multiplier: .none, constant: .some(let constant)):
+        case .greaterThanOrEqualTo((left: let left, to: .none, multiplier: .none, constant: .some(let constant))):
             return "\(left.code).constraint(greaterThanOrEqualToConstant: \(constant))"
-        case .greaterThanOrEqualTo(left: let left, to: .some(let right), multiplier: .some(let multiplier), constant: .none):
+        case .greaterThanOrEqualTo((left: let left, to: .some(let right), multiplier: .some(let multiplier), constant: .none)):
             return "\(left.code).constraint(greaterThanOrEqualTo: \(right.code), multiplier:\(multiplier))"
-        case .greaterThanOrEqualTo(left: let left, to: .some(let right), multiplier: .some(let multiplier), constant: .some(let constant)):
+        case .greaterThanOrEqualTo((left: let left, to: .some(let right), multiplier: .some(let multiplier), constant: .some(let constant))):
             return "\(left.code).constraint(greaterThanOrEqualTo: \(right.code), multiplier:\(multiplier), constant:(\(constant))"
 
-        case .lessThanOrEqualTo(left: let left, to: .some(let right), multiplier: .none, constant: .none):
+        case .lessThanOrEqualTo((left: let left, to: .some(let right), multiplier: .none, constant: .none)):
             return "\(left.code).constraint(lessThanOrEqualTo: \(right.code))"
-        case .lessThanOrEqualTo(left: let left, to: .some(let right), multiplier: .none, constant: .some(let constant)):
+        case .lessThanOrEqualTo((left: let left, to: .some(let right), multiplier: .none, constant: .some(let constant))):
             return "\(left.code).constraint(lessThanOrEqualTo: \(right.code), constant:\(constant))"
-        case .lessThanOrEqualTo(left: let left, to: .none, multiplier: .none, constant: .some(let constant)):
+        case .lessThanOrEqualTo((left: let left, to: .none, multiplier: .none, constant: .some(let constant))):
             return "\(left.code).constraint(lessThanOrEqualToConstant: \(constant))"
-        case .lessThanOrEqualTo(left: let left, to: .some(let right), multiplier: .some(let multiplier), constant: .none):
+        case .lessThanOrEqualTo((left: let left, to: .some(let right), multiplier: .some(let multiplier), constant: .none)):
             return "\(left.code).constraint(lessThanOrEqualTo: \(right.code), multiplier:\(multiplier))"
-        case .lessThanOrEqualTo(left: let left, to: .some(let right), multiplier: .some(let multiplier), constant: .some(let constant)):
+        case .lessThanOrEqualTo((left: let left, to: .some(let right), multiplier: .some(let multiplier), constant: .some(let constant))):
             return "\(left.code).constraint(lessThanOrEqualTo: \(right.code), multiplier:\(multiplier), constant:(\(constant))"
         default:
             return "error"
