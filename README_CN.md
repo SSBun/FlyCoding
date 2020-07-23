@@ -21,6 +21,10 @@ FlyCoding 是一个 Xcode 插件，使用苹果提供的插件机制编写，可
 * [x] **快速生成方法** 
 * [x] **任何完整操作都可以使用 ' + ' 进行分隔， 使用 '\* N' 进行批量操作**
 
+### 生成 `Snipkit` 布局代码示例
+
+![](https://ssbun-lot.oss-cn-beijing.aliyuncs.com/img/20200723180149.gif)
+
 ### @do 命令
 ```Swift
 @do move 10 34 to 44

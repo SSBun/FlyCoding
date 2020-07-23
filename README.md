@@ -1,8 +1,6 @@
 ![](https://ssbun-lot.oss-cn-beijing.aliyuncs.com/img/20200723172215.png)
 
-## FlyCoding - Xcode version of Emmet
-
-[中文指南](https://github.com/SSBun/FlyCoding/blob/master/README_CN.md)
+## FlyCoding - Xcode version of Emmet [中文指南](https://github.com/SSBun/FlyCoding/blob/master/README_CN.md)
 
 #### ⚠️ Please use Swift 5 to compile ⚠️ 
 
@@ -22,6 +20,9 @@ FlyCoding can help you to generate **properties, methods, constraints (Masonry /
 * [x] **System-native AutoLayout constraint under Swift**
 * [x] **Rapid Generation Method** 
 * [x] **Any complete operation can be separated by '+', use '\* N' for batch operation**.
+
+### Generate `Snipkit` layout code:
+![](https://ssbun-lot.oss-cn-beijing.aliyuncs.com/img/20200723180149.gif)
 
 ### @do command
 ```Swift
