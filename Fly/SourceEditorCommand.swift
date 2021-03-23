@@ -13,23 +13,18 @@ import BZCodeX
 class SourceEditorCommand: NSObject, XCSourceEditorCommand {
     // swiftlint:disable cyclomatic_complexity
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) {
-
         defer { completionHandler(nil) }
-
         // Swift or Objective-C ?
         let codeType = InputHandle.analyzeCodeType(codeLines: invocation.buffer.lines)
-
         guard let lines = invocation.buffer.selections as? [XCSourceTextRange],
-            let codeRange = lines.first,
-            let codes = invocation.buffer.lines as? [String]
-            else { return }
-
+              let codeRange = lines.first,
+              let codes = invocation.buffer.lines as? [String]
+        else { return }
         // The starting line
         var lineCount = codeRange.start.line
         // The command code
         var code = codes[lineCount]
         if code.isEmpty {return}
-
         // @do command system
         if let codeContext = Preprocessor.preprocess(codes: invocation.buffer.lines, commandRow: lineCount) {
             Processor.process(codeContext: codeContext, codes: invocation.buffer.lines)

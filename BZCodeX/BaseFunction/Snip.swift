@@ -29,19 +29,18 @@ public class BaseSnip: Snip {
     public var codeType: CodeType
 
     public required init?(label: String, spaceCount: Int, codeType: CodeType) {
-        let snipList = ["make": GenerateViewSnip.self as Snip.Type,
-                        "snpm": SnapSnip.self as Snip.Type,
-                        "snpu": SnapSnip.self as Snip.Type,
-                        "snprm": SnapSnip.self as Snip.Type,
-                        "masm": MasonrySinp.self as Snip.Type,
-                        "masu": MasonrySinp.self as Snip.Type,
-                        "masrm": MasonrySinp.self as Snip.Type,
-                        "func": FunctionSnip.self as Snip.Type,
-                        "f": FunctionSnip.self as Snip.Type,
-                        "F": FunctionSnip.self as Snip.Type,
-                        "anim": AnimationSnip.self as Snip.Type,
-                        "layout": AutoLayoutSwift.self as Snip.Type
-                        ]
+        let snipList: [String: Snip.Type] = ["make": GenerateViewSnip.self,
+                                             "snpm": SnapSnip.self,
+                                             "snpu": SnapSnip.self,
+                                             "snprm": SnapSnip.self,
+                                             "masm": MasonrySinp.self,
+                                             "masu": MasonrySinp.self,
+                                             "masrm": MasonrySinp.self,
+                                             "func": FunctionSnip.self,
+                                             "f": FunctionSnip.self,
+                                             "F": FunctionSnip.self,
+                                             "anim": AnimationSnip.self,
+                                             "layout": AutoLayoutSwift.self]
         guard let mark = regularMatch(text: label, expression: "^[a-zA-Z]+").first else {return nil}
         guard let snipType = snipList[mark] else {return nil}
         guard let snip = snipType.init(label: label, spaceCount: spaceCount, codeType: codeType) else {return nil}
