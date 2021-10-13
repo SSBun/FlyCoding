@@ -1,415 +1,416 @@
 ![](https://ssbun-lot.oss-cn-beijing.aliyuncs.com/img/20200723172215.png)
 
-## FlyCoding - Xcode version of Emmet [中文指南](https://github.com/SSBun/FlyCoding/blob/master/README_CN.md)
+## FlyCoding - Xcode版 Emmet
 
-#### ⚠️ Please use Swift 5 to compile ⚠️ 
+#### ⚠️ 请使用 Swift 5 编译 ⚠️ 
 
-FlyCoding is an Xcode plugin, written using Apple's plug-in mechanism, which runs on the latest Xcode, and provides similar functionality to **Emmet** in the frontend. You can use special syntax to generate **Swfit / Objective-C** code as fast as you want, especially when writing a lot of UI controls and constraints, which is tedious and mechanical, but unavoidable.
-FlyCoding can help you to generate **properties, methods, constraints (Masonry / SnapKit)** quickly, more features are still in the works, I hope you provide valuable comments and ideas.
+FlyCoding 是一个 Xcode 插件，使用苹果提供的插件机制编写，可以运行在最新的Xcode上， 它提供了类似于前端中 **Emmet** 的功能。你可以通过特殊语法来快速的生成你想要的 **Swfit / Objective-C** 代码，特别是在大量的编写界面 UI 时， 重复的编写 UI 控件和约束是一件非常繁琐和机械的劳动， 但是这又是你不可避免的。
+而 FlyCoding 则可以帮助你快速的生成**属性、方法、约束（Masonry / SnapKit）**，目前 FlyCoding 刚刚发布了第一个版本，更多的功能还在构思当中，希望大家提供宝贵的意见和想法。
 
-##### Current state of development.
-* [x] **New in version 2.0 is the powerful @do command, which operates on text via shell-like commands**.
-    * [x] **remove**
-    * [x] **to**
-    * [x] **copy**
-    * [x] **move**
-    * [x] **sort**    
-* [x] **Objective-C / Swift attribute generation**
-* [x] **Fast creation of Objective-C / Swift views**
-* [x] **Masonry / SnapKit Constraint Generation**
-* [x] **System-native AutoLayout constraint under Swift**
-* [x] **Rapid Generation Method** 
-* [x] **Any complete operation can be separated by '+', use '\* N' for batch operation**.
+##### 目前开发进度：
+* [x] **2.0 版本中新增加强大的 @do 命令,  通过类shell命令对文本进行操作**
+    * [x] **remove 命令**
+    * [x] **to 命令**
+    * [x] **copy 命令**
+    * [x] **move 命令**
+    * [x] **sort 命令**    
+* [x] **Objective-C / Swift 属性生成**
+* [x] **Objective-C / Swift 视图的快速创建**
+* [x] **Masonry / SnapKit 约束生成**
+* [x] **Swift 下的系统原生的 AutoLayout 约束**
+* [x] **快速生成方法** 
+* [x] **任何完整操作都可以使用 ' + ' 进行分隔， 使用 '\* N' 进行批量操作**
 
-### Generate `Snipkit` layout code:
+### 生成 `Snipkit` 布局代码示例
+
 ![](https://ssbun-lot.oss-cn-beijing.aliyuncs.com/img/20200723180149.gif)
 
-### @do command
+### @do 命令
 ```Swift
 @do move 10 34 to 44
-// Move 10 to 34 rows to 44.
+// 将 10 行到 34 行的内容移动到 44 行
 //
-//The commands are very easy to use, you can write them directly from anywhere!
-//Commands begin with @do, followed by the command you want to operate on.
-//move is the move command, followed by 10 is the start line and 34 is the end line.
-//to is also a command that is responsible for moving the content to the specified location.
-//to is not a combination of the move command, it is a stand-alone command, which is described in detail in the to command.
-//Next is the parameter of the to command
+//命令的使用方法非常的简单，你可以任何地方直接编写命令
+//命令以 @do 开头，接下来是你要操作的命令
+//这里的 move 是移动命令，接下来饿 10 是起始行 34 是结束行
+//to 也是一个命令，它是负责将内容移动到指定的位置
+//to 并不是 move 命令的组合命令，它是一个独立的命令，详细的会在 to 命令中介绍中
+//接下来是 to 命令的参数
 ```
-Theoretically, an unlimited number of commands can be connected, with each command being a stand-alone unit that is processed and then passed state via a common `context`, and as more and more commands are processed, there are bound to be more amazing connections.
-
-#### Delete command
-
+理论上可以衔接无限制的命令数量，每个命令都是独立处理的单元，处理完毕后会通过一个通用的 `context` 进行状态传递，随着命令越来越多，一定会有更多神奇的连接用法。
+#### 删除命令
 * **remove/rm**
-    * **`@do rm 10 . `**
+    * **`@do rm 10 .`**
     * **arg1 `[arg2]`**
-        * `arg1` denotes the starting number of lines
-        * `arg2` indicates the end number of lines, and this parameter can be null, so `arg1` indicates the line to be deleted.
-        * In addition to the number of lines that can be represented by `number`, the current line of the command can also be represented by `. ` can be used to represent the current line of the command
+        * `arg1` 表示起始行数
+        * `arg2` 表示结束行数，此参数可以为空，此时 `arg1` 表示要删除的行
+        * 除了可以使用 `数字` 表示行数外，也可以通过 `.` 来代表命令的当前行
 
-#### Move command
-
+#### 移动命令
 * **move/mv**
-    * **`@do mv 10 . to 30`**
-    * **arg1 `[arg2]`**  
-        * `arg1` denotes the starting number of lines
-        * `arg2` indicates the end number of lines, and this parameter can be null, so `arg1` indicates the line to be moved.
-        * In addition to the number of lines that can be represented by `number`, the current line of the command can also be represented by `. ` can be used to represent the current line of the command
-    * **to arg1**
-        * The `to` command is required to move to the specified location.
-        * `arg1` indicates the line to be moved to.
+  * **`@do mv 10 . to 30`**
+  * **arg1 `[arg2]`**
+        * `arg1` 表示起始行数
+        * `arg2` 表示结束行数，此参数可以为空，此时 `arg1` 表示要移动的行
+        * 除了可以使用 `数字` 表示行数外，也可以通过 `.` 来代表命令的当前行
+  * **to arg1**
+        * `to` 移动到指定位置需要配合 `to` 命令
+        * `arg1` 表示要移动到的行
 
-#### Copy command
-
+#### 拷贝命令
 * **copy/cp**
-    * **`@do cp 10 . to 30 `**
-    * **arg1 `[arg2]`**
-        * `arg1` denotes the starting number of lines
-        * `arg2` indicates the end number of lines, this parameter can be null, in this case `arg1` indicates the line to be copied.
-        * In addition to the number of lines that can be represented by `number`, the current line of the command can also be represented by `. ` can be used to represent the current line of the command
-    * **to arg1**
-        * The `to` command is required to move to the specified location.
-        * `arg1` indicates the line to be moved to.     
+  * **`@do cp 10 . to 30`**
+  * **arg1 `[arg2]`**
+        * `arg1` 表示起始行数
+        * `arg2` 表示结束行数，此参数可以为空，此时 `arg1` 表示要拷贝的行
+        * 除了可以使用 `数字` 表示行数外，也可以通过 `.` 来代表命令的当前行
+  * **to arg1**
+        * `to` 移动到指定位置需要配合 `to` 命令
+        * `arg1` 表示要移动到的行     
         
-#### Sort command
-Sort the codes in the range in descending order according to the length of each line.
+#### 排序命令
+将范围内的代码根据每行的长度，按照从少到多排列
 
 * **sort/st**
-    * **`@do st 10 .`**
+    * **`@do st 10 .**
     * **arg1 `[arg2]`**
-        * `arg1` indicates the starting line, while `arg2`, if empty, indicates the current line of the end-action command, and the starting line indicates the current line of the command minus the `arg1` line.
-        * `arg2` denotes the number of end lines, where `arg1` denotes the end line.
-        * `arg2`, in addition to using `number` to represent the number of lines, can also be used to represent the current line of the command by `. ` can be used to represent the current line of the command, as well as `.
-   
-### Attribute Generation
-### Swift attribute generation
+        * `arg1` 表示起始行数, 如果 `arg2` 为空则表示结束行为命令当前行，而开始行表示命令当前行减去 `arg1` 行
+        * `arg2` 表示结束行数，此时 `arg1` 表示结束行
+        * `arg2` 除了可以使用 `数字` 表示行数外，也可以通过 `.` 来代表命令的当前行
+        
 
-* **Single attribute**
+### 属性生成
+#### Swift属性生成
+* **单个属性**
 
 ```Swift
 pv.UIImageView
-// pv is attribute control, p is private, v is var, the list can be seen later; . Used to distinguish between attribute and class names
+// pv 是属性控制，p 是 private， v 是 var，具体的列表可以在后文中查看; . 用于区分属性和类名
 private var <#name#>: UIImageView
 
 Pv.Int/age
 // Pv: public var
-// `/age` where `/` is used to mark the name of the attribute
+// `/age` 这里的 `/` 用来标记属性名
 public var age: Int
 ```
-* **Optional attribute**
+* **可选属性**
 
 ```Swift
 fv.UILabel?
-// fv is attribute control, f is fileprivate, v is var;? means the attribute is optional
+// fv 是属性控制， f 是 fileprivate, v 是 var; ？表示属性是可选的
 fileprivate var <#name#>: UILabel?
 ```
-* **Attributes with default values**
+* **有默认值的属性**
 
 ```Swift
 Pl.UIView{}
-// Pl is property control, P is public, l is let; {} means it has default value
-// The default value is generated using Class().
-// If there is a default value, the type is no longer displayed, because Swift can infer the type itself.
+// Pl 是属性控制， P 是 public, l 是 let; {} 表示有默认值
+// 默认值使用 Class() 来生成
+// 如果有默认值，就不会再显示类型，因为 Swift 可以自己推断类型
 public let <#name#> = UIView()
 
 
 Pl.Int{100}
-// If you add a default value to { {}, it will be used directly.
+// 如果在 ｛｝ 里面添加默认值，会直接使用此默认值
 public let <#name#> = 100
 ```
-* **Lazy loading attribute**
+* **懒加载属性**
 
 ```Swift
 lv.UIButton
-// lv is an attribute, lv is a special combination, l is let, v is var when separated; lazy var when combined.
+// lv 是属性控制，lv 是一个特殊的组合,分来时 l 表示 let, v 表示 var; 合并在一起时表示 lazy var
 lazy var <#name#>: UIButton = {
     <#code#>
 }()
 ```
-* **OC accessible attributes**
+* **OC可访问属性**
 
 ```Swift
 @Pv.UIImageView
-// Adding @ will mark the property as @objc
+// 添加 @ 将把属性标记为 @objc
 @objc public var <#name#>: UIImageView
 ```
-* **Special attribute identification**
+* **特殊的属性标识**
 
 ```Swift
  wv.EatProtocol?
-// Adding w will mark the attribute as weak, in addition to w, there are u/unowned, c/class and s/static
+// 添加 w 将把属性标记为 weak, 除了 w 之外，还有 u/unowned、 c/class 和 s/static
 weak var <#name#>: EatProtocol?
 ```
 
-* **Batch generation of attributes**
+* **批量生成属性**
 
 ```Swift
 pl.UILabel{} *2
-// *2 Cannot have spaces in the middle, usually used when writing data model or UI.
+// *2 中间不能有空格， 一般用于编写数据模型，或是编写 UI 时使用
 private let <#name#> = UILabel()
 private let <#name#> = UILabel()
 ```
 
-* **Generate block initialization values**
+* **生成block初始化值**
 
 ```Swift
 plb.UIButton
-// The meaning of block is represented by the tag b.
+// 标记 b 表示的是 block 的意思
 private let <#name#>: UIButton = {
     <#code#>
 }()
 ```
 
-> Tips: If a property is not tagged, it is automatically tagged with let.
+>  Tips： 如果属性没有写标记，会自动使用  let 来标记属性
 
 ```Swift
-UIImageView 
+.UIImageView 
 
  let <#name#>: UIImageView
 ```
 
 
-#### Swift Attribute Tags Quick Lookup Tables
+#### Swift 属性标记快速查询表
 
-| symbols | markers              |
-|---------|----------------------|
-| l       | Let                  |
-| v       | var                  |
-| lv      | lazy var             |
-| p       | private              |
-| P       | public               |
-| o       | open                 |
-| f       | fileprivate          |
-| pl      | private let          |
-| pv      | private var          |
-| plv     | private lazy var     |
-| Pl      | public let           |
-| Pv      | public var           |
-| Plv     | public lazy var      |
-| ol      | open let             |
-| ov      | open var             |
-| olv     | open lazy var        |
-| fl      | fileprivate let      |
-| fv      | fileprivate var      |
-| flv     | fileprivate lazy var |
-| --      | --                   |
-| @       | @objc                |
-| u       | unowned              |
-| w       | weak                 |
-| c       | class                |
-| s       | static               |
+| 符号 | 标记 |
+| :-: | :-: |
+| l | Let |
+| v | var |
+| lv | lazy var |
+| p | private |
+| P | public |
+| o | open |
+| f | fileprivate |
+| pl | private let |
+| pv | private var |
+| plv | private lazy var |
+| Pl | public let |
+| Pv | public var |
+| Plv | public lazy var |
+| ol | open let |
+| ov | open var |
+| olv | open lazy var |
+| fl | fileprivate let |
+| fv | fileprivate var |
+| flv | fileprivate lazy var |
+| -- | -- |
+| @ | @objc |
+| u | unowned |
+| w | weak |
+| c | class |
+| s | static |
 
-| Special symbols | function                                                                           |
-|-----------------|------------------------------------------------------------------------------------|
-| b               | block, generating a block initialization value for a property, similar to lazy var |
-| F               | The initial value of the property is provided by the config function.              |
+| 特殊符号 | 功能 |
+| :-: | :-: |
+| b | block, 为属性生成block形式的初始化值，类似于 lazy var |
+| F | 自用，属性的初始值是由 config 函数来提供的 |
 
-### Objective-C property generation
-The usage syntax in Objective-C is not that different from Swift, it's mostly the keywords and the look of the generation.
 
-* **Single attribute**
+
+#### Objective-C属性生成
+Objective-C 中的使用语法和 Swift 区别不大，主要是关键字和生成的样子不同
+
+* **单个属性**
 
 ```Swift
-UIImageView *
-// The default description is nonatomic, strong.
+.UIImageView *
+// 默认描述就是 nonatomic, strong
 @property (nonatomic, strong) UIImageView *<#name#>
 ```
-* **Generation of complete attributes**
+* **生成完整属性**
 
 ```Swift
 c.NSString *name;
-// If you add ' ; ' at the end, it means the Class already has an attribute name attached to it, for quick coding.
+// 如果在末尾添加 ' ; ' 表示 Class 后面已经衔接了属性名， 为了方便快速编码
 @property (nonatomic, copy) NSString *name;
 ```
 
-> Tips: class can be used to tag class properties
+> Tips： class 可以用来标记类属性
 
-### Objective-C property tagging quick lookup table
-
-| symbols | markers               |
-|---------|-----------------------|
-| s       | strong                |
-| w       | weak                  |
-| a       | assign                |
-| r       | readonly              |
-| g       | getter=<#getterName#> |
-| c       | copy                  |
-| n       | nullable              |
-| N       | nonnull               |
-| c       | class                 |
+#### Objective-C 属性标记快速查询表
+| 符号 | 标记 |
+| :-: | :-: |
+| s | strong |
+| w | weak |
+| a | assign |
+| r | readonly |
+| g | getter=<#getterName#> |
+| c | copy |
+| n | nullable |
+| N | nonnull |
+| c | class |
 
 ---
 
-### Generate constraint code
-I've chosen the two most commonly used frameworks for this, using Masonry in Objective-C and SnapKit in Swift.
+### 生成约束代码
+我选取了最常用的两个框架来实现， 在 Objective-C 中使用 Masonry，而在 Swift 当中使用 SnapKit。
 
 #### SnapKit
 
-* **Add layout**
+* **添加布局**
 
 ```Swift
  #snpm(iconView, e=self)
- // snpm is makeConstraints, which is used in () to separate the statements with the sign
- // The first argument is the object to which you want to add the constraint, the rest are layout statements.
- // Each statement is divided into three parts, with the properties of the object being constrained on the left and the constraints in the middle.
- // and on the right is the constraint value or some other constraint object.
+ // snpm 就是 makeConstraints， 在 （） 中使用，号来分割各个语句
+ // 第一个参数是要添加约束的对象，剩下的都是布局语句
+ // 每个语句都分为三个部分，左边是被约束对象的属性，中间是约束方式，
+ // 而右边是约束的值或是其它的约束对象
  iconView.snp.makeConstraints {
     $0.edges.equalTo(self)
  }
 ```
-* **Updated layout**
+* **更新布局**
 
 ```Swift
 #snpu(iconView, h=100)
-// snpu is updateConstraints
+// snpu 是 updateConstraints
 iconView.snp.updateConstraints {
     $0.height.equalTo(100)
 }
 ```
-* **Reset layout**
+* **重置布局**
 
 ```Swift
 #snprm(iconView, r=self - 20)
-// snprm is remakeConstraints
+// snprm 是 remakeConstraints
 iconView.snp.remakeConstraints {
     $0.right.equalTo(self).offset(-20)
 }
 ```
 
-* **Demonstration of layout 1 (relative distance)**
+* **布局演示 1 (相对距离)**
 
 ```Swift
 #snpm(iconView, r=titleLabel.l-20, wh=20)
-// Relative distance can be set more intuitively using + -.
+// 更加直观的使用 + - 来进行相对距离的设置
 iconView.snp.makeConstraints {
     $0.right.equalTo(titleLabel.snp.left).offset(-20)
     $0.width.height.equalTo(20)
 }
 ```
-* **Demonstration of layout 2 (role of +-)**
+* **布局演示 2 (+-的作用)**
 
 ```Swift
 #snpm(iconView, t=titleLabel.b-superView.height-20, wh=100)
-// In a constraint statement, the first plus and minus sign is not only positive or negative, but also a marker for separating the preceding and following statements.
+// 在约束语句中，第一个加减号除了有正负的含义，还是分割前后语句的标记
  iconView.snp.makeConstraints {
     $0.top.equalTo(titleLabel.snp.bottom).offset(-superView.height-20)
     $0.width.height.equalTo(100)
 }
 ```
-* **Demonstration of layout 3 (scale constraint)**
+* **布局演示 3 (比例约束)**
 
 ```Swift
 #snpm(iconView, wh=self/2)
-// Proportional restraint is also a common restraint technique.
+// 进行比例约束也是常用的约束手法
 iconView.snp.makeConstraints {
     $0.width.height.equalTo(self).dividedBy(2)
 }
 
-// Same role 
+// 相同作用 
 #snpm(iconView, wh=self*0.5)
-// Using the * method is also possible, of course.
+// 使用 * 法当然也是可以的
 iconView.snp.makeConstraints {
     $0.width.height.equalTo(self).multipliedBy(0.5)
 }
 ```
-* **Demonstration of layout 4 (comparison)**
+* **布局演示 4 (比较)**
 
 ```Swift
 #snpm(titleLabel, tl=self, r<=self - 20)
-// Commonly used adaptive width according to the length of the text.
-// Can also be used >= to mean greater than or equal to
+// 常用的根据文本的长度自适应宽度
+// 也可以使用 >= 表示大于等于
  titleLabel.snp.makeConstraints {
     $0.top.left.equalTo(self)
     $0.right.lessThanOrEqualTo(self).offset(-20)
 }
 ```
 
-* **Demonstration of layout 4 (level of constraint)**
+* **布局演示 4 (约束等级)**
 
 ```Swift
 #snpm(iconView, l = self, r <= superView~20, r <= titleLabel.l - 20~h)
-// You can set constraint registration by using ~ at the end of the constraint statement.
-// You can use numbers to indicate constraint registration, or you can use r\h\m\l to mark the
+// 在约束语句的最后使用 ～ 可以用来设置约束登记
+// 你可以使用数字来表示约束登记，也可以使用 r\h\m\l 来标记
  iconView.snp.makeConstraints {
     $0.left.equalTo(self)
     $0.right.lessThanOrEqualTo(superView).priority(20)
-    $0.right.lessThanOrEqualTo(titleLabel.snp.left).offset(-20).priority(.height)
+    $0.right.lessThanOrEqualTo(titleLabel.snp.left).offset(-20).priority(.high)
 }
 ```
 
-#### SnapKit Attribute Tagging Quick Lookup Tables
-* Properties
+#### SnapKit 属性标记快速查询表
+* 属性
 
-| Symbols | Property                 |
-|---------|--------------------------|
-| l       | left                     |
-| t       | top                      |
-| b       | bottom                   |
-| r       | right                    |
-| w       | width                    |
-| h       | height                   |
-| x       | centerX                  |
-| y       | centerY                  |
-| c       | center                   |
-| s       | size                     |
-| e       | edges                    |
-| **---** | **Constraint level**     |
-| r       | .required                |
-| h       | .high                    |
-| m       | .medium                  |
-| l       | .low                     |
-| **---** | **comparison parameter** |
-| >=      | greaterThanOrEqualTo     |
-| <=      | lessThanOrEqualTo        |
-| =       | equalTo                  |
-| **---** | **arithmetic symbol**    |
-| -       | Offset(-value)           |
-| +       | Offset(value)            |
-| *       | multipliedBy(value)      |
-| /       | dividedBy(value)         |
+| 符号 | 属性 |
+| --- | --- |
+| l | left |
+| t | top |
+| b | bottom |
+| r | right |
+| w | width |
+| h | height |
+| x | centerX |
+| y | centerY |
+| c | center |
+| s | size |
+| e | edges |
+| **---** | **约束等级** |
+| r | .required |
+| h | .high |
+| m | .medium |
+| l | .low |
+| **---** | **比较参数** |
+| >= | greaterThanOrEqualTo |
+| <= | lessThanOrEqualTo |
+| = | equalTo |
+| **---** | **运算符号** |
+| - | Offset(-value) |
+| + | Offset(value) |
+| * | multipliedBy(value) |
+| / | dividedBy(value) |
 
 #### Masonry
 
-The main usage is the same as SnapKit, but here are the main differences
+主要的用法和 SnapKit 一致， 下面主要说不同点
 
-* **Create, update, reset**
-
-```Swift
-@masm(iconView, e=self) // Create the
-@masu(iconView, e=self) // Update the
-@masrm(iconView, e=self) // Reset the
-```
-> Tips: You can use @ as a command prefix in OC, mainly because # will automatically become the first column in the OC file, which affects the code structure.
-
-* **There is no rank r in the constraint**
-* **new == / >== / <=== in the comparison, mainly compared to the version with one less =, with mas_** added in front. 
+* **创建、更新、重置**
 
 ```Swift
-@masm(iconView, e=self) // Create the
-@masu(iconView, e=self) // Update the
-@masrm(iconView, e=self) // Reset the
+@masm(iconView, e=self)   // 创建
+@masu(iconView, e=self)    // 更新
+@masrm(iconView, e=self)  // 重置
+```
+> Tips: 在 OC 中可以使用 @ 作为命令的前缀，主要是 # 在OC文件中会自动变第一列， 影响代码结构
+
+* **约束中没有 r 这个等级了**
+* **比较里面新加了 == / >== / <==， 主要是相比少一个 = 的版本，在前面加上了 mas_** 
+
+```Swift
+@masm(iconView, e=self)   // 创建
+@masu(iconView, e=self)    // 更新
+@masrm(iconView, e=self)  // 重置
 ```
 
-### AutoLayout(Swift)
+#### AutoLayout(Swift)
 
-The main usage is the same as SnapKit/Masonry, but here are the main differences
+主要的用法和 SnapKit/Masonry 一致， 下面主要说不同点
 
-* **Use #layout to execute statements**
-* **Support for s(size) / c(center) / e(edges) has been removed and will be added back in a later update** ** Support for s(size) / c(center) / e(edges) has been removed.
-* **Operations that remove the division in the constraint can no longer be used `/`**
-* **Control the offset by not simply using `+```-`, use the form `:100` if you want to set a constant constraint or offset**
+* **使用 #layout 来执行语句**
+* **移除了 s(size) / c(center) / e(edges) 的支持， 在以后的版本更新当中会重新添加回来**
+* **移除了约束中除法的运算不能再使用 `/`**
+* **对于偏移的控制不在简单的使用`+``-`, 如果想要设置常量约束或是偏移使用 `:100` 的形式**
 
 ```Swift
 @layout(view, l=self:100, t=self:-20, w=self*2, h=:50)
 ```
 
-### Quick creation of views
 
-This part is also possible using Xcode's code blocks, but it's a real rush to write code and have to look and wait for Xcode to react after typing the corresponding phrase. We're going for fast!!! And we can give the view a variable name directly, but the block still can't!
 
-With the **#make** command we can quickly add code to create a View
 
-**This is the type of creation currently supported**
+### 视图的快速创建
+
+这部分使用 Xcode 的代码块也可以实现，但是写代码的时候，打出了对应的短语后还要看一眼和等待Xcode反应实在是令人着急。我们为的就是快！！！并且我们可以直接赋予视图一个变量名，而代码块还是不行的
+
+通过 **#make** 命令我们可以快速的添加创建一个 View 的代码
+
+**这是目前支持的创建类型**
 
 * UIView
 * UILabel
@@ -417,17 +418,18 @@ With the **#make** command we can quickly add code to create a View
 * UIImageView
 * UITableView
 * UICollectionView
+* 
 
-* **Normal Create UIImageView**
+* **普通创建 UIImageView**
 
 ```Swift
 #make(UIImageView)
-// Generate a Swift view
-let <#name#> = UIImageView()
+// 生成 Swift 视图
+let <#name#>  = UIImageView()
 <#name#>.backgroundColor = <#color#>
 <#name#>.image = <#image#>
 <#superView#>.addSubview(<#name#>)
-// Generate OC view
+// 生成 OC 视图
 UIImageView *<#name#> = [[UIImageView alloc] init];
 self.<#name#> = <#name#>;
 <#name#>.backgroundColor = <#color#>;
@@ -435,104 +437,107 @@ self.<#name#> = <#name#>;
 [<#superView#> addSubview: <#name#>];
 ```
 
-* **Set attribute name to create UILabel**
+* **设置属性名创建 UILabel**
 
 ```Swift
 @make(UILabel, titleLabel)
-// Generate a Swift view
+// 生成 Swift 视图
 let titleLabel = UILabel()
 titleLabel.font = <#font#>
 titleLabel.textColor = <#color#>
 titleLabel.text = <#text#>
 titleLabel.backgroundColor = <#color#>
 <#superView#>.addSubview(titleLabel)
-// Generate OC view
+// 生成 OC 视图
 UILabel *titleLabel = [[UILabel alloc] init];
-self.titleLabel = titleLabel. titleLabel.font = <#font#>; self.titleLabel = titleLabel;
-self.titleLabel = titleLabel; titleLabel.font = <#font#>. titleLabel.textColor = <#color#>; titleLabel.titleLabel.textColor = <#color#>;
-titleLabel.textColor = <#color#>. titleLabel.text = <#color#>;
-self.titleLabel = titleLabel; titleLabel.font = <#font#>; titleLabel.textColor = <#color#>; titleLabel.text = <#color#>; titleLabel.text = <#text#>;
+self.titleLabel = titleLabel;
+titleLabel.font = <#font#>;
+titleLabel.textColor = <#color#>;
+titleLabel.text = <#text#>;
 titleLabel.backgroundColor = <#color#>;
 [<#superView#> addSubview:titleLabel];
 ```
 
-### Create method
+### 创建方法
 #### Swift
-* **Method of creation**
+* **创建方法**
 
->`#func` can be abbreviated with `#f`.
+>`#func` 可以使用 `#f` 缩写
 
-```Swift
+``` Swift
 #func(eat)
-// Generate a simple method
+// 生成一个简单的方法
 func eat() {
     <#code#>
 }
 ```
-* **Methods for setting privileges**
+* **设定权限的方法**
 
-```Swift
+``` Swift
 #func(@p.run)
-// Same tags and attributes.
+// 标记和属性一样
 @objc private func run() {
     <#code#>
 }
 ```
 
-* **Methods with parameters**
+* **有参数的方法**
 
-```Swift
+``` Swift
 #func(run::)
-// one : means there is one parameter
+// 一个 ： 代表有一个参数
 func run(<#name#>: <#type#>, <#name#>: <#type#>) {
     <#code#>
 }
 ```
-* **Methods with return values**
+* **有返回值的方法**
 
-```Swift
+``` Swift
 #func(run>)
-// One > means there is a return value
+// 一个 > 代表有一个返回值
 func run() -> <#return#> {
     <#code#>
 }
-// Multiple return values return a tuple.
+// 多个返回值会返回元组
 #func(run>>)
 func run() -> (<#return#>, <#return#>) {
     <#code#>
 }
 ```
-### Objective-C
-* **Method of creation**
+#### Objective-C
+* **创建方法**
 
-```Swift
+``` Swift
 #func(run)
-// Generate a simple method
+// 生成一个简单的方法
 - (void)run {
     <#code#>
 }
 ```
-* **Methods with return values**
+* **有返回值的方法**
 
-```Swift
+``` Swift
 #func(run>)
-// One > means there is a return value
+// 一个 > 代表有一个返回值
 - (<#type#>)run {
     <#code#>
 }
 ```
-* **Methods with parameters**
+* **有参数的方法**
 
-```Swift
+``` Swift
 #func(run::)
-// one : means there is one parameter
+// 一个 ： 代表有一个参数
 - (void)run:(<#type#>)<#param0#> <#name1#>:(<#type#>)<#param1#> {
     <#code#>
 }
 ```
 
-### Universal grammar functions
-* **Batch processing:** All of the above commands can be used to generate batches via the ***n** extension.
-* **Multi-command execution:** You can generate multiple commands in one block by writing **+** successively. 
+### 通用语法功能
+* **批量处理：** 以上所有的命令都可以通过后接 ***n** 进行批量的生成
+* **多命令执行：** 你可以通过 **+** 连续的编写多句命令一块生成 
 
-> **People's comments and suggestions are appreciated, you can submit an issue or send an email to caishilin@yahoo.com**.
+> **希望大家提出宝贵的意见和建议, 你可以提出 issue 或是发邮件到 caishilin@yahoo.com**
+
+#End
+
