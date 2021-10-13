@@ -337,6 +337,15 @@ iconView.snp.makeConstraints {
 }
 ```
 
+* **Supports equalToSuperview**
+If your constraint target is `super`, it will be replaced by `equalToSuperview()`
+```Swift
+// #snpm(label, c=super)
+label.snp.makeConstraints {
+   $0.center.equalToSuperview()
+}
+```
+
 #### SnapKit Attribute Tagging Quick Lookup Tables
 * Properties
 
