@@ -335,6 +335,15 @@ iconView.snp.makeConstraints {
 }
 ```
 
+* **支持 equalToSuperview**
+如果对比约束的对象是 `super`, 将会被替换为 `equalToSuperview()`
+```Swift
+// #snpm(label, c=super)
+label.snp.makeConstraints {
+   $0.center.equalToSuperview()
+}
+```
+
 #### SnapKit 属性标记快速查询表
 * 属性
 
@@ -370,15 +379,6 @@ iconView.snp.makeConstraints {
 
 主要的用法和 SnapKit 一致， 下面主要说不同点
 
-* **支持 equalToSuperview**
-如果对比约束的对象是 `super`, 将会被替换为 `equalToSuperview()`
-```Swift
-// #snpm(label, c=super)
-label.snp.makeConstraints {
-   $0.center.equalToSuperview()
-}
-```
-
 * **创建、更新、重置**
 
 ```Swift
@@ -409,9 +409,6 @@ label.snp.makeConstraints {
 ```Swift
 @layout(view, l=self:100, t=self:-20, w=self*2, h=:50)
 ```
-
-
-
 
 ### 视图的快速创建
 
