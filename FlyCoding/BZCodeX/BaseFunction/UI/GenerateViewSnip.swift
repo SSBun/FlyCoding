@@ -15,7 +15,11 @@ class GenerateViewSnip: Snip {
     var codeType: CodeType
 
     required init?(label: String, spaceCount: Int, codeType: CodeType) {
-        guard let paramStr = regularMatch(text: label, expression: "(?<=\\()[_a-zA-Z,]+(?=\\))").first else {return nil}
+        guard let paramStr = regularMatch(
+            text: label,
+            expression: "(?<=\\()[_a-zA-Z,]+(?=\\))").first
+        else { return nil }
+        
         let params = paramStr.split(separator: ",")
         guard let viewClassName = params.first, viewClassName.count > 0 else {return nil}
         var selfValue = "<#name#>"
@@ -30,13 +34,15 @@ class GenerateViewSnip: Snip {
         var systemCodes: [String: [String]] = [:]
 //        var customCodes: [String: [String]] = [:]
         var universalCodes: [String: [String]] = [:]
-        if let systemCodesPath = Bundle.main.path(forResource: codeType == .swift ? "ui_swift.plist" : "ui_oc.plist", ofType: nil), let temp_system = NSDictionary(contentsOfFile: systemCodesPath) as? [String: [String]] {
+        if let systemCodesPath = Bundle.main.path(forResource: codeType == .swift ? "ui_swift.plist" : "ui_oc.plist", ofType: nil),
+           let temp_system = NSDictionary(contentsOfFile: systemCodesPath) as? [String: [String]] {
             systemCodes.merge(temp_system) {return $1}
         }
 //        if let temp_custom = NSDictionary(contentsOfFile: "/Users/Shared/flyCoding/\(codeType == .swift ? "ui_swift.plist" : "ui_oc.plist")") as? [String: [String]] {
 //            customCodes.merge(temp_custom) {return $1}
 //        }
-        if let universalCodesPath = Bundle.main.path(forResource: "ui_universal.plist", ofType: nil), let temp_universal = NSDictionary(contentsOfFile: universalCodesPath) as? [String: [String]] {
+        if let universalCodesPath = Bundle.main.path(forResource: "ui_universal.plist", ofType: nil),
+            let temp_universal = NSDictionary(contentsOfFile: universalCodesPath) as? [String: [String]] {
             universalCodes.merge(temp_universal) {return $1}
         }
 

@@ -14,21 +14,23 @@ import Foundation
  View constrained labels
  */
 public struct MSLConstraintMaker {
-    static let makerMap = ["l": "leading",
-                           "t": "top",
-                           "b": "bottom",
-                           "r": "trailing",
-                           "w": "width",
-                           "h": "height",
-                           "x": "centerX",
-                           "y": "centerY",
-                           "c": "center",
-                           "s": "size",
-                           "e": "edges"]
-
+    static let makerMap = [
+        "l": "leading",
+        "t": "top",
+        "b": "bottom",
+        "r": "trailing",
+        "w": "width",
+        "h": "height",
+        "x": "centerX",
+        "y": "centerY",
+        "c": "center",
+        "s": "size",
+        "e": "edges",
+    ]
+    
     /*! all constrainted items */
     var makers: [String]
-
+    
     /*!
      Resolves each character of the string to constraint.
      */
@@ -41,7 +43,7 @@ public struct MSLConstraintMaker {
         }
         self.makers = tempArr
     }
-
+    
     /*!
      Verify that the string can be resolved.
      */
@@ -51,17 +53,19 @@ public struct MSLConstraintMaker {
 }
 
 public struct MSRConstraintMaker {
-    static let makerMap = ["l": "mas_leading",
-                           "t": "mas_top",
-                           "b": "mas_bottom",
-                           "r": "mas_trailing",
-                           "w": "mas_width",
-                           "h": "mas_height",
-                           "x": "mas_centerX",
-                           "y": "mas_centerY"]
+    static let makerMap = [
+        "l": "mas_leading",
+        "t": "mas_top",
+        "b": "mas_bottom",
+        "r": "mas_trailing",
+        "w": "mas_width",
+        "h": "mas_height",
+        "x": "mas_centerX",
+        "y": "mas_centerY",
+    ]
     /*! all constrainted items */
     var makers: [String]
-
+    
     /*!
      Generate constraints with characters from the string;
      */
@@ -74,7 +78,7 @@ public struct MSRConstraintMaker {
         }
         self.makers = tempArr
     }
-
+    
     /*!
      Verify that the string can be resolved.
      */
@@ -107,15 +111,15 @@ public struct MasonryExpression {
             }
         }
         guard let nCompareFlagRange = compareFlagRange else {return}
-
+        
         let selfConstraint = nsExpression.substring(to: nCompareFlagRange.location)
         guard MSLConstraintMaker.isMakerCode(code: selfConstraint) else {return}
-
+        
         // There are the layout flags will be add.
         let selfMakers = MSLConstraintMaker(code: selfConstraint).makers
         if selfMakers.isEmpty {return}
         nsExpression = NSString(string: nsExpression.substring(from: nCompareFlagRange.location + nCompareFlagRange.length))
-
+        
         // The constrain priority
         var constrainPriority: String?
         let constrainPriorityRange = nsExpression.range(of: "~")
@@ -123,7 +127,7 @@ public struct MasonryExpression {
             constrainPriority = nsExpression.substring(from: constrainPriorityRange.location)
             nsExpression = NSString(string: nsExpression.substring(to: constrainPriorityRange.location))
         }
-
+        
         var computeFlagRange: NSRange?
         var computeFlag: String?
         var computeValue: String?
@@ -141,12 +145,12 @@ public struct MasonryExpression {
                 }
             }
         }
-
+        
         var isPositiveOrNegativeComputeFlag = false
         if computeFlag == "+" || computeFlag == "-" {
             isPositiveOrNegativeComputeFlag = true
         }
-
+        
         if let nComputeFlagRange = computeFlagRange {
             computeValue = nsExpression.substring(from: nComputeFlagRange.location + nComputeFlagRange.length)
             nsExpression = NSString(string: nsExpression.substring(to: nComputeFlagRange.location))
@@ -165,9 +169,9 @@ public struct MasonryExpression {
                 computeValue = nil
             }
         }
-
+        
         var decoderCode = "make."
-
+        
         decoderCode += selfMakers.joined(separator: ".")
         decoderCode += ".\(compareFlagCode(with: compareFlag))"
         decoderCode += "(\(computeObjects.joined(separator: ".")))"
@@ -180,12 +184,14 @@ public struct MasonryExpression {
         decoderCode += ";"
         self.decoderCode = decoderCode
     }
-
+    
     private func constrainPriorityCode(with code: String) -> String? {
         let nCode = String(code[code.index(after: code.startIndex)...])
-        let flags = ["h": "priorityHigh",
-                     "m": "priorityMedium",
-                     "l": "priorityLow"]
+        let flags = [
+            "h": "priorityHigh",
+            "m": "priorityMedium",
+            "l": "priorityLow",
+        ]
         if let flag = flags[nCode] {
             return flag
         }
@@ -194,17 +200,19 @@ public struct MasonryExpression {
         }
         return nil
     }
-
+    
     private func compareFlagCode(with flag: String) -> String {
-        let flags = [">=": "greaterThanOrEqualTo",
-                     "<=": "lessThanOrEqualTo",
-                     "=": "equalTo",
-                     "<==": "mas_lessThanOrEqualTo",
-                     ">==": "mas_greaterThanOrEqualTo",
-                     "==": "mas_equalTo"]
+        let flags = [
+            ">=": "greaterThanOrEqualTo",
+            "<=": "lessThanOrEqualTo",
+            "=": "equalTo",
+            "<==": "mas_lessThanOrEqualTo",
+            ">==": "mas_greaterThanOrEqualTo",
+            "==": "mas_equalTo",
+        ]
         return flags[flag] ?? "equalTo"
     }
-
+    
     private func baseValueCode(with flag: String, value: String) -> String {
         switch flag {
         case "-":
@@ -213,7 +221,7 @@ public struct MasonryExpression {
             return value
         }
     }
-
+    
     private func computeFlagCode(with flag: String, value: String) -> String {
         switch flag {
         case "-":

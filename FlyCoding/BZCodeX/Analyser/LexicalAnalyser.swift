@@ -238,22 +238,24 @@ public class LexicalAnalyser {
             if parseNumber(c) {continue}
             /// 长标记解析区间 结束
 
-            if let type = c ~= [.space,
-                                .add,
-                                .sub,
-                                .mul,
-                                .div,
-                                .equal,
-                                .leftBrace,
-                                .rightBrace,
-                                .leftBracket,
-                                .rightBracket,
-                                .leftParenthense,
-                                .rightParenthense,
-                                .leftArrow,
-                                .rightArrow,
-                                .dot,
-                                .power] {
+            if let type = c ~= [
+                .space,
+                .add,
+                .sub,
+                .mul,
+                .div,
+                .equal,
+                .leftBrace,
+                .rightBrace,
+                .leftBracket,
+                .rightBracket,
+                .leftParenthense,
+                .rightParenthense,
+                .leftArrow,
+                .rightArrow,
+                .dot,
+                .power,
+            ] {
                 current_token.kind = type
                 newToken()
             }
