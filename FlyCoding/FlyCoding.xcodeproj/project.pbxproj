@@ -383,7 +383,6 @@
 			isa = PBXGroup;
 			children = (
 				8EAC3AAC22EAD66900A1B896 /* InputHandle.swift */,
-				C4CF60A42789B9A600660BDE /* New Group */,
 				8EAC3AE622EAD72800A1B896 /* Analyser */,
 				8EAC3AE122EAD6A800A1B896 /* BaseFunction */,
 				8EAC3AE022EAD69600A1B896 /* Command */,
@@ -510,13 +509,6 @@
 				8EAC3AB222EAD66900A1B896 /* Match.swift */,
 			);
 			path = RegularExpression;
-			sourceTree = "<group>";
-		};
-		C4CF60A42789B9A600660BDE /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		C4CF60AB2789BA3000660BDE /* Flying */ = {

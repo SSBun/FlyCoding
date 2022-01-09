@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// 代码的起始点所在的行和列
+/// Represents a point containg the row number and the col number of a character.
 struct Position {
     static let zero = Position(row: 0, col: 0)
 
@@ -16,7 +16,7 @@ struct Position {
     var col: Int
 }
 
-/// 代码范围
+/// Represents a range containg the positions of the first and the last character of the string.
 struct Scope {
     static let zero = Scope(start: .zero, end: .zero)
 
@@ -35,7 +35,7 @@ struct Scope {
     }
 }
 
-/// 代码中的标签类型
+/// Token types of the scanner.
 enum TokenType: String {
     case bad              = ""                            // 错误标记
 
@@ -62,7 +62,7 @@ enum TokenType: String {
     case power            = "^"             // 次方
     case letter           = "[a-zA-Z]+"     // 字母
     case underLine        = "_"             // 下划线
-    case end              = "\n"// 结束
+    case end              = "\n"            // 结束
 }
 
 /// 代码中的标签
@@ -109,16 +109,18 @@ public class LexicalAnalyser {
     private func parseTokens() {
 
         // MARK: - GLOBAL PROPERTY
-        /// 当前解析中的标签状态
+        
+        /// The status of the token being parsed.
         var status = TokenStatus.initPart
-        /// 当前正在处理的标签
+        /// The token benig parsed.
         var current_token = Token()
-        /// 代码字符串中正在处理的字符位置
+        /// The index of the character being pared.
         var index = 0
         current_token.scope.start = Position(row: 0, col: index)
 
         // MARK: - ASSISTED METHODS
-        /// 生成一个新的标签
+        
+        /// Creates a new blank token.
         func newToken() {
             current_token.scope.end = Position(row: 0, col: index)
             tokens.append(current_token)
@@ -127,7 +129,7 @@ public class LexicalAnalyser {
             current_token.scope.start = Position(row: 0, col: index)
         }
 
-        /// 获取一个数字标签，如果正在处理并检测到标记结束
+        /// Try to generate a number token.
         func getNumber(_ c: String) {
             if (status == .intPart || status == .fraPart) && !isNumber(c) && !(c ~= .dot) {
                 if let value = Double(current_token.str) {
@@ -140,7 +142,7 @@ public class LexicalAnalyser {
             }
         }
 
-        /// 获取一个标识符
+        /// Try to generate a identifier token.
         func getIdentifier(_ c: String) {
             if status == .identifierPart {
                 if !(c <=> [.underLine, .letter, .number]) {
@@ -151,7 +153,7 @@ public class LexicalAnalyser {
             }
         }
 
-        /// 解析标识符
+        /// Is the scanner parsing an identifier token?
         func parseIdentifier(_ c: String) -> Bool {
             if status == .initPart {
                 if c <=> [.underLine, .letter] {
@@ -167,7 +169,7 @@ public class LexicalAnalyser {
             return false
         }
 
-        /// 解析数字标签
+        /// Is the scanner parsing an number token?
         func parseNumber(_ c: String) -> Bool {
             if status == .initPart {
                 if isNumber(c) {
@@ -196,7 +198,7 @@ public class LexicalAnalyser {
             return false
         }
 
-        /// 解析并获取字符串标记
+        /// Try to generate a string token.
         func parseAndGetString(_ c: String) -> Bool {
             if status == .initPart {
                 if c ~= .quotation {
@@ -217,6 +219,7 @@ public class LexicalAnalyser {
         }
 
         // MARK: - PARSE BEGIN
+        
         let startIndex = string.startIndex
         while index < string.count {
             let c = String(string[string.index(startIndex, offsetBy: index) ..< string.index(startIndex, offsetBy: index+1)])
@@ -232,12 +235,12 @@ public class LexicalAnalyser {
             index += 1
             current_token.str.append(c)
 
-            /// 长标记解析区间 开始, 按优先级排列
+            // Parses multi-character tokens by their priorities.
             if parseIdentifier(c) {continue}
             if parseAndGetString(c) {continue}
             if parseNumber(c) {continue}
-            /// 长标记解析区间 结束
 
+            // Parses single-character tokens.
             if let type = c ~= [
                 .space,
                 .add,
@@ -262,7 +265,7 @@ public class LexicalAnalyser {
         }
     }
 
-    /// 是否是数字
+    /// Is the strng a number?
     private func isNumber(_ c: String) -> Bool {
         let scan: Scanner = Scanner(string: c)
         var value: Int = 0
@@ -272,7 +275,7 @@ public class LexicalAnalyser {
 }
 
 extension String {
-    /// 字符串匹配标签类型
+    /// Does the string match the token type?
     func matchTokenType(_ tokenType: TokenType) -> Bool {
         if self == tokenType.rawValue {
             return true
@@ -281,13 +284,15 @@ extension String {
     }
 }
 
-/// 字符串匹配标签类型
-func ~= (left: String, right: TokenType) -> Bool {
-    return left.matchTokenType(right)
+
+/// Matches the string to the token.
+func ~= (string: String, token: TokenType) -> Bool {
+    return string.matchTokenType(token)
 }
 
-func ~= (left: String, right: [TokenType]) -> TokenType? {
-    return right.filter { left ~= $0 }.first
+/// Matches the string to the tokens. First matched token will be returned.
+func ~= (string: String, tokens: [TokenType]) -> TokenType? {
+    return tokens.filter { string ~= $0 }.first
 }
 
 precedencegroup RegularExpressionOperatorPrecedence {
@@ -299,10 +304,12 @@ precedencegroup RegularExpressionOperatorPrecedence {
 
 infix operator <=>: RegularExpressionOperatorPrecedence
 
-func <=> (left: String, right: TokenType) -> Bool {
-    return regularMatchLike(text: left, expression: right.rawValue)
+/// Matches the string to the regular expression from the rawValue of the token.
+func <=> (string: String, token: TokenType) -> Bool {
+    return regularMatchLike(text: string, expression: token.rawValue)
 }
 
-func <=> (left: String, right: [TokenType]) -> Bool {
-    return right.filter { regularMatchLike(text: left, expression: $0.rawValue) }.count > 0
+/// Matches the string to the regular expression from the rawValue of the tokens.
+func <=> (string: String, tokens: [TokenType]) -> Bool {
+    return tokens.filter { regularMatchLike(text: string, expression: $0.rawValue) }.count > 0
 }

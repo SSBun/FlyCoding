@@ -26,13 +26,19 @@ class AnalyserErrorManager {
 
     private var errorHandle: AnalyserErrorHandle?
 
-    /// 监听语法解析器错误
+    /// Observes analyser errors.
     func observeAnalyserError(errorHandle: @escaping AnalyserErrorHandle) {
         self.errorHandle = errorHandle
     }
 
-    /// 语法解析器捕捉错误回调
-    func catchAnalyserError(error: AnalyserError, token: Any, file: String = #file, function: String = #function, line: Int = #line) {
+    /// Catches analyser errors.
+    func catchAnalyserError(
+        error: AnalyserError,
+        token: Any,
+        file: String = #file,
+        function: String = #function,
+        line: Int = #line
+    ) {
         print("*****   Catch an analyser error:\(error)  ***** \n==> \(String(file.split(separator: "/").last ?? ""))[\(function):\(line)]\n==> errorMessage: \(token)")
         errorHandle?(error)
         fatalError()

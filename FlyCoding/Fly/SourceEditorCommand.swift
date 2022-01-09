@@ -26,102 +26,111 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
               let codes = invocation.buffer.lines as? [String]
         else { return }
         
-        // The starting line
+        // The number of the first line of your selected codes.
         var lineNumber = codeRange.start.line
         
         // The command code
         var code = codes[lineNumber]
         if code.isEmpty {return}
         
-        // @do command system
+        // MARK: - @do command analyzer
+        
+        // Try to recognize @do commands.
         if let codeContext = Preprocessor.preprocess(
             codes: invocation.buffer.lines,
             commandRow: lineNumber)
         {
             Processor.process(codeContext: codeContext, codes: invocation.buffer.lines)
-        } else {
-            // Code indentation
-            let colCount = InputHandle.indentationLength(code: code)
-            // Clear whitespace
-            code = code.trimmingCharacters(in: .whitespacesAndNewlines)
-            // Command model
-            if code.hasPrefix("#") || (code.hasPrefix("@") && codeType == .oc) {
-                code = String(code[code.index(after: code.startIndex)...])
-                code = regularReplace(text: code, expression: "[\\s]+", with: "")
-                var snipLabels = (NSString(string: code).components(separatedBy: ")+") as [String]).map { $0+")" }
-                if let lastCode = snipLabels.last {
-                    snipLabels[snipLabels.count-1] = String(lastCode[..<lastCode.index(before: lastCode.endIndex)])
-                }
-                let snips = snipLabels.compactMap {
-                    BaseSnip(
-                        label: String($0),
-                        spaceCount: colCount,
-                        codeType: codeType
-                    )
-                }
-                invocation.buffer.lines.removeObject(at: lineNumber)
-                for snip in snips {
-                    invocation.buffer.lines.insert(snip.code, at: lineNumber)
-                    lineNumber += snip.lineNumber
-                }
-                invocation.buffer.selections.removeAllObjects()
-                invocation.buffer.selections.add(
-                    XCSourceTextRange(
-                        start: .init(line: lineNumber-2, column: colCount+1),
-                        end: .init(line: lineNumber-2, column: colCount+1)
+            return
+        }
+        
+        // Code indentation.
+        let colCount = InputHandle.indentationLength(code: code)
+        // Clear whitespace.
+        code = code.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // MARK: - Command mode
+        
+        // Command model.
+        if code.hasPrefix("#") || (code.hasPrefix("@") && codeType == .oc) {
+            code = String(code[code.index(after: code.startIndex)...])
+            code = regularReplace(text: code, expression: "[\\s]+", with: "")
+            var snipLabels = (NSString(string: code).components(separatedBy: ")+") as [String]).map { $0+")" }
+            if let lastCode = snipLabels.last {
+                snipLabels[snipLabels.count-1] = String(lastCode[..<lastCode.index(before: lastCode.endIndex)])
+            }
+            let snips = snipLabels.compactMap {
+                BaseSnip(
+                    label: String($0),
+                    spaceCount: colCount,
+                    codeType: codeType
+                )
+            }
+            invocation.buffer.lines.removeObject(at: lineNumber)
+            for snip in snips {
+                invocation.buffer.lines.insert(snip.code, at: lineNumber)
+                lineNumber += snip.lineNumber
+            }
+            invocation.buffer.selections.removeAllObjects()
+            invocation.buffer.selections.add(
+                XCSourceTextRange(
+                    start: .init(line: lineNumber-2, column: colCount+1),
+                    end: .init(line: lineNumber-2, column: colCount+1)
+                )
+            )
+            return
+        }
+        
+        // MARK: - Property mode
+        
+        // Property mode
+        let properties = decoderPropertyCode(code: code, codeType: codeType)
+        invocation.buffer.lines.removeObject(at: lineNumber)
+        // Make the cursor stop on the first placeholder of the generated text.
+        var autoSelectFirstPlaceholder: XCSourceTextRange?
+        // The generated text not having any placeholder, move the cursor beind the last character for conveniently performing next actions.
+        var autoMoveCursorBehindLastChar: XCSourceTextRange?
+        for property in properties {
+            var propertyCode: String = ""
+            if codeType == .swift {
+                propertyCode = generatePropertyCode(property: property, spaceCount: colCount)
+            }
+            if codeType == .oc {
+                propertyCode = generateOCPropertyCode(property: property, spaceCount: colCount)
+            }
+            if autoSelectFirstPlaceholder == nil,
+               let range = regularMatchRange(text: propertyCode, expression: "(.*)?").first
+            {
+                autoSelectFirstPlaceholder = XCSourceTextRange(
+                    start: XCSourceTextPosition(
+                        line: lineNumber,
+                        column: range.location
+                    ),
+                    end: XCSourceTextPosition(
+                        line: lineNumber,
+                        column: range.location + range.length
                     )
                 )
-            } else {
-                // Property mode
-                let properties = decoderPropertyCode(code: code, codeType: codeType)
-                invocation.buffer.lines.removeObject(at: lineNumber)
-                // 默认让鼠标光标选中第一个变量;
-                var autoSelectFirstPlaceholder: XCSourceTextRange?
-                // 当生成的代码没有变量时，则将光标移动到最后一个字符后面，方便换行以及后续的操作
-                var autoMoveCursorBehindLastChar: XCSourceTextRange?
-                for property in properties {
-                    var propertyCode: String = ""
-                    if codeType == .swift {
-                        propertyCode = generatePropertyCode(property: property, spaceCount: colCount)
-                    }
-                    if codeType == .oc {
-                        propertyCode = generateOCPropertyCode(property: property, spaceCount: colCount)
-                    }
-                    if autoSelectFirstPlaceholder == nil,
-                        let range = regularMatchRange(text: propertyCode, expression: "<#(.*)?#>").first
-                    {
-                        autoSelectFirstPlaceholder = XCSourceTextRange(
-                            start: XCSourceTextPosition(
-                                line: lineNumber,
-                                column: range.location
-                            ),
-                            end: XCSourceTextPosition(
-                                line: lineNumber,
-                                column: range.location + range.length
-                            )
-                        )
-                    }
-                    invocation.buffer.lines.insert(propertyCode, at: lineNumber)
-                    autoMoveCursorBehindLastChar = XCSourceTextRange(
-                        start: XCSourceTextPosition(
-                            line: lineNumber,
-                            column: propertyCode.count
-                        ),
-                        end: XCSourceTextPosition(
-                            line: lineNumber,
-                            column: propertyCode.count
-                        )
-                    )
-                    lineNumber += property.lineNumber
-                }
-                if let selectedRange = autoSelectFirstPlaceholder {
-                    invocation.buffer.selections.removeAllObjects()
-                    invocation.buffer.selections.add(selectedRange)
-                } else if let selectedRange = autoMoveCursorBehindLastChar {
-                    invocation.buffer.selections.removeAllObjects()
-                    invocation.buffer.selections.add(selectedRange)
-                }
             }
+            invocation.buffer.lines.insert(propertyCode, at: lineNumber)
+            autoMoveCursorBehindLastChar = XCSourceTextRange(
+                start: XCSourceTextPosition(
+                    line: lineNumber,
+                    column: propertyCode.count
+                ),
+                end: XCSourceTextPosition(
+                    line: lineNumber,
+                    column: propertyCode.count
+                )
+            )
+            lineNumber += property.lineNumber
+        }
+        if let selectedRange = autoSelectFirstPlaceholder {
+            invocation.buffer.selections.removeAllObjects()
+            invocation.buffer.selections.add(selectedRange)
+        } else if let selectedRange = autoMoveCursorBehindLastChar {
+            invocation.buffer.selections.removeAllObjects()
+            invocation.buffer.selections.add(selectedRange)
         }
     }
 }
