@@ -52,7 +52,7 @@ public struct Property {
     public private(set) var className: String
     let scope: String
     let defaultValue: String?
-    public private(set) var lineCount: Int = 1
+    public private(set) var lineNumber: Int = 1
     public private(set) var instanceName: String = "<#name#>"
     public let codeType: CodeType
 
@@ -66,7 +66,7 @@ public struct Property {
             self.className = handleOCClassNameWithEmpty(scope: scope)
         }
         if codeType == .swift, scope.contains("lazy") {
-            self.lineCount = 3
+            self.lineNumber = 3
         }
     }
 

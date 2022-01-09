@@ -17,7 +17,7 @@ import Foundation
 public protocol Snip {
     var label: String {get}
     var code: String {get}
-    var lineCount: Int {get}
+    var lineNumber: Int {get}
     var codeType: CodeType {get}
     init?(label: String, spaceCount: Int, codeType: CodeType)
 }
@@ -25,7 +25,7 @@ public protocol Snip {
 public class BaseSnip: Snip {
     public var label: String
     public var code: String
-    public var lineCount: Int
+    public var lineNumber: Int
     public var codeType: CodeType
 
     public required init?(label: String, spaceCount: Int, codeType: CodeType) {
@@ -49,6 +49,6 @@ public class BaseSnip: Snip {
         self.label = snip.label
         self.code = snip.code
         self.codeType = codeType
-        self.lineCount = snip.lineCount
+        self.lineNumber = snip.lineNumber
     }
 }

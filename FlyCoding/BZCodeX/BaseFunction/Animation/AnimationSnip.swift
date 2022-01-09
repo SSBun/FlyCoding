@@ -14,7 +14,7 @@ import Foundation
 class AnimationSnip: Snip {
     var label: String
     var code: String
-    var lineCount: Int
+    var lineNumber: Int
     var codeType: CodeType
 
     required init?(label: String, spaceCount: Int, codeType: CodeType) {
@@ -70,7 +70,7 @@ class AnimationSnip: Snip {
                 code += "\n"
             }
             self.code = code
-            self.lineCount = repeatCount * (codes.count + 1)
+            self.lineNumber = repeatCount * (codes.count + 1)
             self.codeType = codeType
         } else {
             return nil

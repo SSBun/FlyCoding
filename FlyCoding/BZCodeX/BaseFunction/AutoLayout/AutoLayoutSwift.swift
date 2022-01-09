@@ -12,7 +12,7 @@ class AutoLayoutSwift: Snip {
 
     var label: String
     var code: String
-    var lineCount: Int
+    var lineNumber: Int
     var codeType: CodeType
 
     required init?(label: String, spaceCount: Int, codeType: CodeType) {
@@ -50,6 +50,6 @@ class AutoLayoutSwift: Snip {
         self.label = label
         self.code = resultCode
         self.codeType = codeType
-        self.lineCount = (layoutCodes.count + 3) * repeatCount
+        self.lineNumber = (layoutCodes.count + 3) * repeatCount
     }
 }

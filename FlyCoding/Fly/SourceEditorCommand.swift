@@ -18,7 +18,7 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
     ) {
         defer { completionHandler(nil) }
         
-        // Swift or Objective-C ?
+        // Swift or Objective-C?
         let codeType = InputHandle.analyzeCodeType(codeLines: invocation.buffer.lines)
         
         guard let lines = invocation.buffer.selections as? [XCSourceTextRange],
@@ -27,16 +27,16 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
         else { return }
         
         // The starting line
-        var lineCount = codeRange.start.line
+        var lineNumber = codeRange.start.line
         
         // The command code
-        var code = codes[lineCount]
+        var code = codes[lineNumber]
         if code.isEmpty {return}
         
         // @do command system
         if let codeContext = Preprocessor.preprocess(
             codes: invocation.buffer.lines,
-            commandRow: lineCount)
+            commandRow: lineNumber)
         {
             Processor.process(codeContext: codeContext, codes: invocation.buffer.lines)
         } else {
@@ -59,22 +59,22 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                         codeType: codeType
                     )
                 }
-                invocation.buffer.lines.removeObject(at: lineCount)
+                invocation.buffer.lines.removeObject(at: lineNumber)
                 for snip in snips {
-                    invocation.buffer.lines.insert(snip.code, at: lineCount)
-                    lineCount += snip.lineCount
+                    invocation.buffer.lines.insert(snip.code, at: lineNumber)
+                    lineNumber += snip.lineNumber
                 }
                 invocation.buffer.selections.removeAllObjects()
                 invocation.buffer.selections.add(
                     XCSourceTextRange(
-                        start: .init(line: lineCount-2, column: colCount+1),
-                        end: .init(line: lineCount-2, column: colCount+1)
+                        start: .init(line: lineNumber-2, column: colCount+1),
+                        end: .init(line: lineNumber-2, column: colCount+1)
                     )
                 )
             } else {
                 // Property mode
                 let properties = decoderPropertyCode(code: code, codeType: codeType)
-                invocation.buffer.lines.removeObject(at: lineCount)
+                invocation.buffer.lines.removeObject(at: lineNumber)
                 // 默认让鼠标光标选中第一个变量;
                 var autoSelectFirstPlaceholder: XCSourceTextRange?
                 // 当生成的代码没有变量时，则将光标移动到最后一个字符后面，方便换行以及后续的操作
@@ -92,27 +92,27 @@ class SourceEditorCommand: NSObject, XCSourceEditorCommand {
                     {
                         autoSelectFirstPlaceholder = XCSourceTextRange(
                             start: XCSourceTextPosition(
-                                line: lineCount,
+                                line: lineNumber,
                                 column: range.location
                             ),
                             end: XCSourceTextPosition(
-                                line: lineCount,
+                                line: lineNumber,
                                 column: range.location + range.length
                             )
                         )
                     }
-                    invocation.buffer.lines.insert(propertyCode, at: lineCount)
+                    invocation.buffer.lines.insert(propertyCode, at: lineNumber)
                     autoMoveCursorBehindLastChar = XCSourceTextRange(
                         start: XCSourceTextPosition(
-                            line: lineCount,
+                            line: lineNumber,
                             column: propertyCode.count
                         ),
                         end: XCSourceTextPosition(
-                            line: lineCount,
+                            line: lineNumber,
                             column: propertyCode.count
                         )
                     )
-                    lineCount += property.lineCount
+                    lineNumber += property.lineNumber
                 }
                 if let selectedRange = autoSelectFirstPlaceholder {
                     invocation.buffer.selections.removeAllObjects()

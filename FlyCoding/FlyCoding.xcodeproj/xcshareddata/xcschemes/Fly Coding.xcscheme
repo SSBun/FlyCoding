@@ -72,6 +72,26 @@
                ReferencedContainer = "container:FlyCoding.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C401417A2779C69F006111D7"
+               BuildableName = "ScriptBoxTests.xctest"
+               BlueprintName = "ScriptBoxTests"
+               ReferencedContainer = "container:FlyCoding.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C4CF60B22789BA3000660BDE"
+               BuildableName = "FlyingTests.xctest"
+               BlueprintName = "FlyingTests"
+               ReferencedContainer = "container:FlyCoding.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -112,6 +132,7 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES"
+      askForAppToLaunch = "Yes"
       launchAutomaticallySubstyle = "2">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">

@@ -11,7 +11,7 @@ public class MasonrySinp: Snip {
 
     public private(set) var label: String
     public private(set) var code: String
-    public private(set) var lineCount: Int
+    public private(set) var lineNumber: Int
     public private(set) var codeType: CodeType
 
     public required init?(label: String, spaceCount: Int, codeType: CodeType) {
@@ -50,6 +50,6 @@ public class MasonrySinp: Snip {
         self.label = label
         self.code = resultCode
         self.codeType = codeType
-        self.lineCount = (layoutCodes.count + 3) * repeatCount
+        self.lineNumber = (layoutCodes.count + 3) * repeatCount
     }
 }

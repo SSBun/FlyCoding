@@ -17,7 +17,7 @@ import Foundation
 class FunctionSnip: Snip {
     var label: String
     var code: String
-    var lineCount: Int
+    var lineNumber: Int
     var codeType: CodeType
 
     required init?(label: String, spaceCount: Int, codeType: CodeType) {
@@ -25,15 +25,15 @@ class FunctionSnip: Snip {
         self.label = label
         self.codeType = codeType
         self.code = ""
-        self.lineCount = 0
+        self.lineNumber = 0
         if codeType == .swift {
-            guard let (code, lineCount) = generateSwiftFunction(paramStr: paramStr, spaceCount: spaceCount) else {return nil}
+            guard let (code, lineNumber) = generateSwiftFunction(paramStr: paramStr, spaceCount: spaceCount) else {return nil}
             self.code = code
-            self.lineCount = lineCount
+            self.lineNumber = lineNumber
         } else if codeType == .oc {
-            guard let (code, lineCount) = generateOCFunction(paramStr: paramStr, spaceCount: spaceCount) else {return nil}
+            guard let (code, lineNumber) = generateOCFunction(paramStr: paramStr, spaceCount: spaceCount) else {return nil}
             self.code = code
-            self.lineCount = lineCount
+            self.lineNumber = lineNumber
         } else {
             return nil
         }
