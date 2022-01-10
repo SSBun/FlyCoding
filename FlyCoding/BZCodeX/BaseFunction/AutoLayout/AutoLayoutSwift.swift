@@ -23,9 +23,10 @@ class AutoLayoutSwift: Snip {
         if let countStr = regularMatch(text: label, expression: "(?<=\\)\\*)[\\d]+\\b").first, let count = Int(countStr), count >= 1 {
             repeatCount = count
         }
-        let snapList = ["layout": "NSLayoutConstraint.activate([\n"
+        let snapList = [
+            "layout": "NSLayoutConstraint.activate([\n"
         ]
-
+        
         let params = code.split(separator: ",").map {String($0)}
         if params.isEmpty {return nil}
         let layoutView = params[0]

@@ -94,7 +94,6 @@ public enum TokenStatus {
     case identifierPart
 }
 
-/// 词法解析
 public class LexicalAnalyser {
     public private(set) var tokens: [Token] = []
     public let code: String

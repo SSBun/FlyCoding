@@ -113,9 +113,7 @@ public struct AutoLayoutConstraintMaker {
                            "F": "firstBaselineAnchor",
                            "L": "lastBaselineAnchor"]
 
-    /*!
-     Verify whether the string can be parsed.
-     */
+    /// Verify whether the string can be parsed.
     static func isMakerCode(code: String) -> Bool {
         return regularMatchLike(text: code, expression: "^[ltbrwhxyFL]+$")
     }
@@ -129,9 +127,7 @@ public struct AutoLayoutConstraintMaker {
     }
 }
 
-/*!
- Snap constraint expression
- */
+/// Snap constraint expression
 public struct AutoLayoutExpression {
 
     /// Constraint expressionn code
@@ -158,13 +154,14 @@ public struct AutoLayoutExpression {
         }
         guard let nCompareFlagRange = compareFlagRange else {return}
 
-        // The constraint flags of left view.
+        /// The constraint flags of the left view.
         let selfConstraint = nsExpression.substring(to: nCompareFlagRange.location)
+        
         guard AutoLayoutConstraintMaker.isMakerCode(code: selfConstraint) else {return}
 
         nsExpression = NSString(string: nsExpression.substring(from: nCompareFlagRange.location + nCompareFlagRange.length))
 
-        // Get constant vlaue from expresison if it has existed.
+        // Get the constant value from the expresison if existed.
         var constant: String?
         let constantFlagRange = nsExpression.range(of: ":")
         if constantFlagRange.location != NSNotFound {
@@ -188,9 +185,9 @@ public struct AutoLayoutExpression {
 
         let computeObjects = nsExpression.components(separatedBy: ".")
 
-        // The right view needing adds constraints.
+        // The right view.
         var targetView: String?
-        // The constraint flags relate with the right view.
+        // The constraint flags relating with the right view.
         var targetConstraint: String?
 
         if computeObjects.count == 1 && computeObjects[0].count != 0 {
@@ -200,7 +197,7 @@ public struct AutoLayoutExpression {
             targetConstraint = computeObjects[1]
         }
 
-        // If the left layout view has more than one constraint flags, the right view does not be allowed to have any constraint flags.
+        // The left layout view having more than one constraint flag, the right view must have none flags.
         if selfConstraint.count > 1 && nil != targetConstraint {
             return
         }
@@ -222,7 +219,7 @@ public struct AutoLayoutExpression {
             modes.append(generateMode(relation: relation, compareFlag: compareFlag))
         }
 
-        // State: the left view has more than one constraint flags.
+        // State: the left view has multiple constraint flags.
         if selfConstraint.count > 1 {
             for char in selfConstraint {
                 let flag = String(char)

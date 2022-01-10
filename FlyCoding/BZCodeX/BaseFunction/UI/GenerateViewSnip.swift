@@ -50,7 +50,8 @@ class GenerateViewSnip: Snip {
         allCodes.merge(systemCodes) {return $1}
 //        allCodes.merge(customCodes) {return $1}
         var codes = allCodes[viewClassName.lowercased(), default: []]
-        // Can not matching anything by use system formats or user custom formats, we will use common format to parse it.
+        
+        /// Matching failure, use normal UIView as the default.
         if codes.count == 0 {
             codes = universalCodes[codeType == .swift ? "bz_swift_view" : "bz_oc_view", default: []]
             codes = codes.map {return $0.replacingOccurrences(of: "{class}", with: String(viewClassName))}
