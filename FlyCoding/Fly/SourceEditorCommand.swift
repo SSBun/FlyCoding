@@ -8,7 +8,7 @@
 
 import Foundation
 import XcodeKit
-import BZCodeX
+import FlyX
 
 class SourceEditorCommand: NSObject, XCSourceEditorCommand {
     
