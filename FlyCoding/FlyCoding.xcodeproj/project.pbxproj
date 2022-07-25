@@ -14,6 +14,9 @@
 		8E8B8D761F710DEA002EBF80 /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D751F710DEA002EBF80 /* SourceEditorExtension.swift */; };
 		8E8B8D781F710DEA002EBF80 /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D771F710DEA002EBF80 /* SourceEditorCommand.swift */; };
 		8E8B8D7C1F710DEA002EBF80 /* Fly.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8E8B8D6E1F710DEA002EBF80 /* Fly.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C4912219288E7C81002C0075 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8B8D701F710DEA002EBF80 /* Cocoa.framework */; };
+		C491221B288E7C89002C0075 /* XcodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C491221A288E7C89002C0075 /* XcodeKit.framework */; };
+		C491221C288E7C89002C0075 /* XcodeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C491221A288E7C89002C0075 /* XcodeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4B2304E281152AC00BBE0E7 /* Scaffold in Frameworks */ = {isa = PBXBuildFile; productRef = C4B2304D281152AC00BBE0E7 /* Scaffold */; };
 		C4B230522811591600BBE0E7 /* Homepage in Frameworks */ = {isa = PBXBuildFile; productRef = C4B230512811591600BBE0E7 /* Homepage */; };
 		C4B2305428115DA000BBE0E7 /* FlyX in Frameworks */ = {isa = PBXBuildFile; productRef = C4B2305328115DA000BBE0E7 /* FlyX */; };
@@ -53,6 +56,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C491221C288E7C89002C0075 /* XcodeKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -84,6 +88,7 @@
 		8E8B8D791F710DEA002EBF80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EEAA80022DC983400335A60 /* FlyCoding.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlyCoding.entitlements; sourceTree = "<group>"; };
 		8EEAA80122DC983C00335A60 /* Fly.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fly.entitlements; sourceTree = "<group>"; };
+		C491221A288E7C89002C0075 /* XcodeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XcodeKit.framework; path = Library/Frameworks/XcodeKit.framework; sourceTree = DEVELOPER_DIR; };
 		C4B2304B28114DC100BBE0E7 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Modules; sourceTree = "<group>"; };
 		C4B2304C28114F6600BBE0E7 /* Scaffold */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Scaffold; sourceTree = "<group>"; };
 		C4E7D45023D1A19A0021EC4F /* ui_universal.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ui_universal.plist; sourceTree = "<group>"; };
@@ -100,7 +105,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4B2304E281152AC00BBE0E7 /* Scaffold in Frameworks */,
+				C491221B288E7C89002C0075 /* XcodeKit.framework in Frameworks */,
 				C4B230522811591600BBE0E7 /* Homepage in Frameworks */,
+				C4912219288E7C81002C0075 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +160,7 @@
 		8E8B8D6F1F710DEA002EBF80 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C491221A288E7C89002C0075 /* XcodeKit.framework */,
 				8E8B8D701F710DEA002EBF80 /* Cocoa.framework */,
 			);
 			name = Frameworks;
