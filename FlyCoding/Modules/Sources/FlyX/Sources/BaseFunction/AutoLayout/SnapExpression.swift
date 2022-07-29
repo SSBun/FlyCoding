@@ -94,7 +94,7 @@ public struct SnapExpression {
         var computeFlagRange: NSRange?
         var computeFlag: String?
         var computeValue: String?
-        for item in ["+", "-", "*", "/"] {
+        for item in ["++", "--", "+", "-", "*", "/"] {
             let tempRange = nsExpression.range(of: item)
             if tempRange.location != NSNotFound {
                 if let t = computeFlagRange {
@@ -181,6 +181,10 @@ public struct SnapExpression {
 
     private func computeFlagCode(with flag: String, value: String) -> String {
         switch flag {
+        case "++":
+            return "inset(\(value))"
+        case "--":
+            return "inset(-\(value))"
         case "-":
             return "offset(-\(value))"
         case "+":
