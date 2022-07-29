@@ -8,11 +8,12 @@
 
 import Foundation
 
+// MARK: - ConstraintMaker
+
 // le.,r,b,t,cx,cy,c,w,h,s,e,
 
-/*!
- View constrained labels
- */
+/// !
+// View constrained labels
 public struct ConstraintMaker {
     static let makerMap = ["l": "leading",
                            "t": "top",
@@ -26,12 +27,11 @@ public struct ConstraintMaker {
                            "s": "size",
                            "e": "edges"]
 
-    /*! all constrainted items */
+    /// ! all constrainted items
     var makers: [String]
 
-    /*!
-     Resolves each character of the string to constraint.
-     */
+    /// !
+    // Resolves each character of the string to constraint.
     init(code: String) {
         var tempArr = [String]()
         for c in code {
@@ -42,17 +42,17 @@ public struct ConstraintMaker {
         self.makers = tempArr
     }
 
-    /*!
-     Verify that the string can be parsed.
-     */
+    /// !
+    // Verify that the string can be parsed.
     static func isMakerCode(code: String) -> Bool {
         return regularMatchLike(text: code, expression: "^[ltbrwhxycse]+$")
     }
 }
 
-/*!
- Snap constraint expression
- */
+// MARK: - SnapExpression
+
+/// !
+// Snap constraint expression
 public struct SnapExpression {
     /// Constraint expression code
     public private(set) var expression: String
@@ -61,7 +61,9 @@ public struct SnapExpression {
     // swiftlint:disable cyclomatic_complexity
     public init(_ expression: String) {
         self.expression = expression
-        guard expression.count > 0 else {return}
+        guard expression.count > 0 else {
+            return
+        }
         var nsExpression = NSString(string: expression)
         var compareFlagRange: NSRange?
         var compareFlag = ""
@@ -73,14 +75,20 @@ public struct SnapExpression {
                 break
             }
         }
-        guard let nCompareFlagRange = compareFlagRange else {return}
+        guard let nCompareFlagRange = compareFlagRange else {
+            return
+        }
 
         let selfConstraint = nsExpression.substring(to: nCompareFlagRange.location)
-        guard ConstraintMaker.isMakerCode(code: selfConstraint) else {return}
+        guard ConstraintMaker.isMakerCode(code: selfConstraint) else {
+            return
+        }
 
         // The layout flags that will be added.
         let selfMakers = ConstraintMaker(code: selfConstraint).makers
-        if selfMakers.isEmpty {return}
+        if selfMakers.isEmpty {
+            return
+        }
         nsExpression = NSString(string: nsExpression.substring(from: nCompareFlagRange.location + nCompareFlagRange.length))
 
         // The constrain priority
@@ -119,7 +127,9 @@ public struct SnapExpression {
             nsExpression = NSString(string: nsExpression.substring(to: nComputeFlagRange.location))
         }
         var computeObjects = nsExpression.components(separatedBy: ".")
-        if  computeObjects.first?.count == 0 && !isPositiveOrNegativeComputeFlag {return}
+        if computeObjects.first?.count == 0, !isPositiveOrNegativeComputeFlag {
+            return
+        }
         if computeObjects.count >= 2, let lastObject = computeObjects.last, ConstraintMaker.isMakerCode(code: lastObject) {
             computeObjects.removeLast()
             computeObjects.append("snp")
@@ -133,12 +143,29 @@ public struct SnapExpression {
                 computeValue = nil
             }
         }
-
+        
+        
+        let valueMakers: [ConstraintValueMaker] = [
+            ConstraintSizeMaker(),
+            ConstraintEdgesMaker()
+        ]
+        
         var decoderCode = "$0."
-
         decoderCode += selfMakers.joined(separator: ".")
         decoderCode += ".\(compareFlagCode(with: compareFlag))"
-        decoderCode += "(\(computeObjects.joined(separator: ".")))"
+        
+        var constraintValueStr: String?
+        for maker in valueMakers {
+            if let constraintValue = maker.tryGenerateValue(
+                makers: selfMakers,
+                computeObjects: computeObjects
+            ) {
+                constraintValueStr = constraintValue
+                break
+            }
+        }
+        decoderCode += constraintValueStr ?? "(\(computeObjects.joined(separator: ".")))"
+        
         if let c = computeFlag, let v = computeValue {
             decoderCode += ".\(computeFlagCode(with: c, value: v))"
         }
@@ -198,3 +225,49 @@ public struct SnapExpression {
         }
     }
 }
+
+// MARK: - ConstraintValueMaker
+
+protocol ConstraintValueMaker {
+    func tryGenerateValue(makers: [String], computeObjects: [String]) -> String?
+}
+
+private struct ConstraintSizeMaker: ConstraintValueMaker {
+    func tryGenerateValue(
+        makers: [String],
+        computeObjects: [String]
+    ) -> String? {
+        // Must only have the `size` constraint.
+        guard
+            let makers.count == 1,
+            makers.contains("size"),
+            computeObjects.count == 1
+        else { return }
+        
+        let sizeStr = computeObjects[0]
+        let sizeValues = sizeStr.split(separator: "|").map(String.init)
+        var widthValue = ""
+        var heightValue = ""
+        if sizeValues.count == 1 {
+            widthValue = sizeValues[0]
+            heightValue = sizeValues[0]
+        } else if sizeValues.count == 2 {
+            widthValue = sizeValues[0]
+            heightValue = sizeValues[1]
+        }
+        return "(CGSize(width: \(widthValue), height: \(heightValue)))"
+    }
+}
+
+private struct ConstraintEdgesMaker: ConstraintValueMaker {
+    func tryGenerateValue(
+        makers: [String],
+        computeObjects: [String]
+    ) -> String? {
+        return nil
+    }
+}
+
+
+
+
