@@ -168,38 +168,38 @@ private let <#name#>: UIButton = {
 
 #### Swift 属性标记快速查询表
 
-| 符号 | 标记 |
-| :-: | :-: |
-| l | Let |
-| v | var |
-| lv | lazy var |
-| p | private |
-| P | public |
-| o | open |
-| f | fileprivate |
-| pl | private let |
-| pv | private var |
-| plv | private lazy var |
-| Pl | public let |
-| Pv | public var |
-| Plv | public lazy var |
-| ol | open let |
-| ov | open var |
-| olv | open lazy var |
-| fl | fileprivate let |
-| fv | fileprivate var |
-| flv | fileprivate lazy var |
-| -- | -- |
-| @ | @objc |
-| u | unowned |
-| w | weak |
-| c | class |
-| s | static |
+| 符号 |         标记         |
+|:----:|:--------------------:|
+|  l   |         Let          |
+|  v   |         var          |
+|  lv  |       lazy var       |
+|  p   |       private        |
+|  P   |        public        |
+|  o   |         open         |
+|  f   |     fileprivate      |
+|  pl  |     private let      |
+|  pv  |     private var      |
+| plv  |   private lazy var   |
+|  Pl  |      public let      |
+|  Pv  |      public var      |
+| Plv  |   public lazy var    |
+|  ol  |       open let       |
+|  ov  |       open var       |
+| olv  |    open lazy var     |
+|  fl  |   fileprivate let    |
+|  fv  |   fileprivate var    |
+| flv  | fileprivate lazy var |
+|  --  |          --          |
+|  @   |        @objc         |
+|  u   |       unowned        |
+|  w   |         weak         |
+|  c   |        class         |
+|  s   |        static        |
 
-| 特殊符号 | 功能 |
-| :-: | :-: |
-| b | block, 为属性生成block形式的初始化值，类似于 lazy var |
-| F | 自用，属性的初始值是由 config 函数来提供的 |
+| 特殊符号 |                         功能                         |
+|:--------:|:--------------------------------------------------:|
+|    b     | block, 为属性生成block形式的初始化值，类似于 lazy var |
+|    F     |      自用，属性的初始值是由 config 函数来提供的       |
 
 
 
@@ -344,36 +344,71 @@ label.snp.makeConstraints {
 }
 ```
 
+* **支持快速设置 `size` 数值大小, 需要使用 @ 来标记数值变量**
+    * `s=@M`: $0.size = CGSize(width: M, height: M)
+    * `s=@M@N`: $0.size = CGSize(width: M, height: N)
+```Swift
+// #snpm(label, s=@100)
+label.snp.makeConstraints {
+    $0.size.equalTo(CGSize(width: 100, height: 100))
+}
+// #snpm(label, s=@400@500)
+label.snp.makeConstraints {
+    $0.size.equalTo(CGSize(width: 400, height: 500))
+}
+```
+
+* **支持快速设置 `edges` 数值大小, 需要使用 @ 来标记数值变量**
+    * `e=@M`: $0.edges = UIEdgeInsets(top: M, left: M, bottom: M, right: M)
+    * `e=@V@H`: $0.edges = UIEdgeInsets(top: V, left: H, bottom: V, right: H)
+    * `e=@T@L@B@R`: $0.edges = UIEdgeInsets(top: T, left: L, bottom: B, right: R)
+```Swift
+// #snpm(label, s=@10)
+label.snp.makeConstraints {
+    $0.edges.equalTo(UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
+}
+// #snpm(label, s=@10@20)
+label.snp.makeConstraints {
+    $0.edges.equalTo(UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20))
+}
+// #snpm(label, s=@10@20@30@40)
+label.snp.makeConstraints {
+    $0.edges.equalTo(UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40))
+}
+```
+
 #### SnapKit 属性标记快速查询表
 * 属性
 
-| 符号 | 属性 |
-| --- | --- |
-| l | left |
-| t | top |
-| b | bottom |
-| r | right |
-| w | width |
-| h | height |
-| x | centerX |
-| y | centerY |
-| c | center |
-| s | size |
-| e | edges |
-| **---** | **约束等级** |
-| r | .required |
-| h | .high |
-| m | .medium |
-| l | .low |
-| **---** | **比较参数** |
-| >= | greaterThanOrEqualTo |
-| <= | lessThanOrEqualTo |
-| = | equalTo |
-| **---** | **运算符号** |
-| - | Offset(-value) |
-| + | Offset(value) |
-| * | multipliedBy(value) |
-| / | dividedBy(value) |
+| 符号    | 属性                 |
+|---------|----------------------|
+| l       | left                 |
+| t       | top                  |
+| b       | bottom               |
+| r       | right                |
+| w       | width                |
+| h       | height               |
+| x       | centerX              |
+| y       | centerY              |
+| c       | center               |
+| s       | size                 |
+| e       | edges                |
+| **---** | **约束等级**         |
+| r       | .required            |
+| h       | .high                |
+| m       | .medium              |
+| l       | .low                 |
+| **---** | **比较参数**         |
+| >=      | greaterThanOrEqualTo |
+| <=      | lessThanOrEqualTo    |
+| =       | equalTo              |
+| **---** | **运算符号**         |
+| -       | offset(-value)       |
+| +       | offset(value)        |
+| --      | inset(-value)        |
+| ++      | inset(value)         |
+| *       | multipliedBy(value)  |
+| /       | dividedBy(value)     |
 
 #### Masonry
 

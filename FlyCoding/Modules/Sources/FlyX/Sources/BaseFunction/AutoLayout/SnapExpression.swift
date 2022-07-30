@@ -135,6 +135,7 @@ public struct SnapExpression {
             computeObjects.append("snp")
             computeObjects += ConstraintMaker(code: lastObject).makers
         }
+        
         if computeObjects.first?.count == 0 {
             if let c = computeFlag, let v = computeValue {
                 computeObjects.removeAll()
@@ -143,7 +144,6 @@ public struct SnapExpression {
                 computeValue = nil
             }
         }
-        
         
         let valueMakers: [ConstraintValueMaker] = [
             ConstraintSizeMaker(),
@@ -239,13 +239,16 @@ private struct ConstraintSizeMaker: ConstraintValueMaker {
     ) -> String? {
         // Must only have the `size` constraint.
         guard
-            let makers.count == 1,
+            makers.count == 1,
             makers.contains("size"),
-            computeObjects.count == 1
-        else { return }
+            computeObjects.count == 1,
+            computeObjects[0].first == "@"
+        else { return nil }
         
-        let sizeStr = computeObjects[0]
-        let sizeValues = sizeStr.split(separator: "|").map(String.init)
+        var sizeStr = computeObjects[0]
+        sizeStr.removeFirst()
+        let sizeValues = sizeStr.components(separatedBy: "@")
+        
         var widthValue = ""
         var heightValue = ""
         if sizeValues.count == 1 {
@@ -254,6 +257,8 @@ private struct ConstraintSizeMaker: ConstraintValueMaker {
         } else if sizeValues.count == 2 {
             widthValue = sizeValues[0]
             heightValue = sizeValues[1]
+        } else {
+            return nil
         }
         return "(CGSize(width: \(widthValue), height: \(heightValue)))"
     }
@@ -264,7 +269,41 @@ private struct ConstraintEdgesMaker: ConstraintValueMaker {
         makers: [String],
         computeObjects: [String]
     ) -> String? {
-        return nil
+        // Must only have the `edges` constraint.
+        guard
+            makers.count == 1,
+            makers.contains("edges"),
+            computeObjects.count == 1,
+            computeObjects[0].first == "@"
+        else { return nil }
+        
+        var sizeStr = computeObjects[0]
+        sizeStr.removeFirst()
+        let sizeValues = sizeStr.components(separatedBy: "@")
+        
+        var topValue = ""
+        var leftValue = ""
+        var bottomValue = ""
+        var rightValue = ""
+        if sizeValues.count == 1 {
+            topValue = sizeValues[0]
+            leftValue = sizeValues[0]
+            bottomValue = sizeValues[0]
+            rightValue = sizeValues[0]
+        } else if sizeValues.count == 2 {
+            topValue = sizeValues[0]
+            leftValue = sizeValues[1]
+            bottomValue = sizeValues[0]
+            rightValue = sizeValues[1]
+        } else if sizeValues.count == 4 {
+            topValue = sizeValues[0]
+            leftValue = sizeValues[1]
+            bottomValue = sizeValues[2]
+            rightValue = sizeValues[3]
+        } else {
+            return nil
+        }
+        return "(UIEdgeInsets(top: \(topValue), left: \(leftValue), bottom: \(bottomValue), right: \(rightValue)))"
     }
 }
 

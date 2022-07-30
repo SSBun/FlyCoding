@@ -346,6 +346,39 @@ label.snp.makeConstraints {
 }
 ```
 
+* **Supports the `size` value setting, need use the `@` to mark value variables**
+    * `s=@M`: $0.size = CGSize(width: M, height: M)
+    * `s=@M@N`: $0.size = CGSize(width: M, height: N)
+```Swift
+// #snpm(label, s=@100)
+label.snp.makeConstraints {
+    $0.size.equalTo(CGSize(width: 100, height: 100))
+}
+// #snpm(label, s=@400@500)
+label.snp.makeConstraints {
+    $0.size.equalTo(CGSize(width: 400, height: 500))
+}
+```
+
+* **Supports the `edges` value setting, need use the `@` to mark value variables**
+    * `e=@M`: $0.edges = UIEdgeInsets(top: M, left: M, bottom: M, right: M)
+    * `e=@V@H`: $0.edges = UIEdgeInsets(top: V, left: H, bottom: V, right: H)
+    * `e=@T@L@B@R`: $0.edges = UIEdgeInsets(top: T, left: L, bottom: B, right: R)
+```Swift
+// #snpm(label, s=@10)
+label.snp.makeConstraints {
+    $0.edges.equalTo(UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
+}
+// #snpm(label, s=@10@20)
+label.snp.makeConstraints {
+    $0.edges.equalTo(UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20))
+}
+// #snpm(label, s=@10@20@30@40)
+label.snp.makeConstraints {
+    $0.edges.equalTo(UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40))
+}
+```
+
 #### SnapKit Attribute Tagging Quick Lookup Tables
 * Properties
 
@@ -374,6 +407,8 @@ label.snp.makeConstraints {
 | **---** | **arithmetic symbol**    |
 | -       | Offset(-value)           |
 | +       | Offset(value)            |
+| --      | inset(-value)            |
+| ++      | inset(value)             |
 | *       | multipliedBy(value)      |
 | /       | dividedBy(value)         |
 
