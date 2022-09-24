@@ -8,9 +8,8 @@
 
 import Cocoa
 
-@NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
     }
@@ -23,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let url = URL(string: "https://github.com/SSBun/FlyCoding/blob/master/README.md") else {return}
         NSWorkspace.shared.open(url)
     }
-
+    
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return true
     }

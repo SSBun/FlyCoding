@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		8E8B8D5C1F710DC1002EBF80 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D5B1F710DC1002EBF80 /* AppDelegate.swift */; };
-		8E8B8D5E1F710DC1002EBF80 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D5D1F710DC1002EBF80 /* ViewController.swift */; };
 		8E8B8D601F710DC1002EBF80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E8B8D5F1F710DC1002EBF80 /* Assets.xcassets */; };
-		8E8B8D631F710DC1002EBF80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E8B8D611F710DC1002EBF80 /* Main.storyboard */; };
 		8E8B8D761F710DEA002EBF80 /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D751F710DEA002EBF80 /* SourceEditorExtension.swift */; };
 		8E8B8D781F710DEA002EBF80 /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D771F710DEA002EBF80 /* SourceEditorCommand.swift */; };
 		8E8B8D7C1F710DEA002EBF80 /* Fly.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8E8B8D6E1F710DEA002EBF80 /* Fly.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8EBD873128DEF0550013B801 /* FlyCodingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBD873028DEF0550013B801 /* FlyCodingApp.swift */; };
+		8EBD873328DEF2A00013B801 /* InstallationGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBD873228DEF2A00013B801 /* InstallationGuideView.swift */; };
+		8EBD873528DEF2F20013B801 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBD873428DEF2F20013B801 /* RootView.swift */; };
 		C4912219288E7C81002C0075 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8B8D701F710DEA002EBF80 /* Cocoa.framework */; };
 		C4912224288E84AD002C0075 /* XcodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C491221A288E7C89002C0075 /* XcodeKit.framework */; };
 		C4912225288E84AD002C0075 /* XcodeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C491221A288E7C89002C0075 /* XcodeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -66,9 +67,7 @@
 /* Begin PBXFileReference section */
 		8E8B8D581F710DC1002EBF80 /* FlyCoding.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlyCoding.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E8B8D5B1F710DC1002EBF80 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8E8B8D5D1F710DC1002EBF80 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8E8B8D5F1F710DC1002EBF80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8E8B8D621F710DC1002EBF80 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8E8B8D641F710DC1002EBF80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E8B8D6E1F710DEA002EBF80 /* Fly.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Fly.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E8B8D701F710DEA002EBF80 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -76,6 +75,9 @@
 		8E8B8D751F710DEA002EBF80 /* SourceEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorExtension.swift; sourceTree = "<group>"; };
 		8E8B8D771F710DEA002EBF80 /* SourceEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorCommand.swift; sourceTree = "<group>"; };
 		8E8B8D791F710DEA002EBF80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EBD873028DEF0550013B801 /* FlyCodingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyCodingApp.swift; sourceTree = "<group>"; };
+		8EBD873228DEF2A00013B801 /* InstallationGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallationGuideView.swift; sourceTree = "<group>"; };
+		8EBD873428DEF2F20013B801 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		8EEAA80022DC983400335A60 /* FlyCoding.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlyCoding.entitlements; sourceTree = "<group>"; };
 		8EEAA80122DC983C00335A60 /* Fly.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fly.entitlements; sourceTree = "<group>"; };
 		C491221A288E7C89002C0075 /* XcodeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XcodeKit.framework; path = Library/Frameworks/XcodeKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -138,9 +140,10 @@
 			children = (
 				8EEAA80022DC983400335A60 /* FlyCoding.entitlements */,
 				8E8B8D5B1F710DC1002EBF80 /* AppDelegate.swift */,
-				8E8B8D5D1F710DC1002EBF80 /* ViewController.swift */,
+				8EBD873228DEF2A00013B801 /* InstallationGuideView.swift */,
+				8EBD873428DEF2F20013B801 /* RootView.swift */,
+				8EBD873028DEF0550013B801 /* FlyCodingApp.swift */,
 				8E8B8D5F1F710DC1002EBF80 /* Assets.xcassets */,
-				8E8B8D611F710DC1002EBF80 /* Main.storyboard */,
 				C4E7D45B23D1A3C60021EC4F /* Resources */,
 				8E8B8D641F710DC1002EBF80 /* Info.plist */,
 			);
@@ -307,7 +310,6 @@
 				C4E7D46123D1A3C60021EC4F /* ui_swift.plist in Resources */,
 				C4E7D46023D1A3C60021EC4F /* ui_oc.plist in Resources */,
 				C4E7D45F23D1A3C60021EC4F /* ui_universal.plist in Resources */,
-				8E8B8D631F710DC1002EBF80 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,7 +330,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E8B8D5E1F710DC1002EBF80 /* ViewController.swift in Sources */,
+				8EBD873528DEF2F20013B801 /* RootView.swift in Sources */,
+				8EBD873128DEF0550013B801 /* FlyCodingApp.swift in Sources */,
+				8EBD873328DEF2A00013B801 /* InstallationGuideView.swift in Sources */,
 				8E8B8D5C1F710DC1002EBF80 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,17 +355,6 @@
 			targetProxy = 8E8B8D7A1F710DEA002EBF80 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		8E8B8D611F710DC1002EBF80 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8E8B8D621F710DC1002EBF80 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		8E8B8D651F710DC1002EBF80 /* Debug */ = {
