@@ -13,7 +13,7 @@
 		8E8B8D631F710DC1002EBF80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E8B8D611F710DC1002EBF80 /* Main.storyboard */; };
 		8E8B8D761F710DEA002EBF80 /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D751F710DEA002EBF80 /* SourceEditorExtension.swift */; };
 		8E8B8D781F710DEA002EBF80 /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B8D771F710DEA002EBF80 /* SourceEditorCommand.swift */; };
-		8E8B8D7C1F710DEA002EBF80 /* Fly.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8E8B8D6E1F710DEA002EBF80 /* Fly.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8E8B8D7C1F710DEA002EBF80 /* Fly.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8E8B8D6E1F710DEA002EBF80 /* Fly.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C4912219288E7C81002C0075 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8B8D701F710DEA002EBF80 /* Cocoa.framework */; };
 		C4912224288E84AD002C0075 /* XcodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C491221A288E7C89002C0075 /* XcodeKit.framework */; };
 		C4912225288E84AD002C0075 /* XcodeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C491221A288E7C89002C0075 /* XcodeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -39,15 +39,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		8E8B8D801F710DEA002EBF80 /* Embed App Extensions */ = {
+		8E8B8D801F710DEA002EBF80 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				8E8B8D7C1F710DEA002EBF80 /* Fly.appex in Embed App Extensions */,
+				8E8B8D7C1F710DEA002EBF80 /* Fly.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C45E554F25357F3200DCA194 /* Embed Frameworks */ = {
@@ -208,7 +208,7 @@
 				8E8B8D541F710DC1002EBF80 /* Sources */,
 				8E8B8D551F710DC1002EBF80 /* Frameworks */,
 				8E8B8D561F710DC1002EBF80 /* Resources */,
-				8E8B8D801F710DEA002EBF80 /* Embed App Extensions */,
+				8E8B8D801F710DEA002EBF80 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -252,7 +252,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1310;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = SSBun;
 				TargetAttributes = {
 					8E8B8D571F710DC1002EBF80 = {
@@ -398,6 +398,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -458,6 +459,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -488,6 +490,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 24;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = WNNB5Y9ZGX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = FlyCoding/Info.plist;
@@ -515,6 +518,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 24;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = WNNB5Y9ZGX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = FlyCoding/Info.plist;
@@ -539,6 +543,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 24;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = WNNB5Y9ZGX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Fly/Info.plist;
@@ -565,6 +570,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 24;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = WNNB5Y9ZGX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Fly/Info.plist;

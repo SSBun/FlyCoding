@@ -7,6 +7,8 @@
 //
 
 import Cocoa
+import SwiftUI
+import Homepage
 
 class ViewController: NSViewController {
 
@@ -19,6 +21,11 @@ class ViewController: NSViewController {
         let image = NSImage(named: NSImage.Name("FlyCodingHomePage"))
         imageView.image = image
         self.view.addSubview(imageView)
+        
+        let rootVC = NSHostingController(rootView: RootView())
+        addChild(rootVC)
+        rootVC.view.frame = view.frame
+        view.addSubview(rootVC.view)
 
     }
 

@@ -7,14 +7,20 @@
 
 import SwiftUI
 
-struct Homepage: View {
-    var body: some View {
-        Text("Hello, Worlds!")
+public struct RootView: View {
+    public var body: some View {
+        VStack {
+            Text("Hello, Worlds!")
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.red)
     }
+    
+    public init() {}
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
+struct RootView_Previews: PreviewProvider {
     static var previews: some View {
-        Homepage()
+        RootView()
     }
 }
