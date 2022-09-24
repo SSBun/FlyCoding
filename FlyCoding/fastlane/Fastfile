@@ -1,0 +1,37 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:mac)
+
+platform :mac do
+  desc "Description of what the lane does"
+  lane :release do
+    # add actions here: https://docs.fastlane.tools/actions
+    old_build_number = get_build_number()
+    UI.message "Build number is #{build_number}"
+  end
+
+  lane :update_build do
+    old_build_number = get_build_number()
+    build_number = increment_build_number()
+    UI.success("Build number updates from #{old_build_number} to #{build_number}")
+  end
+
+  lane :update_version do
+    old_version_number = get_version_number()
+    version_number = increment_version_number()
+    UI.success("Version number updates from #{old_build_number} to #{build_number}")
+  end
+end
