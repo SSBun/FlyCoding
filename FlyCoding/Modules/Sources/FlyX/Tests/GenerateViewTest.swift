@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import BZCodeX
+@testable import FlyX
 
 class GenerateViewTest: XCTestCase {
 
